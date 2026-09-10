@@ -89,7 +89,7 @@ export default async function TrainingPage({
 
                   <p className="mt-6 text-sm font-semibold text-zinc-500">
                     {isAr
-                      ?` المدة: ${course.durationAr}`
+                      ? `المدة: ${course.durationAr}`
                       : `Duration: ${course.duration}`}
                   </p>
                 </Link>

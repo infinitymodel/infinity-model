@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Product } from '@/data/products';
+import { Product } from '@/types/product';
 
 interface ProductCardProps {
   product: Product;
@@ -17,7 +17,7 @@ export default function ProductCard({ product, locale }: ProductCardProps) {
       </div>
       <div className="mt-4 flex flex-col gap-1">
         <h3 className="text-sm font-semibold text-slate-900">
-          {isAr ? product.title.ar : product.title.en}
+          {isAr ? product.nameAr : product.name}
         </h3>
         <p className="text-sm font-bold text-cyan-600">
           {product.price} ر.س

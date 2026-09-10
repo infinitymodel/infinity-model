@@ -1,0 +1,165 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "shop": "Shop",
+    "training": "Training",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "quote": "Request a Quote"
+  },
+
+  "hero": {
+    "eyebrow": "DESIGN • DIGITAL MANUFACTURING • RAPID PROTOTYPING",
+    "title": "Turn Your Ideas Into Physical Reality",
+    "description": "From digital design to physical products. We design, prototype, manufacture, and customize using modern digital manufacturing technologies.",
+    "primary": "Start Your Project",
+    "secondary": "Explore Shop"
+  },
+
+  "products": {
+    "eyebrow": "READY TO BUY",
+    "title": "Explore Our Ready-Made Products",
+    "description": "Discover our collection of 3D printed products, creative models, decorations, and custom designs.",
+    "viewAll": "View All Products",
+    "buyNow": "Buy Now",
+    "quickView": "Quick View"
+  },
+
+  "whatWeDo": {
+    "eyebrow": "WHAT WE DO",
+    "title": "From Idea to Product",
+    "description": "A complete digital manufacturing workflow built around design, prototyping, production, and customization."
+  },
+
+  "services": {
+    "eyebrow": "OUR SERVICES",
+    "title": "Engineering, Design & Digital Manufacturing",
+    "description": "Professional services for individuals, businesses, engineers, designers, and product developers.",
+    "printing": "3D Printing",
+    "design": "CAD & 3D Design",
+    "prototyping": "Rapid Prototyping",
+    "maintenance": "3D Printer Maintenance",
+    "cnc": "CNC & Digital Fabrication",
+    "custom": "Custom Products"
+  },
+
+  "process": {
+    "eyebrow": "HOW IT WORKS",
+    "title": "From Brief to Reality",
+    "brief": "Brief",
+    "design": "Design",
+    "quote": "Quote",
+    "prototype": "Prototype",
+    "production": "Production",
+    "quality": "Quality Control",
+    "delivery": "Delivery",
+    "approval": "Customer Approval"
+  },
+
+  "technology": {
+    "eyebrow": "TECHNOLOGY",
+    "title": "Technology Behind Every Product",
+    "fdm": "FDM 3D Printing",
+    "resin": "Resin 3D Printing",
+    "cad": "CAD / CAM",
+    "cnc": "CNC Fabrication",
+    "uv": "UV Printing"
+  },
+
+  "projects": {
+    "eyebrow": "OUR PROJECTS",
+    "title": "Selected Work",
+    "all": "All",
+    "engineering": "Engineering",
+    "prototypes": "Prototypes",
+    "figures": "Figures",
+    "creative": "Creative",
+    "pcb": "PCB",
+    "custom": "Custom",
+    "viewProject": "View Project",
+    "viewAll": "View All Projects"
+  },
+
+  "industries": {
+    "eyebrow": "WHO WE SERVE",
+    "title": "Built for Different Industries",
+    "engineering": "Engineering & Industrial",
+    "maintenance": "Maintenance & Spare Parts",
+    "architecture": "Architecture & Design",
+    "education": "Education",
+    "productDevelopment": "Product Development",
+    "creative": "Creative",
+    "business": "Business"
+  },
+
+  "training": {
+    "eyebrow": "TRAINING",
+    "title": "Learn. Build. Master.",
+    "description": "Practical training in design, slicing, 3D printing, and 3D printer maintenance.",
+    "design": "3D Design",
+    "slicing": "Slicing",
+    "printing": "3D Printing",
+    "maintenance": "Printer Maintenance",
+    "viewCourse": "View Course",
+    "register": "Register"
+  },
+
+  "maintenance": {
+    "eyebrow": "3D PRINTER MAINTENANCE",
+    "title": "Is Your 3D Printer Giving You Trouble?",
+    "description": "Diagnosis, cleaning, calibration, preventive maintenance, troubleshooting, and parts replacement.",
+    "button": "Request Maintenance"
+  },
+
+  "whyUs": {
+    "eyebrow": "WHY INFINITY MODEL",
+    "title": "More Than Just 3D Printing",
+    "speed": "Faster Development",
+    "local": "Local Manufacturing",
+    "lowVolume": "Low-Volume Production",
+    "customization": "Full Customization",
+    "integrated": "Integrated Workflow"
+  },
+  "quality": {
+    "eyebrow": "QUALITY",
+    "title": "Quality You Can Rely On",
+    "profiles": "Standardized Print Profiles",
+    "maintenance": "Preventive Maintenance",
+    "materials": "Material Tracking",
+    "parameters": "Production Records",
+    "inspection": "Visual & Functional Inspection",
+    "approval": "Customer Approval Before Production"
+  },
+
+  "about": {
+    "eyebrow": "ABOUT US",
+    "title": "Bridging Ideas and Reality",
+    "description": "Infinity Model is a digital manufacturing, design, and rapid prototyping studio combining engineering, modern technology, and creative manufacturing.",
+    "button": "Learn More"
+  },
+
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Questions You May Have"
+  },
+
+  "cta": {
+    "title": "Have an Idea? Let's Build It.",
+    "description": "Send us your idea or file and we'll help turn it into a physical product.",
+    "primary": "Start Your Project",
+    "secondary": "Contact via WhatsApp"
+  },
+
+  "footer": {
+    "description": "DESIGN • DIGITAL MANUFACTURING • RAPID PROTOTYPING",
+    "company": "Company",
+    "services": "Services",
+    "shop": "Shop",
+    "training": "Training",
+    "contact": "Contact",
+    "location": "Jizan, Saudi Arabia",
+    "rights": "All rights reserved."
+  }
+}

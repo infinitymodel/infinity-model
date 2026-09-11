@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Sparkles,
   Target,
+  Truck,
   Wrench,
 } from "lucide-react";
 
@@ -307,6 +308,7 @@ function ProcessSection({
   const steps = [
     {
       number: "01",
+      icon: Target,
       title: ar ? "Brief" : "Brief",
       description: ar
         ? "نفهم الفكرة والمتطلبات والاستخدام النهائي."
@@ -314,6 +316,7 @@ function ProcessSection({
     },
     {
       number: "02",
+      icon: PencilRuler,
       title: ar ? "Design" : "Design",
       description: ar
         ? "نجهز التصميم أو نراجع ملف CAD ونختار التقنية المناسبة."
@@ -321,6 +324,7 @@ function ProcessSection({
     },
     {
       number: "03",
+      icon: PackageCheck,
       title: ar ? "Quote" : "Quote",
       description: ar
         ? "نحدد الخامة والكمية ووقت الإنتاج والتكلفة."
@@ -328,6 +332,7 @@ function ProcessSection({
     },
     {
       number: "04",
+      icon: Boxes,
       title: ar ? "Prototype" : "Prototype",
       description: ar
         ? "نصنع النموذج الأولي عند الحاجة للمراجعة والاختبار."
@@ -335,6 +340,7 @@ function ProcessSection({
     },
     {
       number: "05",
+      icon: Factory,
       title: ar ? "Production" : "Production",
       description: ar
         ? "بعد الاعتماد نبدأ الإنتاج الفردي أو الدفعات."
@@ -342,6 +348,7 @@ function ProcessSection({
     },
     {
       number: "06",
+      icon: ShieldCheck,
       title: ar ? "Quality Control" : "Quality Control",
       description: ar
         ? "نفحص الشكل والأبعاد والوظيفة حسب طبيعة المشروع."
@@ -349,6 +356,7 @@ function ProcessSection({
     },
     {
       number: "07",
+      icon: Truck,
       title: ar ? "Delivery" : "Delivery",
       description: ar
         ? "نسلم المنتج النهائي بالشكل المتفق عليه."
@@ -382,21 +390,29 @@ function ProcessSection({
             <div
               key={step.number}
               className={[
-                "relative rounded-[1.75rem] border border-white/10 bg-white/[0.035] p-6",
+                "group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.035] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#c59b27]/50 hover:bg-white/[0.06]",
                 index === 6
                   ? "lg:col-span-1"
                   : "",
               ].join(" ")}
             >
-              <span className="text-xs font-black tracking-[0.15em] text-[#c59b27]">
-                {step.number}
-              </span>
+              <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full border border-white/5 bg-white/[0.025] transition duration-500 group-hover:scale-125" />
 
-              <h3 className="mt-8 text-lg font-black">
+              <div className="relative flex items-start justify-between gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-zinc-900 text-[#e3bd50] shadow-lg">
+                  <step.icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+
+                <span className="text-xs font-black tracking-[0.15em] text-[#e3bd50]">
+                  {step.number}
+                </span>
+              </div>
+
+              <h3 className="relative mt-8 text-lg font-black">
                 {step.title}
               </h3>
 
-              <p className="mt-3 text-sm leading-7 text-zinc-400">
+              <p className="relative mt-3 text-sm leading-7 text-zinc-300">
                 {step.description}
               </p>
             </div>

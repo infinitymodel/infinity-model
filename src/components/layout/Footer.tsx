@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { contactDetails } from "@/data/contact";
+import { sallaStoreUrl } from "@/data/store";
 
 interface FooterProps {
   locale: string;
@@ -30,7 +31,8 @@ export default function Footer({
     },
     {
       label: ar ? "المتجر" : "Shop",
-      href: `/${locale}/shop`,
+      href: sallaStoreUrl,
+      external: true,
     },
     {
       label: ar ? "التدريب" : "Training",
@@ -164,6 +166,8 @@ export default function Footer({
                 <Link
                   key={link.href}
                   href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noreferrer" : undefined}
                   className="text-sm text-zinc-300 transition hover:text-[#e3bd50]"
                 >
                   {link.label}
@@ -203,7 +207,7 @@ export default function Footer({
 
             <Link
               href={`/${locale}/contact`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-zinc-950 transition hover:bg-zinc-200"
+              className="im-cta-light mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold transition hover:bg-zinc-200"
             >
               {ar ? "اطلب عرض سعر" : "Request a Quote"}
 

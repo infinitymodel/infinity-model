@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowUpRight,
@@ -8,6 +7,7 @@ import {
 } from "lucide-react";
 
 import type { Product } from "@/types/product";
+import { sallaStoreUrl } from "@/data/store";
 
 interface ProductCardProps {
   product: Product;
@@ -30,8 +30,10 @@ export default function ProductCard({
 
   return (
     <article className="group min-w-[285px] overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] sm:min-w-[320px]">
-      <Link
-        href={`/${locale}/shop/${product.id}`}
+      <a
+        href={sallaStoreUrl}
+        target="_blank"
+        rel="noreferrer"
         className="block"
       >
         {/* Image */}
@@ -122,7 +124,7 @@ export default function ProductCard({
             )}
           </div>
         </div>
-      </Link>
+      </a>
     </article>
   );
 }

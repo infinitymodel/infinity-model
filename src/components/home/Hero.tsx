@@ -8,6 +8,8 @@ import {
   Layers3,
 } from "lucide-react";
 
+import { sallaStoreUrl } from "@/data/store";
+
 interface HeroProps {
   locale: string;
   content: {
@@ -69,7 +71,7 @@ export default function Hero({
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 href={`/${locale}/contact`}
-                className="group inline-flex items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-bold text-zinc-950 transition hover:bg-zinc-200"
+                className="im-cta-light group inline-flex items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-bold transition hover:bg-zinc-200"
               >
                 {content.primaryCta}
 
@@ -80,8 +82,10 @@ export default function Hero({
                 )}
               </Link>
 
-              <Link
-                href={`/${locale}/shop`}
+              <a
+                href={sallaStoreUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 py-4 text-sm font-bold text-white backdrop-blur transition hover:bg-white/[0.08]"
               >
                 {content.secondaryCta}
@@ -92,7 +96,7 @@ export default function Hero({
                     ar ? "rotate-180" : "",
                   ].join(" ")}
                 />
-              </Link>
+              </a>
             </div>
 
             <div className="mt-12 grid max-w-xl grid-cols-3 border-y border-white/10 py-5">

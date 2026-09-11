@@ -195,6 +195,23 @@ main .text-zinc-400 {
   letter-spacing: 0.16em;
 }
 
+/* Explicit CTA colors prevent inherited section styles from reducing contrast. */
+.im-cta-light {
+  color: #18181b !important;
+}
+
+.im-cta-light svg {
+  color: #18181b !important;
+}
+
+.im-cta-dark {
+  color: #ffffff !important;
+}
+
+.im-cta-dark svg {
+  color: currentColor !important;
+}
+
 [dir="rtl"] .im-eyebrow {
   letter-spacing: 0.03em;
 }

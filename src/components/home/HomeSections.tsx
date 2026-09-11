@@ -1528,7 +1528,7 @@ function FinalCta({
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 href={`/${locale}/contact`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-black text-zinc-950 transition hover:bg-zinc-200"
+                className="im-cta-light inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-black transition hover:bg-zinc-200"
               >
                 {ar
                   ? "اطلب عرض سعر"

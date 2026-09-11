@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
@@ -49,6 +50,7 @@ export async function generateMetadata({
     path: `/services/${slug}`,
     title: ar ? service.titleAr : service.title,
     description: ar ? service.shortDescriptionAr : service.shortDescription,
+    image: service.image,
   });
 }
 
@@ -109,6 +111,18 @@ export default async function ServiceDetailPage({
               <p className="mt-7 max-w-3xl text-lg leading-8 text-zinc-400">
                 {description}
               </p>
+
+              <div className="relative mt-10 aspect-[16/7] max-w-4xl overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900 shadow-2xl">
+                <Image
+                  src={service.image}
+                  alt={title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 900px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/45 via-transparent to-transparent" />
+              </div>
 
               <div className="mt-9">
                 <Button href={`/${locale}/contact`}>

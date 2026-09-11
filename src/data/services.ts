@@ -25,7 +25,7 @@ export const services: Service[] = [
       "We transform your digital models into accurate physical parts using FDM and resin 3D printing technologies. Material and process selection are based on the intended application.",
     descriptionAr:
       "نحوّل نماذجك الرقمية إلى قطع حقيقية بدقة باستخدام تقنيات FDM والريزن، مع اختيار المادة وطريقة التصنيع حسب الاستخدام المطلوب.",
-    image: "/images/services/3d-printing/cover.jpg",
+    image: "/images/services/3d-printing/resin-printer.jpg",
     category: "Digital Manufacturing",
     features: [
       "FDM printing",
@@ -57,7 +57,7 @@ export const services: Service[] = [
       "From a concept, sketch or reference, we develop accurate 3D CAD models suitable for prototyping and digital manufacturing.",
     descriptionAr:
       "نحوّل الفكرة أو الرسم أو المرجع إلى نموذج CAD ثلاثي الأبعاد دقيق ومناسب للنمذجة الأولية والتصنيع الرقمي.",
-    image: "/images/services/cad-design/cover.jpg",
+    image: "/images/services/cad-design/cover-ai.png",
     category: "Design",
     features: [
       "Mechanical CAD",
@@ -87,7 +87,7 @@ export const services: Service[] = [
       "We help product developers, engineers and businesses validate ideas through fast physical prototyping before production.",
     descriptionAr:
       "نساعد المطورين والمهندسين والشركات على اختبار الأفكار من خلال تصنيع نماذج أولية حقيقية قبل الإنتاج.",
-    image: "/images/services/rapid-prototyping/cover.jpg",
+    image: "/images/services/cad-design/cover-ai.png",
     category: "Prototyping",
     features: [
       "Concept validation",
@@ -117,7 +117,7 @@ export const services: Service[] = [
       "Digital fabrication solutions for PCB drilling, engraving, fixtures and selected plastic, acrylic and non-ferrous applications.",
     descriptionAr:
       "حلول تصنيع رقمي للحفر على لوحات PCB والنقش والـJigs والـFixtures وبعض تطبيقات البلاستيك والأكريليك والمعادن غير الحديدية.",
-    image: "/images/services/cnc/cover.jpg",
+    image: "/images/services/cnc/cover-ai.png",
     category: "Fabrication",
     features: [
       "Precision drilling",
@@ -147,7 +147,7 @@ export const services: Service[] = [
       "We provide digital PCB prototyping workflows including isolation routing, precision drilling and board outline preparation.",
     descriptionAr:
       "نوفر عمليات تصنيع رقمية للنماذج الأولية للوحات PCB تشمل العزل والحفر الدقيق وتجهيز حدود اللوحة.",
-    image: "/images/services/pcb/cover.jpg",
+    image: "/images/services/cnc/cover-ai.png",
     category: "Electronics",
     features: [
       "Isolation routing",
@@ -177,7 +177,7 @@ export const services: Service[] = [
       "UV printing enables direct customization of suitable surfaces and products for branding, gifts and creative applications.",
     descriptionAr:
       "تتيح الطباعة بالأشعة فوق البنفسجية تخصيص الأسطح والمنتجات المناسبة للهوية التجارية والهدايا والتطبيقات الإبداعية.",
-    image: "/images/services/uv-printing/cover.jpg",
+    image: "/images/products/figures/pink-character.jpg",
     category: "Customization",
     features: [
       "Direct printing",
@@ -207,7 +207,7 @@ export const services: Service[] = [
       "We design and manufacture custom physical models for creative, educational, commercial and personal applications.",
     descriptionAr:
       "نصمم ونصنع مجسمات مخصصة للاستخدامات الإبداعية والتعليمية والتجارية والشخصية.",
-    image: "/images/services/custom-models/cover.jpg",
+    image: "/images/products/figures/dragon-winged.jpg",
     category: "Creative",
     features: [
       "Figures",
@@ -237,7 +237,7 @@ export const services: Service[] = [
       "We support 3D printer owners and businesses with preventive maintenance, troubleshooting, calibration and performance improvement.",
     descriptionAr:
       "ندعم مستخدمي الطابعات والشركات من خلال الصيانة الوقائية وتشخيص الأعطال والمعايرة وتحسين الأداء.",
-    image: "/images/services/printer-maintenance/cover.jpg",
+    image: "/images/services/printer-maintenance/cover-ai.png",
     category: "Maintenance",
     features: [
       "Preventive maintenance",

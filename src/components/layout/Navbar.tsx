@@ -10,6 +10,7 @@ import { useState, Suspense } from "react";
 import { usePathname } from "next/navigation";
 
 import LanguageSwitcher from "./LanguageSwitcher";
+import { sallaStoreUrl } from "@/data/store";
 
 interface NavbarProps {
   locale: string;
@@ -43,7 +44,8 @@ export default function Navbar({
     },
     {
       label: labels.shop,
-      href: `/${locale}/shop`,
+      href: sallaStoreUrl,
+      external: true,
     },
     {
       label: labels.training,
@@ -93,9 +95,11 @@ export default function Navbar({
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={pathname === link.href ? "page" : undefined}
+                aria-current={!link.external && pathname === link.href ? "page" : undefined}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
                 className={`rounded-full px-3 py-2 text-[13px] font-semibold transition hover:bg-zinc-100 hover:text-zinc-950 ${
-                  pathname === link.href
+                  !link.external && pathname === link.href
                     ? "bg-zinc-100 text-zinc-950"
                     : "text-zinc-600"
                 }`}
@@ -114,7 +118,7 @@ export default function Navbar({
 
             <Link
               href={`/${locale}/contact`}
-              className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-3 text-xs font-bold text-white transition hover:bg-zinc-800"
+              className="im-cta-dark inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-3 text-xs font-bold transition hover:bg-zinc-800"
             >
               {labels.quote}
 
@@ -166,9 +170,11 @@ export default function Navbar({
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  aria-current={pathname === link.href ? "page" : undefined}
+                  aria-current={!link.external && pathname === link.href ? "page" : undefined}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noreferrer" : undefined}
                   className={`rounded-2xl px-4 py-3.5 text-sm font-semibold transition hover:bg-zinc-100 hover:text-zinc-950 ${
-                    pathname === link.href
+                    !link.external && pathname === link.href
                       ? "bg-zinc-100 text-zinc-950"
                       : "text-zinc-700"
                   }`}
@@ -181,7 +187,7 @@ export default function Navbar({
             <Link
               href={`/${locale}/contact`}
               onClick={() => setOpen(false)}
-              className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 py-4 text-sm font-bold text-white"
+              className="im-cta-dark mt-4 flex items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 py-4 text-sm font-bold"
             >
               {labels.quote}
 

@@ -13,6 +13,7 @@ import Container from "@/components/ui/Container";
 import PageHeader from "@/components/ui/PageHeader";
 
 import { products } from "@/data/products";
+import { sallaStoreUrl } from "@/data/store";
 
 import { isValidLocale } from "@/i18n/config";
 
@@ -82,9 +83,11 @@ export default async function ShopPage({
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {products.map((product) => (
-                <Link
+                <a
                   key={product.id}
-                  href={`/${locale}/shop/${product.id}`}
+                  href={sallaStoreUrl}
+                  target="_blank"
+                  rel="noreferrer"
                   className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative aspect-square overflow-hidden bg-zinc-100">
@@ -127,7 +130,7 @@ export default async function ShopPage({
                       </span>
                     </div>
                   </div>
-                </Link>
+                </a>
               ))}
             </div>
           </Container>

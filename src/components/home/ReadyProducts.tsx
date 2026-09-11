@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 import Container from "@/components/ui/Container";
 import ProductCard from "./ProductCard";
 
 import { products } from "@/data/products";
+import { sallaStoreUrl } from "@/data/store";
 
 interface ReadyProductsProps {
   locale: string;
@@ -51,8 +51,10 @@ export default function ReadyProducts({
             )}
           </div>
 
-          <Link
-            href={`/${locale}/shop`}
+          <a
+            href={sallaStoreUrl}
+            target="_blank"
+            rel="noreferrer"
             className="group inline-flex w-fit items-center gap-2 text-sm font-bold text-zinc-950"
           >
             {content.viewAll ||
@@ -66,7 +68,7 @@ export default function ReadyProducts({
                 ar ? "rotate-180 group-hover:-translate-x-1" : "",
               ].join(" ")}
             />
-          </Link>
+          </a>
         </div>
       </Container>
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -74,10 +75,15 @@ export default function ServiceDetail({
         <Container>
           <div className="grid gap-16 lg:grid-cols-2">
             <div>
-              <div className="flex aspect-[4/3] items-center justify-center rounded-[2rem] border border-zinc-200 bg-zinc-100">
-                <span className="text-sm text-zinc-400">
-                  {isAr ? "مكان صورة الخدمة" : "Service Image"}
-                </span>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+                <Image
+                  src={service.image}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-zinc-950/35 to-transparent" />
               </div>
             </div>
 

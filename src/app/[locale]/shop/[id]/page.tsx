@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
@@ -7,22 +9,12 @@ import {
 
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import Navbar from "@/components/layout/Navbar";
-
-import ar from "@/i18n/ar.json";
-import en from "@/i18n/en.json";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 import { products } from "@/data/products";
 
-import {
-  isValidLocale,
-  type Locale,
-} from "@/i18n/config";
-
-const translations: Record<Locale, typeof ar> = {
-  ar,
-  en,
-};
+import { isValidLocale } from "@/i18n/config";
+import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.flatMap((product) =>
@@ -31,6 +23,27 @@ export function generateStaticParams() {
       id: product.id,
     }))
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale, id } = await params;
+  if (!isValidLocale(locale)) return {};
+
+  const product = products.find((item) => item.id === id);
+  if (!product) return {};
+
+  const ar = locale === "ar";
+  return buildMetadata({
+    locale,
+    path: `/shop/${id}`,
+    title: ar ? product.nameAr : product.name,
+    description: ar ? product.descriptionAr ?? product.nameAr : product.description ?? product.name,
+    image: product.image,
+  });
 }
 
 export default async function ProductPage({
@@ -55,23 +68,29 @@ export default async function ProductPage({
     notFound();
   }
 
-  const t = translations[locale];
   const isAr = locale === "ar";
 
   return (
-    <>
-      <Navbar locale={locale} labels={t.navigation} />
-
-      <main>
+    <main>
         <section className="py-20">
           <Container>
+            <Breadcrumbs
+              locale={locale}
+              items={[
+                { label: isAr ? "المتجر" : "Shop", href: `/${locale}/shop` },
+                { label: isAr ? product.nameAr : product.name },
+              ]}
+            />
             <div className="grid gap-12 lg:grid-cols-2">
-              <div className="aspect-square rounded-[2rem] bg-zinc-100">
-                <div className="flex h-full items-center justify-center text-zinc-400">
-                  {isAr
-                    ? "مكان صورة المنتج"
-                    : "Product Image Placeholder"}
-                </div>
+              <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-zinc-100">
+                <Image
+                  src={product.image}
+                  alt={isAr ? product.nameAr : product.name}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
               </div>
 
               <div>
@@ -86,7 +105,7 @@ export default async function ProductPage({
                 </h1>
 
                 <p className="mt-6 text-3xl font-bold">
-                  {product.price} {product.currency}
+                  {product.price > 0 ? `${product.price} ${product.currency}` : isAr ? "اطلب السعر" : "Request a Quote"}
                 </p>
 
                 <div className="mt-8 space-y-4">
@@ -164,7 +183,6 @@ export default async function ProductPage({
             </div>
           </Container>
         </section>
-      </main>
-    </>
+    </main>
   );
 }

@@ -1,10 +1,18 @@
 import { notFound } from "next/navigation";
 
+import Navbar from "@/components/layout/Navbar";
+import SiteFooterShell from "@/components/layout/SiteFooterShell";
+import ar from "@/i18n/ar.json";
+import en from "@/i18n/en.json";
+
 import {
   isValidLocale,
   localeDirection,
   locales,
+  type Locale,
 } from "@/i18n/config";
+
+const translations: Record<Locale, typeof ar> = { ar, en };
 
 export function generateStaticParams() {
   return locales.map((locale) => ({
@@ -25,13 +33,18 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const validLocale = locale as Locale;
+
   return (
     <div
-      lang={locale}
-      dir={localeDirection[locale]}
+      lang={validLocale}
+      dir={localeDirection[validLocale]}
       className="min-h-screen"
     >
-      {children}
+      <SiteFooterShell locale={validLocale}>
+        <Navbar locale={validLocale} labels={translations[validLocale].navigation} />
+        {children}
+      </SiteFooterShell>
     </div>
   );
 }

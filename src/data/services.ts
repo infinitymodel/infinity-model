@@ -1,4 +1,16 @@
-import type { Service } from "@/types/service";
+export interface Service {
+  slug: string;
+  title: string;
+  titleAr: string;
+  shortDescription: string;
+  shortDescriptionAr: string;
+  description: string;
+  descriptionAr: string;
+  image: string;
+  category: string;
+  features: string[];
+  featuresAr: string[];
+}
 
 export const services: Service[] = [
   {
@@ -6,64 +18,60 @@ export const services: Service[] = [
     title: "3D Printing",
     titleAr: "الطباعة ثلاثية الأبعاد",
     shortDescription:
-      "FDM and resin additive manufacturing for functional parts, prototypes and creative products.",
+      "Professional FDM and resin 3D printing for prototypes, products and functional parts.",
     shortDescriptionAr:
-      "طباعة FDM والريزن للقطع الوظيفية والنماذج الأولية والمنتجات الإبداعية.",
+      "طباعة ثلاثية الأبعاد احترافية بتقنيات FDM والريزن للنماذج الأولية والمنتجات والقطع الوظيفية.",
     description:
-      "We provide additive manufacturing using FDM and resin technologies, selecting the appropriate process and material according to the application.",
+      "We transform your digital models into accurate physical parts using FDM and resin 3D printing technologies. Material and process selection are based on the intended application.",
     descriptionAr:
-      "نوفر التصنيع بالإضافة باستخدام تقنيات FDM والريزن، مع اختيار التقنية والخامة المناسبة حسب الاستخدام.",
-    category: "Manufacturing",
-    icon: "printer",
-    image: "/images/services/printing/main.jpg",
+      "نحوّل نماذجك الرقمية إلى قطع حقيقية بدقة باستخدام تقنيات FDM والريزن، مع اختيار المادة وطريقة التصنيع حسب الاستخدام المطلوب.",
+    image: "/images/services/3d-printing/cover.jpg",
+    category: "Digital Manufacturing",
     features: [
       "FDM printing",
       "Resin printing",
       "Material selection",
-      "Print orientation optimization",
-      "Support optimization",
-      "Prototype and production printing",
+      "Print optimization",
+      "Prototype production",
+      "Functional parts",
     ],
     featuresAr: [
       "طباعة FDM",
-      "طباعة الريزن",
-      "اختيار الخامة المناسبة",
-      "تحسين اتجاه الطباعة",
-      "تحسين الدعامات",
-      "طباعة النماذج والإنتاج",
+      "طباعة Resin",
+      "اختيار المواد",
+      "تحسين إعدادات الطباعة",
+      "تصنيع النماذج الأولية",
+      "القطع الوظيفية",
     ],
   },
 
   {
     slug: "cad-design",
     title: "CAD & 3D Design",
-    titleAr: "التصميم الهندسي و3D",
+    titleAr: "التصميم الهندسي و3D CAD",
     shortDescription:
-      "Product, mechanical and creative 3D modelling from concept to manufacturable geometry.",
+      "Mechanical, product and creative 3D modeling prepared for manufacturing.",
     shortDescriptionAr:
-      "تصميم المنتجات والنماذج الميكانيكية والإبداعية من الفكرة إلى نموذج قابل للتصنيع.",
+      "تصميم ميكانيكي ومنتجات ومجسمات ثلاثية الأبعاد جاهزة للتصنيع.",
     description:
-      "We convert concepts, sketches and requirements into accurate 3D CAD models prepared for manufacturing.",
+      "From a concept, sketch or reference, we develop accurate 3D CAD models suitable for prototyping and digital manufacturing.",
     descriptionAr:
-      "نحوّل الأفكار والرسومات والمتطلبات إلى نماذج CAD ثلاثية الأبعاد دقيقة وجاهزة للتصنيع.",
+      "نحوّل الفكرة أو الرسم أو المرجع إلى نموذج CAD ثلاثي الأبعاد دقيق ومناسب للنمذجة الأولية والتصنيع الرقمي.",
+    image: "/images/services/cad-design/cover.jpg",
     category: "Design",
-    icon: "design",
-    image: "/images/services/design/main.jpg",
     features: [
       "Mechanical CAD",
       "Product design",
-      "Creative modelling",
+      "3D modeling",
       "STL preparation",
       "Design for additive manufacturing",
-      "Design revisions",
     ],
     featuresAr: [
       "التصميم الميكانيكي",
       "تصميم المنتجات",
-      "النمذجة الإبداعية",
+      "النمذجة ثلاثية الأبعاد",
       "تجهيز ملفات STL",
       "التصميم للتصنيع بالإضافة",
-      "تعديلات التصميم",
     ],
   },
 
@@ -72,29 +80,28 @@ export const services: Service[] = [
     title: "Rapid Prototyping",
     titleAr: "النمذجة الأولية السريعة",
     shortDescription:
-      "Move quickly from concept to prototype, evaluation and final production.",
+      "Move quickly from concept to physical prototype.",
     shortDescriptionAr:
-      "الانتقال السريع من الفكرة إلى النموذج الأولي والتقييم ثم الإنتاج النهائي.",
+      "الانتقال بسرعة من الفكرة إلى نموذج أولي حقيقي.",
     description:
-      "We help customers test ideas physically before committing to larger production.",
+      "We help product developers, engineers and businesses validate ideas through fast physical prototyping before production.",
     descriptionAr:
-      "نساعد العملاء على اختبار الأفكار بشكل فعلي قبل الانتقال إلى الإنتاج الأكبر.",
-    category: "Engineering",
-    icon: "prototype",
-    image: "/images/services/prototyping/main.jpg",
+      "نساعد المطورين والمهندسين والشركات على اختبار الأفكار من خلال تصنيع نماذج أولية حقيقية قبل الإنتاج.",
+    image: "/images/services/rapid-prototyping/cover.jpg",
+    category: "Prototyping",
     features: [
-      "Concept evaluation",
-      "Prototype development",
+      "Concept validation",
+      "Functional prototypes",
       "Design iteration",
-      "Functional testing",
       "Small-batch production",
+      "Pre-production testing",
     ],
     featuresAr: [
-      "تقييم الفكرة",
-      "تطوير النموذج الأولي",
+      "اختبار الأفكار",
+      "النماذج الوظيفية",
       "تطوير التصميم",
-      "اختبار الوظيفة",
       "الإنتاج بكميات صغيرة",
+      "اختبار ما قبل الإنتاج",
     ],
   },
 
@@ -103,62 +110,58 @@ export const services: Service[] = [
     title: "CNC & Digital Fabrication",
     titleAr: "CNC والتصنيع الرقمي",
     shortDescription:
-      "Digital machining, engraving, drilling and custom fabrication.",
+      "Precision drilling, engraving and digital fabrication.",
     shortDescriptionAr:
-      "التشغيل الرقمي والحفر والنقش والتصنيع حسب الطلب.",
+      "الحفر والنقش والتصنيع الرقمي بدقة.",
     description:
-      "CNC and digital fabrication capabilities for selected plastics, acrylics, non-ferrous materials, fixtures and prototype components.",
+      "Digital fabrication solutions for PCB drilling, engraving, fixtures and selected plastic, acrylic and non-ferrous applications.",
     descriptionAr:
-      "إمكانيات CNC والتصنيع الرقمي للبلاستيك والأكريليك وبعض المعادن غير الحديدية والقوالب والقطع الأولية.",
+      "حلول تصنيع رقمي للحفر على لوحات PCB والنقش والـJigs والـFixtures وبعض تطبيقات البلاستيك والأكريليك والمعادن غير الحديدية.",
+    image: "/images/services/cnc/cover.jpg",
     category: "Fabrication",
-    icon: "cnc",
-    image: "/images/services/cnc/main.jpg",
     features: [
-      "CNC engraving",
       "Precision drilling",
-      "Plastic machining",
-      "Acrylic machining",
+      "Engraving",
+      "PCB machining",
       "Jigs and fixtures",
-      "CAD/CAM and G-code workflows",
+      "CAD/CAM preparation",
     ],
     featuresAr: [
-      "النقش باستخدام CNC",
       "الحفر الدقيق",
-      "تشغيل البلاستيك",
-      "تشغيل الأكريليك",
+      "النقش",
+      "تصنيع PCB",
       "Jigs وFixtures",
-      "CAD/CAM وG-code",
+      "تجهيز CAD/CAM",
     ],
   },
 
   {
     slug: "pcb",
     title: "PCB Prototyping",
-    titleAr: "تصنيع النماذج الأولية للـPCB",
+    titleAr: "النمذجة الأولية للوحات PCB",
     shortDescription:
-      "Digital PCB fabrication through engraving, drilling and board routing.",
+      "Digital PCB prototyping, drilling and board fabrication.",
     shortDescriptionAr:
-      "تصنيع النماذج الأولية للدوائر المطبوعة بالحفر والنقش وتحديد مسار اللوحة.",
+      "تصنيع النماذج الأولية للوحات PCB والحفر وتجهيز اللوحات.",
     description:
-      "PCB prototyping using digital fabrication methods for early-stage electronics development.",
+      "We provide digital PCB prototyping workflows including isolation routing, precision drilling and board outline preparation.",
     descriptionAr:
-      "تصنيع نماذج PCB باستخدام تقنيات التصنيع الرقمي لدعم مراحل تطوير الإلكترونيات الأولية.",
+      "نوفر عمليات تصنيع رقمية للنماذج الأولية للوحات PCB تشمل العزل والحفر الدقيق وتجهيز حدود اللوحة.",
+    image: "/images/services/pcb/cover.jpg",
     category: "Electronics",
-    icon: "pcb",
-    image: "/images/services/pcb/main.jpg",
     features: [
       "Isolation routing",
-      "PCB engraving",
       "Precision drilling",
-      "Board outline cutting",
-      "Prototype PCB fabrication",
+      "Board outline",
+      "PCB CNC",
+      "Prototype preparation",
     ],
     featuresAr: [
       "Isolation Routing",
-      "نقش PCB",
       "الحفر الدقيق",
-      "تحديد حدود اللوحة",
-      "تصنيع PCB أولي",
+      "تجهيز حدود اللوحة",
+      "PCB CNC",
+      "تجهيز النماذج الأولية",
     ],
   },
 
@@ -167,62 +170,58 @@ export const services: Service[] = [
     title: "UV Printing",
     titleAr: "الطباعة بالأشعة فوق البنفسجية",
     shortDescription:
-      "Direct-to-object printing for branded, decorative and personalized products.",
+      "High-quality direct printing and customization for selected products.",
     shortDescriptionAr:
-      "طباعة مباشرة على المنتجات للأغراض الدعائية والديكورية والشخصية.",
+      "طباعة وتخصيص مباشر عالي الجودة لمجموعة من المنتجات.",
     description:
-      "UV printing for compatible rigid and selected flexible surfaces, including logos, graphics, text and personalized designs.",
+      "UV printing enables direct customization of suitable surfaces and products for branding, gifts and creative applications.",
     descriptionAr:
-      "طباعة UV على الأسطح الصلبة المناسبة وبعض الأسطح المرنة، مع إمكانية إضافة الشعارات والرسومات والنصوص.",
+      "تتيح الطباعة بالأشعة فوق البنفسجية تخصيص الأسطح والمنتجات المناسبة للهوية التجارية والهدايا والتطبيقات الإبداعية.",
+    image: "/images/services/uv-printing/cover.jpg",
     category: "Customization",
-    icon: "uv",
-    image: "/images/services/uv/main.jpg",
     features: [
-      "Logo printing",
-      "Graphic printing",
-      "Personalization",
-      "Promotional products",
-      "Decorative applications",
+      "Direct printing",
+      "Product customization",
+      "Branding",
+      "Creative applications",
+      "Gift customization",
     ],
     featuresAr: [
-      "طباعة الشعارات",
-      "طباعة الرسومات",
-      "التخصيص",
-      "المنتجات الدعائية",
-      "الاستخدامات الديكورية",
+      "الطباعة المباشرة",
+      "تخصيص المنتجات",
+      "الهوية التجارية",
+      "التطبيقات الإبداعية",
+      "تخصيص الهدايا",
     ],
   },
 
   {
     slug: "custom-models",
-    title: "Custom Models & Collectibles",
-    titleAr: "المجسمات والقطع المخصصة",
+    title: "Custom Models",
+    titleAr: "المجسمات المخصصة",
     shortDescription:
-      "Characters, sculptures, miniatures and collectible models.",
+      "Custom figures, collectibles, decorative models and special projects.",
     shortDescriptionAr:
-      "شخصيات ومجسمات ومنمنمات وقطع قابلة للاقتناء حسب الطلب.",
+      "مجسمات وشخصيات وقطع ديكورية ومشاريع مخصصة.",
     description:
-      "Creative manufacturing for figures, sculptures, dragons, miniatures, display models and personalized pieces.",
+      "We design and manufacture custom physical models for creative, educational, commercial and personal applications.",
     descriptionAr:
-      "تصنيع إبداعي للشخصيات والمجسمات والتنانين والمنمنمات وقطع العرض والتصاميم الشخصية.",
+      "نصمم ونصنع مجسمات مخصصة للاستخدامات الإبداعية والتعليمية والتجارية والشخصية.",
+    image: "/images/services/custom-models/cover.jpg",
     category: "Creative",
-    icon: "model",
-    image: "/images/services/custom-models/main.jpg",
     features: [
-      "Anime figures",
-      "Fantasy models",
-      "Dragons and creatures",
-      "Busts and statues",
-      "Miniatures",
-      "Personalized models",
+      "Figures",
+      "Collectibles",
+      "Decorative models",
+      "Scale models",
+      "Custom designs",
     ],
     featuresAr: [
-      "مجسمات الأنمي",
-      "مجسمات خيالية",
-      "التنانين والكائنات",
-      "التماثيل والمجسمات",
-      "المنمنمات",
-      "المجسمات الشخصية",
+      "الشخصيات",
+      "المقتنيات",
+      "المجسمات الديكورية",
+      "النماذج المصغرة",
+      "التصاميم المخصصة",
     ],
   },
 
@@ -231,35 +230,31 @@ export const services: Service[] = [
     title: "3D Printer Maintenance",
     titleAr: "صيانة الطابعات ثلاثية الأبعاد",
     shortDescription:
-      "Troubleshooting, preventive maintenance and performance improvement for 3D printers.",
+      "Preventive maintenance, troubleshooting and printer performance support.",
     shortDescriptionAr:
-      "تشخيص الأعطال والصيانة الوقائية وتحسين أداء الطابعات ثلاثية الأبعاد.",
+      "الصيانة الوقائية واستكشاف الأعطال ودعم أداء الطابعات.",
     description:
-      "Technical support for printer troubleshooting, preventive maintenance, calibration and process improvement.",
-      descriptionAr:
-      "دعم فني لتشخيص أعطال الطابعات والصيانة الوقائية والمعايرة وتحسين عملية الطباعة.",
-    category: "Technical",
-    icon: "maintenance",
-    image: "/images/services/maintenance/main.jpg",
+      "We support 3D printer owners and businesses with preventive maintenance, troubleshooting, calibration and performance improvement.",
+    descriptionAr:
+      "ندعم مستخدمي الطابعات والشركات من خلال الصيانة الوقائية وتشخيص الأعطال والمعايرة وتحسين الأداء.",
+    image: "/images/services/printer-maintenance/cover.jpg",
+    category: "Maintenance",
     features: [
-      "Printer troubleshooting",
       "Preventive maintenance",
+      "Troubleshooting",
       "Calibration",
-      "Print quality diagnosis",
-      "Mechanical inspection",
-      "Process improvement",
+      "Performance checks",
+      "Printer setup",
     ],
     featuresAr: [
-      "تشخيص أعطال الطابعة",
       "الصيانة الوقائية",
+      "تشخيص الأعطال",
       "المعايرة",
-      "تشخيص مشاكل جودة الطباعة",
-      "الفحص الميكانيكي",
-      "تحسين عملية الطباعة",
+      "فحص الأداء",
+      "إعداد الطابعات",
     ],
   },
 ];
-
 export function getService(slug: string) {
   return services.find((service) => service.slug === slug);
 }

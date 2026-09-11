@@ -19,7 +19,7 @@ export interface Product {
 
   // Optional product metadata
   badge?: string;
-  badgeAr: string;
+  badgeAr?: string;
 
   description?: string;
   descriptionAr?: string;

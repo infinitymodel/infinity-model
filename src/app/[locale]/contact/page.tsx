@@ -1,222 +1,118 @@
-"use client";
-
-import { useState } from "react";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import Link from "next/link";
+import {
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
+import { notFound } from "next/navigation";
 
 import Container from "@/components/ui/Container";
-import Navbar from "@/components/layout/Navbar";
+import PageHeader from "@/components/ui/PageHeader";
 
-import ar from "@/i18n/ar.json";
-import en from "@/i18n/en.json";
+import { isValidLocale } from "@/i18n/config";
 
-import { usePathname } from "next/navigation";
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
 
-export default function ContactPage() {
-  const pathname = usePathname();
-
-  const locale =
-    pathname.split("/")[1] === "en" ? "en" : "ar";
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
 
   const isAr = locale === "ar";
 
-  const [submitted, setSubmitted] = useState(false);
-
   return (
-    <>
-      <Navbar
+    <main>
+      <PageHeader
         locale={locale}
-        labels={(isAr ? ar : en).navigation}
+        eyebrow={isAr ? "تواصل معنا" : "Contact"}
+        title={isAr ? "لنبدأ مشروعك التالي." : "Let’s start your next project."}
+        description={isAr ? "أخبرنا عن فكرتك أو مشروعك وسنساعدك في اختيار الحل المناسب." : "Tell us about your idea or project and we will help you choose the right solution."}
       />
-
-      <main>
-        <section className="bg-zinc-950 py-24 text-white">
-          <Container>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              {isAr ? "تواصل معنا" : "CONTACT"}
-            </p>
-
-            <h1 className="mt-5 text-5xl font-bold sm:text-6xl">
-              {isAr
-                ? "ابدأ مشروعك معنا"
-                : "Start Your Project With Us"}
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400">
-              {isAr
-                ? "أرسل فكرتك أو متطلباتك وسنراجعها معك."
-                : "Send us your idea or requirements and we will review them with you."}
-            </p>
-          </Container>
-        </section>
 
         <section className="py-24">
           <Container>
-            <div className="grid gap-12 lg:grid-cols-3">
-              <div className="space-y-5">
-                <div className="rounded-3xl border border-zinc-200 p-6">
-                  <MapPin className="h-6 w-6" />
+            <div className="grid gap-8 lg:grid-cols-2">
+              <div>
+                <h2 className="text-3xl font-bold">
+                  {isAr ? "ابدأ مشروعك" : "Start Your Project"}
+                </h2>
 
-                  <h2 className="mt-4 font-bold">
-                    {isAr ? "الموقع" : "Location"}
-                  </h2>
+                <p className="mt-5 max-w-xl leading-8 text-zinc-600">
+                  {isAr
+                    ? "يمكنك التواصل معنا للاستفسار عن الطباعة والتصميم والنمذجة الأولية والصيانة والتدريب."
+                    : "Contact us about 3D printing, design, prototyping, maintenance or training."}
+                </p>
 
-                  <p className="mt-2 text-sm text-zinc-600">
-                    {isAr
-                      ? "جازان، المملكة العربية السعودية"
-                      : "Jizan, Saudi Arabia"}
-                  </p>
-                </div>
+                <div className="mt-10 grid gap-4">
+                  <div className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5">
+                    <Phone className="h-5 w-5" />
+                    <span>{isAr ? "الهاتف" : "Phone"}</span>
+                  </div>
 
-                <div className="rounded-3xl border border-zinc-200 p-6">
-                  <MessageCircle className="h-6 w-6" />
+                  <div className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5">
+                    <Mail className="h-5 w-5" />
+                    <span>{isAr ? "البريد الإلكتروني" : "Email"}</span>
+                  </div>
 
-                  <h2 className="mt-4 font-bold">
-                    WhatsApp
-                  </h2>
-
-                  <p className="mt-2 text-sm text-zinc-600">
-                    {isAr
-                      ? "تواصل معنا مباشرة"
-                      : "Contact us directly"}
-                  </p>
-                </div>
-
-                <div className="rounded-3xl border border-zinc-200 p-6">
-                  <Mail className="h-6 w-6" />
-
-                  <h2 className="mt-4 font-bold">
-                    Email
-                  </h2>
-
-                  <p className="mt-2 text-sm text-zinc-600">
-                    {isAr
-                      ? "البريد الإلكتروني"
-                      : "Email address"}
-                  </p>
+                  <div className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5">
+                    <MapPin className="h-5 w-5" />
+                    <span>
+                      {isAr
+                        ? "جازان، المملكة العربية السعودية"
+                        : "Jizan, Saudi Arabia"}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="lg:col-span-2">
-                <form
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    setSubmitted(true);
-                  }}
-                  className="rounded-3xl border border-zinc-200 p-7 sm:p-10"
-                >
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div>
-                      <label className="text-sm font-semibold">
-                        {isAr ? "الاسم" : "Name"}
-                      </label>
+              <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-8">
+                <h2 className="text-2xl font-bold">
+                  {isAr ? "اطلب عرض سعر" : "Request a Quote"}
+                </h2>
 
-                      <input
-                        required
-                        type="text"
-                        className="mt-2 w-full rounded-2xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-950"
-                        placeholder={
-                          isAr ? "اسمك" : "Your name"
-                        }
-                      />
-                    </div>
+                <div className="mt-8 grid gap-4">
+                  <input
+                    type="text"
+                    placeholder={isAr ? "الاسم" : "Name"}
+                    className="rounded-2xl border border-zinc-200 bg-white px-5 py-4 outline-none focus:border-zinc-500"
+                  />
 
-                    <div>
-                      <label className="text-sm font-semibold">
-                        {isAr ? "البريد" : "Email"}
-                      </label>
+                  <input
+                    type="email"
+                    placeholder={isAr ? "البريد الإلكتروني" : "Email"}
+                    className="rounded-2xl border border-zinc-200 bg-white px-5 py-4 outline-none focus:border-zinc-500"
+                  />
 
-                      <input
-                        required
-                        type="email"
-                        className="mt-2 w-full rounded-2xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-950"
-                        placeholder={
-                          isAr
-                            ? "البريد الإلكتروني"
-                            : "Email address"
-                        }
-                      />
-                    </div>
-                  </div>
+                  <textarea
+                    rows={6}
+                    placeholder={
+                      isAr
+                        ? "اكتب تفاصيل مشروعك..."
+                        : "Tell us about your project..."
+                    }
+                    className="resize-none rounded-2xl border border-zinc-200 bg-white px-5 py-4 outline-none focus:border-zinc-500"
+                  />
 
-                  <div className="mt-6">
-                    <label className="text-sm font-semibold">
-                      {isAr ? "الخدمة" : "Service"}
-                    </label>
-
-                    <select className="mt-2 w-full rounded-2xl border border-zinc-300 px-4 py-3 outline-none">
-                      <option>
-                        {isAr
-                          ? "الطباعة ثلاثية الأبعاد"
-                          : "3D Printing"}
-                      </option>
-
-                      <option>
-                        {isAr
-                          ? "التصميم"
-                          : "CAD & Design"}
-                      </option>
-
-                      <option>
-                        {isAr
-                          ? "النمذجة الأولية"
-                          : "Rapid Prototyping"}
-                      </option>
-
-                      <option>
-                        {isAr ? "CNC" : "CNC"}
-                      </option>
-
-                      <option>
-                        {isAr ? "PCB" : "PCB"}
-                      </option>
-
-                      <option>
-                        {isAr
-                          ? "صيانة الطابعة"
-                          : "Printer Maintenance"}
-                      </option>
-                    </select>
-                  </div>
-
-                  <div className="mt-6">
-                    <label className="text-sm font-semibold">
-                      {isAr ? "تفاصيل المشروع" : "Project Details"}
-                    </label>
-
-                    <textarea
-                      required
-                      rows={6}
-                      className="mt-2 w-full resize-none rounded-2xl border border-zinc-300 px-4 py-3 outline-none focus:border-zinc-950"
-                      placeholder={
-                        isAr
-                          ? "اكتب تفاصيل المشروع..."
-                          : "Tell us about your project..."
-                      }
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="mt-7 rounded-full bg-zinc-950 px-7 py-4 text-sm font-semibold text-white transition hover:bg-zinc-800"
+                  <Link
+                    href="#"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-7 py-4 text-sm font-semibold text-white"
                   >
-                    {isAr
-                      ? "إرسال الطلب"
-                      : "Send Request"}
-                  </button>
+                    <MessageCircle className="h-4 w-4" />
 
-                  {submitted && (
-                    <p className="mt-5 text-sm font-semibold text-zinc-700">
-                      {isAr
-                        ? "تم استلام الطلب. سيتم ربط النموذج بنظام التواصل في المرحلة القادمة."
-                        : "Request received. The form backend will be connected in the next stage."}
-                    </p>
-                  )}
-                </form>
+                    {isAr
+                      ? "إرسال طلب"
+                      : "Send Request"}
+                  </Link>
+                </div>
               </div>
             </div>
           </Container>
         </section>
-      </main>
-    </>
+    </main>
   );
 }

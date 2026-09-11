@@ -1,1285 +1,1554 @@
+import Link from "next/link";
 import {
   ArrowRight,
-  Check,
+  ArrowUpRight,
+  BadgeCheck,
+  Boxes,
+  Building2,
+  CheckCircle2,
   ChevronDown,
   Factory,
   GraduationCap,
-  Layers3,
   Lightbulb,
-  MapPin,
   PackageCheck,
   Palette,
+  PencilRuler,
   Printer,
-  Ruler,
-  Settings,
+  ScanLine,
+  Settings2,
   ShieldCheck,
   Sparkles,
+  Target,
   Wrench,
-  Zap,
 } from "lucide-react";
 
 import Container from "@/components/ui/Container";
+import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import ServiceCard from "./ServiceCard";
+
+import { services } from "@/data/services";
+import { trainingCourses } from "@/data/training";
 
 interface HomeSectionsProps {
   locale: string;
 }
 
-const isArabic = (locale: string) => locale === "ar";
-
 export default function HomeSections({
   locale,
 }: HomeSectionsProps) {
-  const ar = isArabic(locale);
-
   return (
     <>
-      {/* =====================================================
-          WHAT WE DO
-      ====================================================== */}
-      <section className="border-t border-zinc-200 bg-white py-20 sm:py-28">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                {ar ? "ماذا نقدم" : "What We Do"}
-              </span>
+      <WhatWeDo locale={locale} />
 
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
-                {ar
-                  ? "من الفكرة الرقمية إلى المنتج الحقيقي"
-                  : "From Digital Ideas to Physical Products"}
-              </h2>
-            </div>
+      <ServicesSection
+        locale={locale}
+      />
 
-            <p className="max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg">
-              {ar
-                ? "نساعدك في تحويل الأفكار والملفات الرقمية إلى نماذج ومنتجات ملموسة من خلال التصميم، النمذجة الأولية، التصنيع الرقمي والطباعة ثلاثية الأبعاد."
-                : "We transform ideas and digital files into physical products through design, prototyping, digital fabrication, and 3D printing."}
-            </p>
-          </div>
+      <ProcessSection
+        locale={locale}
+      />
 
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            <FeatureCard
-              icon={<Lightbulb className="h-6 w-6" />}
-              number="01"
-              title={ar ? "Design" : "Design"}
-              description={
-                ar
-                  ? "نحوّل فكرتك إلى نموذج رقمي قابل للتصنيع."
-                  : "Turn your idea into a manufacturable digital model."
-              }
-            />
+      <TechnologySection
+        locale={locale}
+      />
 
-            <FeatureCard
-              icon={<Layers3 className="h-6 w-6" />}
-              number="02"
-              title={ar ? "Prototype" : "Prototype"}
-              description={
-                ar
-                  ? "نصنع النموذج الأولي لاختبار الشكل والوظيفة."
-                  : "Build prototypes to validate form, fit, and function."
-              }
-            />
+      <ProjectsSection
+        locale={locale}
+      />
 
-            <FeatureCard
-              icon={<Factory className="h-6 w-6" />}
-              number="03"
-              title={ar ? "Manufacture" : "Manufacture"}
-              description={
-                ar
-                  ? "ننقل التصميم إلى منتج حقيقي بجودة قابلة للتكرار."
-                  : "Turn approved designs into repeatable physical products."
-              }
-            />
-          </div>
-        </Container>
-      </section>
+      <IndustriesSection
+        locale={locale}
+      />
 
-      {/* =====================================================
-          SERVICES
-      ====================================================== */}
-      <section className="bg-zinc-950 py-20 text-white sm:py-28">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-400">
-              {ar ? "خدماتنا" : "Our Services"}
-            </span>
+      <TrainingSection
+        locale={locale}
+      />
 
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              {ar
-                ? "حلول تصنيع رقمي متكاملة"
-                : "Complete Digital Manufacturing Solutions"}
-            </h2>
+      <MaintenanceSection
+        locale={locale}
+      />
 
-            <p className="mt-5 text-base leading-8 text-zinc-400 sm:text-lg">
-              {ar
-                ? "من التصميم الهندسي والطباعة ثلاثية الأبعاد إلى النماذج الأولية والتصنيع الرقمي."
-                : "From engineering design and 3D printing to rapid prototyping and digital fabrication."}
-            </p>
-          </div>
+      <WhyUsSection
+        locale={locale}
+      />
 
-          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-800 sm:grid-cols-2 lg:grid-cols-4">
-            <DarkServiceCard
-              icon={<Printer />}
-              title={ar ? "الطباعة ثلاثية الأبعاد" : "3D Printing"}
-              description={
-                ar
-                  ? "FDM و Resin لتطبيقات هندسية وإبداعية."
-                  : "FDM and resin printing for engineering and creative applications."
-              }
-            />
+      <QualitySection
+        locale={locale}
+      />
 
-            <DarkServiceCard
-              icon={<Ruler />}
-              title={ar ? "CAD والتصميم ثلاثي الأبعاد" : "CAD & 3D Design"}
-              description={
-                ar
-                  ? "تصميم ميكانيكي، منتجات، نماذج وأجزاء مخصصة."
-                  : "Mechanical, product, creative, and custom 3D design."
-              }
-            />
+      <AboutSection
+        locale={locale}
+      />
 
-            <DarkServiceCard
-              icon={<Zap />}
-              title={ar ? "النمذجة الأولية" : "Rapid Prototyping"}
-              description={
-                ar
-                  ? "اختبر فكرتك قبل الدخول في الإنتاج."
-                  : "Validate your idea before moving into production."
-              }
-            />
+      <EquipmentSection
+        locale={locale}
+      />
 
-            <DarkServiceCard
-              icon={<Settings />}
-              title={ar ? "CNC والتصنيع الرقمي" : "CNC & Fabrication"}
-              description={
-                ar
-                  ? "حفر، نقش، تصنيع PCB وتجهيزات مخصصة."
-                  : "Drilling, engraving, PCB fabrication, and custom fixtures."
-              }
-            />
+      <FutureSection
+        locale={locale}
+      />
 
-            <DarkServiceCard
-              icon={<Palette />}
-              title={ar ? "UV Printing" : "UV Printing"}
-              description={
-                ar
-                  ? "طباعة وتخصيص المنتجات والأسطح."
-                  : "Direct printing and product customization."
-              }
-            />
+      <FaqSection
+        locale={locale}
+      />
 
-            <DarkServiceCard
-              icon={<Sparkles />}
-              title={ar ? "نماذج مخصصة" : "Custom Models"}
-              description={
-                ar
-                  ? "مجسمات، شخصيات، ديكور وهدايا."
-                  : "Figures, characters, decor, collectibles, and gifts."
-              }
-            />
+      <FinalCta
+        locale={locale}
+      />
 
-            <DarkServiceCard
-              icon={<Wrench />}
-              title={ar ? "صيانة الطابعات" : "Printer Maintenance"}
-              description={
-                ar
-                  ? "تشخيص وصيانة وتحسين أداء الطابعات."
-                  : "Diagnostics, maintenance, and performance optimization."
-              }
-            />
+      {/* Keep existing homepage footer if already present in the project. */}
+    </>
+  );
+}
 
-            <DarkServiceCard
-              icon={<Layers3 />}
-              title={ar ? "PCB Prototyping" : "PCB Prototyping"}
-              description={
-                ar
-                  ? "نماذج PCB بالحفر والتخريم والتصنيع الرقمي."
-                  : "PCB prototyping through routing, drilling, and fabrication."
-              }
-            />
-          </div>
+/* =========================================================
+   WHAT WE DO
+========================================================= */
 
-          <div className="mt-10">
-            <Button
-              href={`/${locale}/services`}
-              variant="secondary"
-            >
-              {ar ? "استكشف جميع الخدمات" : "Explore All Services"}
-              <ArrowRight className="ms-2 h-4 w-4" />
-            </Button>
-          </div>
-        </Container>
-      </section>
+function WhatWeDo({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
 
-      {/* =====================================================
-          PROCESS
-      ====================================================== */}
-      <section className="bg-zinc-50 py-20 sm:py-28">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              {ar ? "كيف نعمل" : "How It Works"}
-            </span>
+  const items = [
+    {
+      icon: PencilRuler,
+      title: ar
+        ? "Design"
+        : "Design",
+      description: ar
+        ? "نحوّل الفكرة أو الرسم أو الملف إلى تصميم رقمي جاهز للتصنيع."
+        : "We turn an idea, sketch or digital file into a manufacturable design.",
+    },
+    {
+      icon: Boxes,
+      title: ar
+        ? "Prototype"
+        : "Prototype",
+      description: ar
+        ? "نصنع نماذج أولية سريعة لاختبار الشكل والحجم والوظيفة."
+        : "We create rapid prototypes to validate form, size and function.",
+    },
+    {
+      icon: Factory,
+      title: ar
+        ? "Manufacture"
+        : "Manufacture",
+      description: ar
+        ? "نحوّل التصميم المعتمد إلى منتج فعلي باستخدام تقنيات التصنيع الرقمي."
+        : "We turn approved designs into physical products using digital manufacturing.",
+    },
+  ];
 
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
-              {ar
-                ? "عملية واضحة من الفكرة إلى التسليم"
-                : "A Clear Process From Idea to Delivery"}
-            </h2>
-          </div>
+  return (
+    <section className="bg-zinc-50 py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "ماذا نفعل"
+              : "What We Do"
+          }
+          title={
+            ar
+              ? "من الفكرة إلى الواقع الملموس."
+              : "From idea to physical reality."
+          }
+          description={
+            ar
+              ? "نربط التصميم الرقمي بالتصنيع الحقيقي من خلال منظومة تجمع CAD والطباعة ثلاثية الأبعاد والنمذجة الأولية والتصنيع الرقمي."
+              : "We connect digital design with physical manufacturing through CAD, 3D printing, rapid prototyping and digital fabrication."
+          }
+        />
 
-          <div className="mt-14 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-            <ProcessCard
-              number="01"
-              title={ar ? "Brief" : "Brief"}
-              description={
-                ar ? "نفهم احتياجك." : "Understand your requirements."
-              }
-            />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {items.map((item, index) => {
+            const Icon = item.icon;
 
-            <ProcessCard
-              number="02"
-              title={ar ? "Design" : "Design"}
-              description={
-                ar ? "نجهز التصميم." : "Prepare the design."
-              }
-            />
-
-            <ProcessCard
-              number="03"
-              title={ar ? "Quote" : "Quote"}
-              description={
-                ar ? "نقدم العرض." : "Provide the quotation."
-              }
-            />
-
-            <ProcessCard
-              number="04"
-              title={ar ? "Prototype" : "Prototype"}
-              description={
-                ar
-                  ? "نصنع النموذج."
-                  : "Build the prototype."
-              }
-            />
-
-            <ProcessCard
-              number="05"
-              title={ar ? "Production" : "Production"}
-              description={
-                ar
-                  ? "نبدأ الإنتاج بعد الموافقة."
-                  : "Production starts after approval."
-              }
-            />
-
-            <ProcessCard
-              number="06"
-              title={ar ? "Delivery" : "Delivery"}
-              description={
-                ar
-                  ? "فحص ثم تسليم."
-                  : "Inspect and deliver."
-              }
-            />
-          </div>
-
-          <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
-            <div className="flex items-start gap-3">
-              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-zinc-900" />
-
-              <p>
-                {ar
-                  ? "في طلبات الإنتاج الكمي، تتم الموافقة على النموذج الأولي قبل بدء الإنتاج."
-                  : "For batch production, customer approval is obtained before production begins."}
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          TECHNOLOGY
-      ====================================================== */}
-      <section className="bg-white py-20 sm:py-28">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                {ar ? "التقنيات" : "Technology"}
-              </span>
-
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
-                {ar
-                  ? "التقنية المناسبة للتطبيق المناسب"
-                  : "The Right Technology for the Right Application"}
-              </h2>
-
-              <p className="mt-6 max-w-xl text-base leading-8 text-zinc-600">
-                {ar
-                  ? "نختار التقنية والخامة والإعدادات بناءً على الاستخدام النهائي للمنتج، وليس فقط على شكل النموذج."
-                  : "We select technology, material, and process parameters based on the final application—not just the appearance of the model."}
-              </p>
-
-              <div className="mt-8 space-y-4">
-                <CheckItem
-                  text={
-                    ar
-                      ? "FDM للطباعة العملية والمتينة"
-                      : "FDM for practical and durable parts"
-                  }
-                />
-
-                <CheckItem
-                  text={
-                    ar
-                      ? "Resin للتفاصيل الدقيقة"
-                      : "Resin for high-detail models"
-                  }
-                />
-
-                <CheckItem
-                  text={
-                    ar
-                      ? "CAD/CAM للتصميم والتصنيع"
-                      : "CAD/CAM for design and manufacturing"
-                  }
-                />
-
-                <CheckItem
-                  text={
-                    ar
-                      ? "CNC للحفر والنقش والتصنيع الرقمي"
-                      : "CNC for drilling, engraving, and fabrication"
-                  }
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <TechBox
-                title="FDM"
-                subtitle={ar ? "Durable" : "Durable"}
-              />
-
-              <TechBox
-                title="RESIN"
-                subtitle={ar ? "High Detail" : "High Detail"}
-              />
-
-              <TechBox
-                title="CAD/CAM"
-                subtitle={ar ? "Design" : "Design"}
-              />
-
-              <TechBox
-                title="CNC"
-                subtitle={ar ? "Fabrication" : "Fabrication"}
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          PROJECTS
-      ====================================================== */}
-      <section className="bg-zinc-50 py-20 sm:py-28">
-        <Container>
-          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <div className="max-w-3xl">
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                {ar ? "مشاريع مختارة" : "Selected Projects"}
-              </span>
-
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
-                {ar
-                  ? "أفكار مختلفة، حلول مختلفة"
-                  : "Different Ideas. Different Solutions."}
-              </h2>
-            </div>
-
-            <Button
-              href={`/${locale}/projects`}
-              variant="secondary"
-            >
-              {ar ? "عرض المشاريع" : "View Projects"}
-              <ArrowRight className="ms-2 h-4 w-4" />
-            </Button>
-          </div>
-
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            <ProjectCard
-              title={ar ? "مجسم تنين" : "Dragon Figure"}
-              category={ar ? "Creative" : "Creative"}
-            />
-
-            <ProjectCard
-              title={ar ? "مجسم شخصية" : "Character Figure"}
-              category={ar ? "Figures" : "Figures"}
-            />
-
-            <ProjectCard
-              title={ar ? "نموذج هندسي" : "Engineering Model"}
-              category={ar ? "Engineering" : "Engineering"}
-            />
-
-            <ProjectCard
-              title={ar ? "نموذج PCB" : "PCB Prototype"}
-              category="PCB"
-            />
-
-            <ProjectCard
-              title={ar ? "منتج مخصص" : "Custom Product"}
-              category={ar ? "Custom" : "Custom"}
-            />
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          INDUSTRIES
-      ====================================================== */}
-      <section className="bg-white py-20 sm:py-28">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              {ar ? "القطاعات" : "Industries"}
-            </span>
-
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
-              {ar
-                ? "نخدم احتياجات متعددة"
-                : "Built for Different Applications"}
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              ar
-                ? "الهندسة والصناعة"
-                : "Engineering & Industrial",
-              ar
-                ? "الصيانة وقطع الغيار"
-                : "Maintenance & Spare Parts",
-              ar
-                ? "العمارة والتصميم"
-                : "Architecture & Design",
-              ar ? "التعليم" : "Education",
-              ar ? "تطوير المنتجات" : "Product Development",
-              ar ? "الإبداع والأعمال" : "Creative & Business",
-            ].map((item) => (
+            return (
               <div
-                key={item}
-                className="group rounded-2xl border border-zinc-200 bg-white p-6 transition hover:-translate-y-1 hover:border-zinc-400 hover:shadow-lg"
+                key={item.title}
+                className="group rounded-[2rem] border border-zinc-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                <Factory className="h-6 w-6 text-zinc-900" />
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white">
+                    <Icon className="h-5 w-5" />
+                  </div>
 
-                <h3 className="mt-6 font-semibold text-zinc-950">
-                  {item}
+                  <span className="text-xs font-black text-zinc-300">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                <h3 className="mt-8 text-xl font-black">
+                  {item.title}
                 </h3>
 
-                <ArrowRight className="mt-8 h-4 w-4 text-zinc-400 transition group-hover:translate-x-1 group-hover:text-zinc-900 rtl:rotate-180" />
+                <p className="mt-3 text-sm leading-7 text-zinc-500">
+                  {item.description}
+                </p>
               </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
 
-      {/* =====================================================
-          TRAINING
-      ====================================================== */}
-      <section className="bg-zinc-950 py-20 text-white sm:py-28">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div className="max-w-3xl">
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                {ar ? "التدريب" : "Training"}
+/* =========================================================
+   SERVICES
+========================================================= */
+
+function ServicesSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const iconMap: Record<string, string> = {
+    "3d-printing": "printer",
+    "cad-design": "design",
+    "rapid-prototyping": "prototype",
+    cnc: "cnc",
+    pcb: "pcb",
+    "uv-printing": "uv",
+    "custom-models": "custom",
+    "printer-maintenance": "maintenance",
+  };
+
+  return (
+    <section
+      id="services"
+      className="bg-white py-20 sm:py-24"
+    >
+      <Container>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading
+            eyebrow={
+              ar
+                ? "خدماتنا"
+                : "Our Services"
+            }
+            title={
+              ar
+                ? "حلول تصنيع تبدأ من احتياجك."
+                : "Manufacturing solutions built around your needs."
+            }
+            description={
+              ar
+                ? "من التصميم والطباعة إلى التصنيع الرقمي والصيانة، نوفر لك سلسلة متكاملة من الخدمات تحت سقف واحد."
+                : "From design and printing to digital fabrication and maintenance, we provide an integrated range of services under one roof."
+            }
+          />
+
+          <Link
+            href={`/${locale}/services`}
+            className="group inline-flex shrink-0 items-center gap-2 text-sm font-bold"
+          >
+            {ar
+              ? "كل الخدمات"
+              : "All Services"}
+
+            <ArrowRight
+              className={[
+                "h-4 w-4 transition-transform group-hover:translate-x-1",
+                ar
+                  ? "rotate-180 group-hover:-translate-x-1"
+                  : "",
+              ].join(" ")}
+            />
+          </Link>
+        </div>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service, index) => (
+            <ServiceCard
+              key={service.slug}
+              title={
+                ar
+                  ? service.titleAr
+                  : service.title
+              }
+              description={
+                ar
+                  ? service.shortDescriptionAr
+                  : service.shortDescription
+              }
+              href={`/${locale}/services/${service.slug}`}
+              index={index + 1}
+              icon={
+                iconMap[service.slug] ??
+                "prototype"
+              }
+            />
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   PROCESS
+========================================================= */
+
+function ProcessSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const steps = [
+    {
+      number: "01",
+      title: ar ? "Brief" : "Brief",
+      description: ar
+        ? "نفهم الفكرة والمتطلبات والاستخدام النهائي."
+        : "We understand the idea, requirements and final application.",
+    },
+    {
+      number: "02",
+      title: ar ? "Design" : "Design",
+      description: ar
+        ? "نجهز التصميم أو نراجع ملف CAD ونختار التقنية المناسبة."
+        : "We prepare or review the CAD design and select the right technology.",
+    },
+    {
+      number: "03",
+      title: ar ? "Quote" : "Quote",
+      description: ar
+        ? "نحدد الخامة والكمية ووقت الإنتاج والتكلفة."
+        : "We define material, quantity, production time and cost.",
+    },
+    {
+      number: "04",
+      title: ar ? "Prototype" : "Prototype",
+      description: ar
+        ? "نصنع النموذج الأولي عند الحاجة للمراجعة والاختبار."
+        : "We produce a prototype when validation is required.",
+    },
+    {
+      number: "05",
+      title: ar ? "Production" : "Production",
+      description: ar
+        ? "بعد الاعتماد نبدأ الإنتاج الفردي أو الدفعات."
+        : "After approval, we begin single-unit or batch production.",
+    },
+    {
+      number: "06",
+      title: ar ? "Quality Control" : "Quality Control",
+      description: ar
+        ? "نفحص الشكل والأبعاد والوظيفة حسب طبيعة المشروع."
+        : "We inspect appearance, dimensions and function based on the project.",
+    },
+    {
+      number: "07",
+      title: ar ? "Delivery" : "Delivery",
+      description: ar
+        ? "نسلم المنتج النهائي بالشكل المتفق عليه."
+        : "We deliver the finished product as agreed.",
+    },
+  ];
+
+  return (
+    <section className="im-dark-grid overflow-hidden py-20 text-white sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "طريقة العمل"
+              : "How It Works"
+          }
+          title={
+            ar
+              ? "عملية واضحة من البداية للنهاية."
+              : "A clear process from start to finish."
+          }
+          description={
+            ar
+              ? "نعمل بمنهج منظم يقلل المفاجآت ويحافظ على الجودة قبل وأثناء الإنتاج."
+              : "A structured workflow that reduces surprises and protects quality before and during production."
+          }
+        />
+
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, index) => (
+            <div
+              key={step.number}
+              className={[
+                "relative rounded-[1.75rem] border border-white/10 bg-white/[0.035] p-6",
+                index === 6
+                  ? "lg:col-span-1"
+                  : "",
+              ].join(" ")}
+            >
+              <span className="text-xs font-black tracking-[0.15em] text-[#c59b27]">
+                {step.number}
               </span>
 
-              <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+              <h3 className="mt-8 text-lg font-black">
+                {step.title}
+              </h3>
+
+              <p className="mt-3 text-sm leading-7 text-zinc-400">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#c59b27]/20 bg-[#c59b27]/5 px-5 py-4 text-sm text-zinc-300">
+          <CheckCircle2 className="h-5 w-5 shrink-0 text-[#c59b27]" />
+
+          <span>
+            {ar
+              ? "عند الإنتاج على دفعات، نعتمد النموذج الأولي قبل بدء الكمية."
+              : "For batch production, the approved prototype comes before the full quantity."}
+          </span>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   TECHNOLOGY
+========================================================= */
+
+function TechnologySection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const technologies = [
+    {
+      code: "FDM",
+      title: ar
+        ? "طباعة FDM"
+        : "FDM Printing",
+      description: ar
+        ? "عملية وعملية للأجزاء الهندسية والنماذج الأكبر."
+        : "Practical for engineering parts, functional models and larger prints.",
+      icon: Printer,
+    },
+    {
+      code: "RESIN",
+      title: ar
+        ? "طباعة Resin"
+        : "Resin Printing",
+      description: ar
+        ? "تفاصيل دقيقة للمجسمات والنماذج ذات التفاصيل العالية."
+        : "High-detail production for figures and detailed models.",
+      icon: Sparkles,
+    },
+    {
+      code: "CAD/CAM",
+      title: ar
+        ? "CAD / CAM"
+        : "CAD / CAM",
+      description: ar
+        ? "تصميم وتجهيز الملفات للتصنيع الرقمي."
+        : "Design and manufacturing preparation for digital production.",
+      icon: PencilRuler,
+    },
+    {
+      code: "CNC",
+      title: ar
+        ? "CNC"
+        : "CNC",
+      description: ar
+        ? "حفر ونقش وتصنيع رقمي حسب طبيعة المشروع."
+        : "Drilling, engraving and digital fabrication.",
+      icon: Settings2,
+    },
+    {
+      code: "UV",
+      title: ar
+        ? "UV Printing"
+        : "UV Printing",
+      description: ar
+        ? "طباعة وتخصيص المنتجات والأسطح."
+        : "Product and surface customization.",
+      icon: Palette,
+    },
+  ];
+
+  return (
+    <section className="bg-zinc-50 py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "التقنيات"
+              : "Technology"
+          }
+          title={
+            ar
+              ? "التقنية المناسبة للتطبيق المناسب."
+              : "The right technology for the right application."
+          }
+          description={
+            ar
+              ? "نختار التقنية والخامة وطريقة التصنيع بناءً على الاستخدام النهائي، وليس بناءً على تقنية واحدة فقط."
+              : "We select technology, material and process according to the final application—not a one-size-fits-all approach."
+          }
+        />
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {technologies.map((technology) => {
+            const Icon = technology.icon;
+
+            return (
+              <div
+                key={technology.code}
+                className="group rounded-[1.75rem] border border-zinc-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <Icon className="h-5 w-5 text-zinc-950" />
+
+                  <span className="text-[10px] font-black tracking-[0.15em] text-zinc-400">
+                    {technology.code}
+                  </span>
+                </div>
+
+                <h3 className="mt-10 font-black">
+                  {technology.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-zinc-500">
+                  {technology.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+function ProjectsSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const projects = [
+    {
+      category: ar ? "هندسي" : "Engineering",
+      title: ar
+        ? "نموذج هندسي"
+        : "Engineering Model",
+      code: "ENG-01",
+    },
+    {
+      category: ar ? "نماذج أولية" : "Prototype",
+      title: ar
+        ? "نموذج أولي وظيفي"
+        : "Functional Prototype",
+      code: "PRO-02",
+    },
+    {
+      category: ar ? "مجسمات" : "Figures",
+      title: ar
+        ? "مجسم عالي التفاصيل"
+        : "High Detail Figure",
+      code: "FIG-03",
+    },
+    {
+      category: "PCB",
+      title: ar
+        ? "نموذج PCB"
+        : "PCB Prototype",
+      code: "PCB-04",
+    },
+  ];
+
+  return (
+    <section className="bg-white py-20 sm:py-24">
+      <Container>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading
+            eyebrow={
+              ar
+                ? "أعمالنا"
+                : "Selected Work"
+            }
+            title={
+              ar
+                ? "أفكار تحولت إلى أشياء حقيقية."
+                : "Ideas turned into physical objects."
+            }
+            description={
+              ar
+                ? "مجموعة من النماذج الهندسية والمجسمات والنماذج الأولية ومشاريع التصنيع الرقمي."
+                : "A selection of engineering models, figures, prototypes and digital fabrication projects."
+            }
+          />
+
+          <Link
+            href={`/${locale}/projects`}
+            className="group inline-flex shrink-0 items-center gap-2 text-sm font-bold"
+          >
+            {ar
+              ? "استكشف المشاريع"
+              : "Explore Projects"}
+
+            <ArrowRight
+              className={[
+                "h-4 w-4 transition-transform group-hover:translate-x-1",
+                ar
+                  ? "rotate-180 group-hover:-translate-x-1"
+                  : "",
+              ].join(" ")}
+            />
+          </Link>
+        </div>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {projects.map((project, index) => (
+            <Link
+              key={project.code}
+              href={`/${locale}/projects`}
+              className="group relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-100"
+            >
+              <div className="im-grid-bg relative aspect-[16/10] overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div
+                    className={[
+                      "h-40 w-40 rotate-12 rounded-[2rem] border border-zinc-300 bg-white shadow-xl transition duration-500 group-hover:scale-110 group-hover:rotate-6",
+                      index % 2 === 0
+                        ? "rounded-[2rem]"
+                        : "rounded-full",
+                    ].join(" ")}
+                  />
+                </div>
+
+                <div className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider backdrop-blur">
+                  {project.category}
+                </div>
+
+                <div className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition group-hover:scale-110">
+                  <ArrowUpRight className="h-4 w-4" />
+                </div>
+
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-zinc-950/80 to-transparent p-6 pt-24">
+                  <p className="text-[10px] font-bold tracking-[0.18em] text-white/50">
+                    {project.code}
+                  </p>
+
+                  <h3 className="mt-2 text-xl font-black text-white">
+                    {project.title}
+                  </h3>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   INDUSTRIES
+========================================================= */
+
+function IndustriesSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const industries = [
+    {
+      icon: Factory,
+      title: ar
+        ? "الهندسة والصناعة"
+        : "Engineering & Industrial",
+    },
+    {
+      icon: Wrench,
+      title: ar
+        ? "الصيانة وقطع الغيار"
+        : "Maintenance & Spare Parts",
+    },
+    {
+      icon: Building2,
+      title: ar
+        ? "العمارة والتصميم"
+        : "Architecture & Design",
+    },
+    {
+      icon: GraduationCap,
+      title: ar
+        ? "التعليم"
+        : "Education",
+    },
+    {
+      icon: Lightbulb,
+      title: ar
+        ? "تطوير المنتجات"
+        : "Product Development",
+    },
+    {
+      icon: Palette,
+      title: ar
+        ? "المجسمات والإبداع"
+        : "Creative & Collectibles",
+    },
+  ];
+
+  return (
+    <section className="bg-zinc-50 py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "القطاعات"
+              : "Industries"
+          }
+          title={
+            ar
+              ? "التصنيع الرقمي يخدم أكثر من مجال."
+              : "Digital manufacturing serves more than one industry."
+          }
+          description={
+            ar
+              ? "نخدم الاحتياجات الهندسية والإبداعية والتعليمية والتجارية من خلال حلول تصنيع مرنة."
+              : "We support engineering, creative, educational and commercial needs through flexible manufacturing solutions."
+          }
+        />
+
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {industries.map((industry) => {
+            const Icon = industry.icon;
+
+            return (
+              <div
+                key={industry.title}
+                className="flex items-center gap-5 rounded-2xl border border-zinc-200 bg-white p-5"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-zinc-100">
+                  <Icon className="h-5 w-5" />
+                </div>
+
+                <span className="text-sm font-bold text-zinc-800">
+                  {industry.title}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   TRAINING
+========================================================= */
+
+function TrainingSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  return (
+    <section className="bg-white py-20 sm:py-24">
+      <Container>
+        <div className="overflow-hidden rounded-[2.5rem] bg-zinc-950 p-7 text-white sm:p-10 lg:p-14">
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-zinc-950">
+                <GraduationCap className="h-5 w-5" />
+              </div>
+
+              <p className="mt-7 text-xs font-black uppercase tracking-[0.2em] text-zinc-500">
+                {ar
+                  ? "التدريب"
+                  : "Training"}
+              </p>
+
+              <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
                 {ar
                   ? "تعلّم. اصنع. أتقن."
                   : "Learn. Build. Master."}
               </h2>
 
-              <p className="mt-6 text-base leading-8 text-zinc-400 sm:text-lg">
+              <p className="mt-5 max-w-lg text-sm leading-7 text-zinc-400 sm:text-base">
                 {ar
-                  ? "برامج تدريبية عملية في التصميم ثلاثي الأبعاد، الـSlicing، الطباعة والصيانة."
-                  : "Practical training in 3D design, slicing, printing, and printer maintenance."}
+                  ? "دورات عملية تساعدك على فهم التصميم ثلاثي الأبعاد والطباعة والـSlicing وصيانة الطابعات."
+                  : "Practical courses covering 3D design, slicing, printing and printer maintenance."}
               </p>
-            </div>
-
-            <Button
-              href={`/${locale}/training`}
-              variant="secondary"
-            >
-              <GraduationCap className="me-2 h-4 w-4" />
-              {ar ? "استكشف التدريب" : "Explore Training"}
-            </Button>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <TrainingCard
-              title={ar ? "3D Design" : "3D Design"}
-              description={
-                ar
-                  ? "تعلم إنشاء النماذج."
-                  : "Learn to create 3D models."
-              }
-            />
-
-            <TrainingCard
-              title={ar ? "Slicing" : "Slicing"}
-              description={
-                ar
-                  ? "إعداد الملفات للطباعة."
-                  : "Prepare files for printing."
-              }
-            />
-
-            <TrainingCard
-              title={ar ? "3D Printing" : "3D Printing"}
-              description={
-                ar
-                  ? "افهم الطباعة والإعدادات."
-                  : "Understand printing and parameters."
-              }
-            />
-
-            <TrainingCard
-              title={ar ? "Maintenance" : "Maintenance"}
-              description={
-                ar
-                  ? "تعلم تشخيص وصيانة الطابعات."
-                  : "Learn printer diagnostics and maintenance."
-              }
-            />
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          MAINTENANCE CTA
-      ====================================================== */}
-      <section className="border-b border-zinc-200 bg-white py-16 sm:py-20">
-        <Container>
-          <div className="overflow-hidden rounded-3xl bg-zinc-100">
-            <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white">
-                  <Wrench className="h-6 w-6" />
-                </div>
-
-                <h2 className="mt-6 text-2xl font-bold text-zinc-950 sm:text-3xl">
-                  {ar
-                    ? "هل تواجه مشكلة مع طابعتك ثلاثية الأبعاد؟"
-                    : "Is Your 3D Printer Giving You Trouble?"}
-                </h2>
-
-                <p className="mt-4 max-w-2xl leading-7 text-zinc-600">
-                  {ar
-                    ? "نوفر خدمات التشخيص والصيانة والتنظيف والمعايرة وتحسين أداء الطابعات."
-                    : "We provide diagnostics, maintenance, cleaning, calibration, and printer performance optimization."}
-                </p>
-              </div>
-
-              <Button href={`/${locale}/services`}>
-                {ar ? "اطلب خدمة الصيانة" : "Request Maintenance"}
-                <ArrowRight className="ms-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          WHY US
-      ====================================================== */}
-      <section className="bg-white py-20 sm:py-28">
-        <Container>
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                {ar ? "لماذا Infinity Model؟" : "Why Infinity Model?"}
-              </span>
-
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
-                {ar
-                  ? "أكثر من مجرد طباعة ثلاثية الأبعاد"
-                  : "More Than Just 3D Printing"}
-              </h2>
-
-              <p className="mt-6 max-w-xl text-base leading-8 text-zinc-600">
-                {ar
-                  ? "نحن نعمل كاستوديو للتصنيع الرقمي يجمع بين الهندسة والتصميم والتصنيع والإبداع في workflow واحد."
-                  : "We operate as a digital manufacturing studio combining engineering, design, fabrication, and creativity in one workflow."}
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <WhyCard
-                icon={<Factory />}
-                title={ar ? "خبرة هندسية" : "Engineering Mindset"}
-              />
-
-              <WhyCard
-                icon={<Printer />}
-                title={ar ? "تقنيات حديثة" : "Modern Technology"}
-              />
-
-              <WhyCard
-                icon={<PackageCheck />}
-                title={ar ? "جودة قابلة للتكرار" : "Repeatable Quality"}
-              />
-
-              <WhyCard
-                icon={<Zap />}
-                title={ar ? "سرعة عملية" : "Practical Turnaround"}
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          QUALITY
-      ====================================================== */}
-      <section className="bg-zinc-50 py-20 sm:py-28">
-        <Container>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              {ar ? "الجودة" : "Quality"}
-            </span>
-
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
-              {ar
-                ? "جودة يمكنك الاعتماد عليها"
-                : "Quality You Can Rely On"}
-            </h2>
-
-            <p className="mt-5 text-base leading-8 text-zinc-600 sm:text-lg">
-              {ar
-                ? "نستخدم عمليات منظمة للحفاظ على جودة المنتج من التصميم وحتى التسليم."
-                : "Structured processes help us maintain product quality from design through delivery."}
-            </p>
-          </div>
-
-          <div className="mx-auto mt-14 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              ar ? "الصيانة الوقائية للمعدات" : "Preventive Equipment Maintenance",
-              ar ? "إعدادات طباعة موحدة" : "Standardized Print Profiles",
-              ar ? "تتبع الخامات والعمليات" : "Material & Process Tracking",
-              ar ? "فحص بصري ووظيفي" : "Visual & Functional Checks",
-              ar ? "فحص الأبعاد عند الحاجة" : "Dimensional Inspection",
-              ar ? "موافقة العميل قبل الإنتاج الكمي" : "Customer Approval Before Batch Production",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex gap-4 rounded-2xl border border-zinc-200 bg-white p-5"
-              >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-white">
-                  <Check className="h-4 w-4" />
-                </div>
-
-                <p className="text-sm font-medium leading-6 text-zinc-800">
-                  {item}
-                </p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          ABOUT
-      ====================================================== */}
-      <section className="bg-white py-20 sm:py-28">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div>
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                {ar ? "عن Infinity Model" : "About Infinity Model"}
-              </span>
-
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
-                {ar
-                  ? "نربط بين الأفكار والواقع"
-                  : "Bridging Ideas and Reality"}
-              </h2>
-
-              <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg">
-                {ar
-                  ? "Infinity Model هو استوديو للتصنيع الرقمي في جازان يجمع التصميم، التصنيع الإضافي، النمذجة الأولية والتصنيع الرقمي لمساعدة الأفراد والمهندسين والشركات على تحويل الأفكار إلى منتجات ملموسة."
-                  : "Infinity Model is a digital manufacturing studio in Jizan combining design, additive manufacturing, prototyping, and digital fabrication to help individuals, engineers, and businesses turn ideas into physical products."}
-              </p>
-
-              <div className="mt-8">
-                <Button
-                  href={`/${locale}/about`}
-                  variant="secondary"
-                >
-                  {ar ? "اعرف المزيد عنا" : "Learn More About Us"}
-                  <ArrowRight className="ms-2 h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="rounded-3xl bg-zinc-950 p-8 text-white sm:p-10">
-              <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">
-                Infinity Model
-              </p>
-
-              <p className="mt-8 text-3xl font-bold leading-tight sm:text-4xl">
-                {ar
-                  ? "Design. Prototype. Manufacture."
-                  : "Design. Prototype. Manufacture."}
-              </p>
-
-              <div className="mt-10 h-px bg-zinc-800" />
-
-              <p className="mt-8 text-sm leading-7 text-zinc-400">
-                {ar
-                  ? "منصة مترابطة تجمع التصميم والنمذجة والتخصيص والتصنيع."
-                  : "A connected workflow where design, prototyping, customization, and manufacturing work together."}
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          EQUIPMENT
-      ====================================================== */}
-      <section className="bg-zinc-950 py-20 text-white sm:py-28">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-400">
-              {ar ? "المعدات" : "Equipment"}
-            </span>
-
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              {ar
-                ? "تقنيات ومعدات نستخدمها"
-                : "Technology We Work With"}
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {["Bambu Lab H2D", "Bambu Lab H2S", "Bambu Lab P1S", "Bambu Lab A1", "Creality HALOT-X1"].map(
-              (equipment) => (
-                <div
-                  key={equipment}
-                  className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6"
-                >
-                  <Printer className="h-6 w-6 text-zinc-400" />
-
-                  <h3 className="mt-6 font-semibold">
-                    {equipment}
-                  </h3>
-
-                  <p className="mt-2 text-sm text-zinc-500">
-                    {equipment.includes("HALOT")
-                      ? "Resin"
-                      : "FDM"}
-                  </p>
-                </div>
-              )
-            )}
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          FUTURE
-      ====================================================== */}
-      <section className="bg-white py-20 sm:py-28">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              {ar ? "المستقبل" : "What's Next"}
-            </span>
-
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
-              {ar
-                ? "نبني قدراتنا خطوة بخطوة"
-                : "Building the Next Generation of Capabilities"}
-            </h2>
-
-            <p className="mt-5 leading-8 text-zinc-600">
-              {ar
-                ? "بعض القدرات التالية تمثل اتجاهات مستقبلية للتوسع والتطوير."
-                : "The following capabilities represent future directions for expansion and development."}
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ar ? "3D Scanning" : "3D Scanning",
-              ar ? "Reverse Engineering" : "Reverse Engineering",
-              ar ? "AI-Assisted Design" : "AI-Assisted Design",
-              ar
-                ? "Larger-Format Manufacturing"
-                : "Larger-Format Manufacturing",
-            ].map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-dashed border-zinc-300 p-6"
-              >
-                <Sparkles className="h-6 w-6 text-zinc-500" />
-
-                <h3 className="mt-6 font-semibold text-zinc-950">
-                  {item}
-                </h3>
-
-                <span className="mt-4 inline-flex rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600">
-                  {ar ? "مستقبلاً" : "Future"}
-                </span>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          FAQ
-      ====================================================== */}
-      <section className="bg-zinc-50 py-20 sm:py-28">
-        <Container>
-          <div className="mx-auto max-w-3xl">
-            <div className="text-center">
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                FAQ
-              </span>
-
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
-                {ar
-                  ? "الأسئلة الشائعة"
-                  : "Frequently Asked Questions"}
-              </h2>
-            </div>
-
-            <div className="mt-12 space-y-3">
-              <Faq
-                question={
-                  ar
-                    ? "هل أستطيع إرسال ملف STL جاهز للطباعة؟"
-                    : "Can I send a ready STL file?"
-                }
-                answer={
-                  ar
-                    ? "نعم. يمكننا مراجعة الملف وتجهيزه للطباعة واختيار الخامة والإعدادات المناسبة."
-                    : "Yes. We can review the file, prepare it for printing, and recommend suitable material and settings."
-                }
-              />
-
-              <Faq
-                question={
-                  ar
-                    ? "هل توفرون تصميم القطعة من الصفر؟"
-                    : "Can you design the part from scratch?"
-                }
-                answer={
-                  ar
-                    ? "نعم، نوفر خدمات CAD والتصميم ثلاثي الأبعاد للمنتجات والأجزاء والنماذج."
-                    : "Yes. We provide CAD and 3D design for products, parts, and models."
-                }
-              />
-
-              <Faq
-                question={
-                  ar
-                    ? "هل يمكن إنتاج أكثر من قطعة؟"
-                    : "Can you produce multiple units?"
-                }
-                answer={
-                  ar
-                    ? "نعم، يمكننا التعامل مع النماذج الأولية والطلبات الصغيرة والإنتاج الكمي حسب المشروع."
-                    : "Yes. We can handle prototypes, small batches, and production quantities depending on the project."
-                }
-              />
-
-              <Faq
-                question={
-                  ar
-                    ? "هل تقدمون صيانة للطابعات ثلاثية الأبعاد؟"
-                    : "Do you provide 3D printer maintenance?"
-                }
-                answer={
-                  ar
-                    ? "نعم، تشمل الخدمة التشخيص والتنظيف والمعايرة وتحسين الأداء حسب الحالة."
-                    : "Yes. Services include diagnostics, cleaning, calibration, and performance optimization."
-                }
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
-      <section className="bg-zinc-950 py-20 text-white sm:py-28">
-        <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <span className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              Infinity Model
-            </span>
-
-            <h2 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              {ar
-                ? "لديك فكرة؟ دعنا نبنيها معاً."
-                : "Have an Idea? Let's Build It."}
-            </h2>
-
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-zinc-400 sm:text-lg">
-              {ar
-                ? "أرسل لنا فكرتك أو ملفك وسنساعدك في تحديد أفضل طريقة لتحويلها إلى منتج حقيقي."
-                : "Send us your idea or file and we will help you determine the best way to turn it into a physical product."}
-            </p>
-
-            <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-              <Button href={`/${locale}/contact`}>
-                {ar ? "ابدأ مشروعك" : "Start Your Project"}
-                <ArrowRight className="ms-2 h-4 w-4" />
-              </Button>
 
               <Button
-                href={`/${locale}/shop`}
-                variant="secondary"
+                href={`/${locale}/training`}
+                variant="primary"
+                className="mt-8"
               >
-                {ar ? "تصفح المتجر" : "Explore Shop"}
+                {ar
+                  ? "استكشف الدورات"
+                  : "Explore Training"}
               </Button>
             </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {trainingCourses.map(
+                (course, index) => (
+                  <Link
+                    key={course.slug}
+                    href={`/${locale}/training/${course.slug}`}
+                    className="group rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:bg-white/[0.07]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black text-[#c59b27]">
+                        0{index + 1}
+                      </span>
+
+                      <ArrowUpRight className="h-4 w-4 text-zinc-600 transition group-hover:text-white" />
+                    </div>
+
+                    <h3 className="mt-7 font-black">
+                      {ar
+                        ? course.titleAr
+                        : course.title}
+                    </h3>
+
+                    <p className="mt-2 text-xs leading-6 text-zinc-500">
+                      {ar
+                        ? course.durationAr
+                        : course.duration}
+                    </p>
+                  </Link>
+                )
+              )}
+            </div>
           </div>
-        </Container>
-      </section>
+        </div>
+      </Container>
+    </section>
+  );
+}
 
-      {/* =====================================================
-          FOOTER
-      ====================================================== */}
-      <footer className="border-t border-zinc-800 bg-zinc-950 text-white">
-        <Container>
-          <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <div className="text-xl font-bold tracking-tight">
-                INFINITY MODEL
-              </div>
+/* =========================================================
+   MAINTENANCE
+========================================================= */
 
-              <p className="mt-4 max-w-xs text-sm leading-7 text-zinc-500">
-                {ar
-                  ? "التصميم • التصنيع الرقمي • النمذجة الأولية"
-                  : "DESIGN • DIGITAL MANUFACTURING • RAPID PROTOTYPING"}
-              </p>
+function MaintenanceSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
 
-              <p className="mt-4 text-sm text-zinc-500">
-                {ar
-                  ? "من الفكرة إلى الواقع الملموس."
-                  : "From idea to physical reality."}
-              </p>
+  return (
+    <section className="bg-zinc-50 py-20 sm:py-24">
+      <Container>
+        <div className="grid overflow-hidden rounded-[2.5rem] border border-zinc-200 bg-white lg:grid-cols-[1fr_0.85fr]">
+          <div className="p-8 sm:p-10 lg:p-14">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white">
+              <Wrench className="h-5 w-5" />
             </div>
 
-            <div>
-              <h3 className="font-semibold">
-                {ar ? "روابط" : "Explore"}
-              </h3>
+            <p className="mt-7 text-xs font-black uppercase tracking-[0.2em] text-zinc-400">
+              {ar
+                ? "صيانة الطابعات"
+                : "Printer Maintenance"}
+            </p>
 
-              <div className="mt-5 space-y-3 text-sm text-zinc-500">
-                <FooterLink
-                  href={`/${locale}`}
-                  text={ar ? "الرئيسية" : "Home"}
-                />
+            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+              {ar
+                ? "هل تواجه مشكلة مع طابعتك ثلاثية الأبعاد؟"
+                : "Is your 3D printer giving you trouble?"}
+            </h2>
 
-                <FooterLink
-                  href={`/${locale}/services`}
-                  text={ar ? "الخدمات" : "Services"}
-                />
+            <p className="mt-5 max-w-xl text-base leading-8 text-zinc-600">
+              {ar
+                ? "نساعد في التشخيص والصيانة الوقائية والتصحيحية وتحسين أداء الطابعة ومعالجة مشاكل جودة الطباعة."
+                : "We help diagnose, maintain and optimize 3D printers, including preventive and corrective maintenance and print-quality issues."}
+            </p>
 
-                <FooterLink
-                  href={`/${locale}/shop`}
-                  text={ar ? "المتجر" : "Shop"}
-                />
+            <Link
+              href={`/${locale}/services/printer-maintenance`}
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-zinc-950 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-zinc-800"
+            >
+              {ar
+                ? "تعرف على خدمة الصيانة"
+                : "Explore Maintenance"}
 
-                <FooterLink
-                  href={`/${locale}/projects`}
-                  text={ar ? "المشاريع" : "Projects"}
-                />
-              </div>
-            </div>
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
 
-            <div>
-              <h3 className="font-semibold">
-                {ar ? "خدمات" : "Services"}
-              </h3>
+          <div className="im-grid-bg relative min-h-[320px] overflow-hidden bg-zinc-100">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative h-52 w-64 rounded-3xl border border-zinc-300 bg-white shadow-2xl">
+                <div className="absolute left-1/2 top-8 h-28 w-40 -translate-x-1/2 rounded-2xl border border-zinc-200 bg-zinc-100" />
 
-              <div className="mt-5 space-y-3 text-sm text-zinc-500">
-                <p>{ar ? "3D Printing" : "3D Printing"}</p>
-                <p>{ar ? "CAD & Design" : "CAD & Design"}</p>
-                <p>{ar ? "Rapid Prototyping" : "Rapid Prototyping"}</p>
-                <p>{ar ? "CNC & PCB" : "CNC & PCB"}</p>
+                <div className="absolute bottom-5 left-1/2 h-3 w-32 -translate-x-1/2 rounded-full bg-zinc-200" />
               </div>
             </div>
 
-            <div>
-              <h3 className="font-semibold">
-                {ar ? "تواصل معنا" : "Contact"}
-              </h3>
+            <div className="absolute bottom-6 left-6 rounded-xl border border-zinc-200 bg-white/90 px-4 py-3 text-xs font-bold shadow-lg backdrop-blur">
+              {ar
+                ? "تشخيص • صيانة • تحسين"
+                : "Diagnose • Maintain • Optimize"}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
 
-              <div className="mt-5 flex items-start gap-3 text-sm text-zinc-500">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+/* =========================================================
+   WHY US
+========================================================= */
 
-                <span>
-                  {ar
-                    ? "جازان، المملكة العربية السعودية"
-                    : "Jizan, Saudi Arabia"}
+function WhyUsSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const reasons = [
+    {
+      icon: Target,
+      title: ar
+        ? "حلول حسب التطبيق"
+        : "Application-Focused",
+      text: ar
+        ? "لا نستخدم طريقة واحدة لكل المشاريع."
+        : "We do not force every project into one process.",
+    },
+    {
+      icon: Settings2,
+      title: ar
+        ? "عملية منظمة"
+        : "Structured Workflow",
+      text: ar
+        ? "من الـBrief حتى التسليم، كل خطوة واضحة."
+        : "From brief to delivery, every stage is defined.",
+    },
+    {
+      icon: ShieldCheck,
+      title: ar
+        ? "اهتمام بالجودة"
+        : "Quality Focus",
+      text: ar
+        ? "فحص بصري ووظيفي وأبعادي حسب المشروع."
+        : "Visual, functional and dimensional checks when required.",
+    },
+    {
+      icon: Sparkles,
+      title: ar
+        ? "تصميم وتصنيع"
+        : "Design + Manufacturing",
+      text: ar
+        ? "لا نقدم التصنيع بمعزل عن فهم التصميم."
+        : "Manufacturing is connected to design understanding.",
+    },
+  ];
+
+  return (
+    <section className="bg-white py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "لماذا Infinity Model"
+              : "Why Infinity Model"
+          }
+          title={
+            ar
+              ? "أكثر من مجرد طباعة ثلاثية الأبعاد."
+              : "More than just 3D printing."
+          }
+          description={
+            ar
+              ? "ننظر للمشروع كمنظومة تبدأ من الفكرة والتصميم وتنتهي بمنتج قابل للاستخدام."
+              : "We look at the project as a complete system—from idea and design to a usable physical product."
+          }
+        />
+
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {reasons.map((reason) => {
+            const Icon = reason.icon;
+
+            return (
+              <div
+                key={reason.title}
+                className="rounded-[1.75rem] border border-zinc-200 p-6"
+              >
+                <Icon className="h-6 w-6 text-zinc-950" />
+
+                <h3 className="mt-8 font-black">
+                  {reason.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-zinc-500">
+                  {reason.text}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   QUALITY
+========================================================= */
+
+function QualitySection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const points = [
+    ar
+      ? "صيانة وقائية للمعدات"
+      : "Preventive equipment maintenance",
+    ar
+      ? "إعدادات طباعة موحدة"
+      : "Standardized print profiles",
+    ar
+      ? "تتبع الخامات والعمليات"
+      : "Material and process traceability",
+    ar
+      ? "فحص بصري ووظيفي"
+      : "Visual and functional inspection",
+    ar
+      ? "فحص الأبعاد عند الحاجة"
+      : "Dimensional inspection when required",
+    ar
+      ? "اعتماد النموذج قبل الإنتاج الكمي"
+      : "Prototype approval before batch production",
+  ];
+
+  return (
+    <section className="im-dark-grid py-20 text-white sm:py-24">
+      <Container>
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-zinc-950">
+              <BadgeCheck className="h-5 w-5" />
+            </div>
+
+            <p className="mt-7 text-xs font-black uppercase tracking-[0.2em] text-zinc-500">
+              {ar ? "الجودة" : "Quality"}
+            </p>
+
+            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+              {ar
+                ? "جودة يمكنك الاعتماد عليها."
+                : "Quality you can rely on."}
+            </h2>
+
+            <p className="mt-5 max-w-xl text-sm leading-8 text-zinc-400 sm:text-base">
+              {ar
+                ? "الجودة بالنسبة لنا ليست خطوة أخيرة؛ بل جزء من طريقة العمل منذ تجهيز الملف وحتى المنتج النهائي."
+                : "Quality is not just a final step; it is part of the workflow from file preparation to the finished product."}
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {points.map((point) => (
+              <div
+                key={point}
+                className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-5"
+              >
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#c59b27]" />
+
+                <span className="text-sm leading-6 text-zinc-300">
+                  {point}
                 </span>
               </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
 
-              <div className="mt-6">
-                <Button href={`/${locale}/contact`}>
-                  {ar ? "تواصل معنا" : "Contact Us"}
-                </Button>
-              </div>
+/* =========================================================
+   ABOUT
+========================================================= */
+
+function AboutSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  return (
+    <section className="bg-zinc-50 py-20 sm:py-24">
+      <Container>
+        <div className="grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+          <div>
+            <SectionHeading
+              eyebrow={
+                ar
+                  ? "من نحن"
+                  : "About Infinity Model"
+              }
+              title={
+                ar
+                  ? "نربط بين الأفكار والواقع."
+                  : "Bridging ideas and reality."
+              }
+              description={
+                ar
+                  ? "Infinity Model هو استوديو للتصنيع الرقمي يجمع بين التصميم والتصنيع الإضافي والنمذجة الأولية والتخصيص لمساعدة العملاء على الانتقال من الملف الرقمي إلى المنتج الحقيقي."
+                  : "Infinity Model is a digital manufacturing studio combining design, additive manufacturing, rapid prototyping and customization to help customers move from digital files to physical products."
+              }
+            />
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href={`/${locale}/about`}
+                className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-6 py-3.5 text-sm font-bold text-white"
+              >
+                {ar
+                  ? "تعرف علينا أكثر"
+                  : "Learn More"}
+
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
 
-          <div className="border-t border-zinc-800 py-6 text-center text-xs text-zinc-600">
-            © {new Date().getFullYear()} Infinity Model.{" "}
-            {ar
-              ? "جميع الحقوق محفوظة."
-              : "All rights reserved."}
+          <div className="rounded-[2rem] border border-zinc-200 bg-white p-7 shadow-sm sm:p-9">
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white">
+                <ScanLine className="h-5 w-5" />
+              </div>
+
+              <div>
+                <p className="font-black">
+                  DESIGN
+                </p>
+
+                <p className="text-xs text-zinc-500">
+                  {ar
+                    ? "تصميم رقمي"
+                    : "Digital Design"}
+                </p>
+              </div>
+            </div>
+
+            <div className="my-7 h-px bg-zinc-200" />
+
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-100">
+                <Printer className="h-5 w-5" />
+              </div>
+
+              <div>
+                <p className="font-black">
+                  PROTOTYPE
+                </p>
+
+                <p className="text-xs text-zinc-500">
+                  {ar
+                    ? "نموذج أولي"
+                    : "Rapid Prototype"}
+                </p>
+              </div>
+            </div>
+
+            <div className="my-7 h-px bg-zinc-200" />
+
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-100">
+                <PackageCheck className="h-5 w-5" />
+              </div>
+
+              <div>
+                <p className="font-black">
+                  MANUFACTURE
+                </p>
+
+                <p className="text-xs text-zinc-500">
+                  {ar
+                    ? "منتج فعلي"
+                    : "Physical Product"}
+                </p>
+              </div>
+            </div>
           </div>
-        </Container>
-      </footer>
-    </>
-  );
-}
-
-/* ============================================================
-   SMALL COMPONENTS
-============================================================ */
-
-function FeatureCard({
-  icon,
-  number,
-  title,
-  description,
-}: {
-  icon: React.ReactNode;
-  number: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-3xl border border-zinc-200 bg-white p-7 transition hover:-translate-y-1 hover:shadow-xl">
-      <div className="flex items-center justify-between">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-zinc-950 text-white">
-          {icon}
         </div>
-
-        <span className="text-sm font-bold text-zinc-300">
-          {number}
-        </span>
-      </div>
-
-      <h3 className="mt-8 text-xl font-bold text-zinc-950">
-        {title}
-      </h3>
-
-      <p className="mt-3 leading-7 text-zinc-600">
-        {description}
-      </p>
-    </div>
+      </Container>
+    </section>
   );
 }
 
-function DarkServiceCard({
-  icon,
-  title,
-  description,
+/* =========================================================
+   EQUIPMENT
+========================================================= */
+
+function EquipmentSection({
+  locale,
 }: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
+  locale: string;
 }) {
+  const ar = locale === "ar";
+
+  const machines = [
+    {
+      brand: "Bambu Lab",
+      model: "H2D",
+      category: ar
+        ? "FDM"
+        : "FDM",
+    },
+    {
+      brand: "Bambu Lab",
+      model: "H2S",
+      category: ar
+        ? "FDM"
+        : "FDM",
+    },
+    {
+      brand: "Bambu Lab",
+      model: "P1S",
+      category: ar
+        ? "FDM"
+        : "FDM",
+    },
+    {
+      brand: "Bambu Lab",
+      model: "A1",
+      category: ar
+        ? "FDM"
+        : "FDM",
+    },
+    {
+      brand: "Creality",
+      model: "HALOT-X1",
+      category: ar
+        ? "Resin"
+        : "Resin",
+    },
+  ];
+
   return (
-    <div className="bg-zinc-950 p-6 transition hover:bg-zinc-900 sm:p-7">
-      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-zinc-950">
-        {icon}
-      </div>
+    <section className="bg-white py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "المعدات"
+              : "Equipment"
+          }
+          title={
+            ar
+              ? "معدات وتقنيات للتصنيع الفعلي."
+              : "Equipment built for real production."
+          }
+          description={
+            ar
+              ? "نستخدم مجموعة من معدات التصنيع الرقمي لتغطية التطبيقات الهندسية والإبداعية."
+              : "Our equipment portfolio supports both engineering and creative manufacturing applications."
+          }
+        />
 
-      <h3 className="mt-7 font-bold">{title}</h3>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {machines.map((machine) => (
+            <div
+              key={`${machine.brand}-${machine.model}`}
+              className="group overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-50"
+            >
+              <div className="im-grid-bg flex aspect-square items-center justify-center">
+                <div className="relative h-28 w-28 rounded-[1.75rem] border border-zinc-300 bg-white shadow-lg transition duration-500 group-hover:scale-105">
+                  <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-zinc-200 bg-zinc-100" />
+                </div>
+              </div>
 
-      <p className="mt-3 text-sm leading-6 text-zinc-500">
-        {description}
-      </p>
-    </div>
+              <div className="p-5">
+                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-zinc-400">
+                  {machine.brand}
+                </p>
+
+                <h3 className="mt-2 text-lg font-black">
+                  {machine.model}
+                </h3>
+
+                <p className="mt-1 text-xs text-zinc-500">
+                  {machine.category}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 }
 
-function ProcessCard({
-  number,
-  title,
-  description,
+/* =========================================================
+   FUTURE
+========================================================= */
+
+function FutureSection({
+  locale,
 }: {
-  number: string;
-  title: string;
-  description: string;
+  locale: string;
 }) {
+  const ar = locale === "ar";
+
+  const futureItems = [
+    ar
+      ? "3D Scanning"
+      : "3D Scanning",
+    ar
+      ? "Reverse Engineering"
+      : "Reverse Engineering",
+    ar
+      ? "AI-Assisted Design"
+      : "AI-Assisted Design",
+    ar
+      ? "Larger-Format Manufacturing"
+      : "Larger-Format Manufacturing",
+    ar
+      ? "Advanced Materials"
+      : "Advanced Materials",
+  ];
+
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white p-5">
-      <span className="text-xs font-bold tracking-widest text-zinc-400">
-        {number}
-      </span>
+    <section className="bg-zinc-50 py-20 sm:py-24">
+      <Container>
+        <div className="rounded-[2.5rem] border border-zinc-200 bg-white p-8 sm:p-10 lg:p-14">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">
+                {ar
+                  ? "المستقبل"
+                  : "What's Next"}
+              </p>
 
-      <h3 className="mt-5 font-bold text-zinc-950">
-        {title}
-      </h3>
+              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+                {ar
+                  ? "نبني قدراتنا خطوة بخطوة."
+                  : "Expanding our capabilities step by step."}
+              </h2>
 
-      <p className="mt-2 text-sm leading-6 text-zinc-500">
-        {description}
-      </p>
-    </div>
+              <p className="mt-5 text-sm leading-7 text-zinc-500">
+                {ar
+                  ? "بعض هذه التقنيات تمثل اتجاهات مستقبلية ضمن تطور Infinity Model."
+                  : "Some of these capabilities represent future directions as Infinity Model continues to grow."}
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {futureItems.map((item, index) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-5"
+                >
+                  <span className="text-xs font-black text-zinc-300">
+                    0{index + 1}
+                  </span>
+
+                  <span className="text-sm font-bold">
+                    {item}
+                  </span>
+
+                  <span className="ml-auto rounded-full border border-zinc-200 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-zinc-400">
+                    Future
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }
 
-function CheckItem({ text }: { text: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-950 text-white">
-        <Check className="h-4 w-4" />
-      </div>
+/* =========================================================
+   FAQ
+========================================================= */
 
-      <span className="text-sm font-medium text-zinc-800">
-        {text}
-      </span>
-    </div>
-  );
-}
-
-function TechBox({
-  title,
-  subtitle,
+function FaqSection({
+  locale,
 }: {
-  title: string;
-  subtitle: string;
+  locale: string;
 }) {
+  const ar = locale === "ar";
+
+  const faqs = [
+    {
+      question: ar
+        ? "هل أحتاج إلى ملف 3D جاهز؟"
+        : "Do I need a ready 3D file?",
+      answer: ar
+        ? "ليس بالضرورة. يمكننا العمل من فكرة أو رسم أو أبعاد حسب نوع المشروع."
+        : "Not necessarily. Depending on the project, we can work from an idea, sketch or dimensions.",
+    },
+    {
+      question: ar
+        ? "ما هي الخامات التي توفرونها؟"
+        : "What materials do you offer?",
+      answer: ar
+        ? "نوفر خيارات مثل PLA وPETG وABS وASA للطباعة FDM، بالإضافة إلى Resin لتطبيقات التفاصيل العالية."
+        : "We offer materials such as PLA, PETG, ABS and ASA for FDM, plus resin for high-detail applications.",
+    },
+    {
+      question: ar
+        ? "هل توفرون إنتاج كميات؟"
+        : "Do you handle batch production?",
+      answer: ar
+        ? "نعم، ويمكن اعتماد نموذج أولي قبل بدء الإنتاج على دفعات."
+        : "Yes. A prototype can be approved before batch production begins.",
+    },
+    {
+      question: ar
+        ? "هل توفرون صيانة للطابعات؟"
+        : "Do you provide printer maintenance?",
+      answer: ar
+        ? "نعم، لدينا خدمة مخصصة لصيانة وتشخيص وتحسين أداء الطابعات ثلاثية الأبعاد."
+        : "Yes. We provide dedicated 3D printer diagnosis, maintenance and optimization services.",
+    },
+    {
+      question: ar
+        ? "هل يمكن طلب تصميم خاص؟"
+        : "Can I request a custom design?",
+      answer: ar
+        ? "نعم. التصميم الهندسي والمجسمات المخصصة جزء من خدماتنا."
+        : "Yes. Engineering design and custom models are part of our services.",
+    },
+  ];
+
   return (
-    <div className="group relative overflow-hidden rounded-3xl bg-zinc-950 p-7 text-white">
-      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full border border-zinc-800 transition group-hover:scale-125" />
+    <section className="bg-white py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={
+            ar
+              ? "الأسئلة الشائعة"
+              : "FAQ"
+          }
+          title={
+            ar
+              ? "أسئلة قبل أن تبدأ."
+              : "Questions before you start."
+          }
+          centered
+        />
 
-      <div className="relative">
-        <p className="text-2xl font-bold">{title}</p>
+        <div className="mx-auto mt-12 max-w-3xl divide-y divide-zinc-200 border-y border-zinc-200">
+          {faqs.map((faq) => (
+            <details
+              key={faq.question}
+              className="group py-5"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-sm font-bold text-zinc-900 [&::-webkit-details-marker]:hidden">
+                <span>
+                  {faq.question}
+                </span>
 
-        <p className="mt-3 text-sm text-zinc-500">
-          {subtitle}
-        </p>
-      </div>
-    </div>
+                <ChevronDown className="h-5 w-5 shrink-0 text-zinc-400 transition-transform group-open:rotate-180" />
+              </summary>
+
+              <p className="max-w-2xl pt-4 text-sm leading-7 text-zinc-500">
+                {faq.answer}
+              </p>
+            </details>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 }
 
-function ProjectCard({
-  title,
-  category,
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+function FinalCta({
+  locale,
 }: {
-  title: string;
-  category: string;
+  locale: string;
 }) {
+  const ar = locale === "ar";
+
   return (
-    <div className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white">
-      <div className="flex aspect-square items-center justify-center bg-gradient-to-br from-zinc-100 via-zinc-200 to-zinc-300">
-        <div className="h-20 w-20 rounded-3xl border border-white/70 bg-white/40 shadow-inner backdrop-blur" />
-      </div>
+    <section className="bg-white pb-20 sm:pb-24">
+      <Container>
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-950 px-7 py-14 text-center text-white sm:px-12 sm:py-20">
+          <div className="absolute inset-0 im-dark-grid opacity-60" />
 
-      <div className="p-5">
-        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-          {category}
-        </span>
+          <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-[#c59b27]/10 blur-3xl" />
 
-        <h3 className="mt-2 font-bold text-zinc-950">
-          {title}
-        </h3>
-      </div>
-    </div>
-  );
-}
+          <div className="relative mx-auto max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-zinc-500">
+              {ar
+                ? "ابدأ مشروعك"
+                : "Start Your Project"}
+            </p>
 
-function TrainingCard({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-      <GraduationCap className="h-6 w-6 text-zinc-400" />
+            <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
+              {ar
+                ? "لديك فكرة؟ دعنا نبنيها معًا."
+                : "Have an idea? Let's build it."}
+            </h2>
 
-      <h3 className="mt-6 font-bold">{title}</h3>
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
+              {ar
+                ? "أرسل لنا فكرتك أو ملفك أو متطلباتك، وسنساعدك في تحديد أفضل طريقة لتحويلها إلى واقع."
+                : "Send us your idea, file or requirements and we will help determine the best way to turn it into reality."}
+            </p>
 
-      <p className="mt-3 text-sm leading-6 text-zinc-500">
-        {description}
-      </p>
-    </div>
-  );
-}
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link
+                href={`/${locale}/contact`}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-black text-zinc-950 transition hover:bg-zinc-200"
+              >
+                {ar
+                  ? "اطلب عرض سعر"
+                  : "Request a Quote"}
 
-function WhyCard({
-  icon,
-  title,
-}: {
-  icon: React.ReactNode;
-  title: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-zinc-200 p-6">
-      <div className="text-zinc-900">{icon}</div>
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
 
-      <h3 className="mt-5 font-semibold text-zinc-950">
-        {title}
-      </h3>
-    </div>
-  );
-}
-
-function Faq({
-  question,
-  answer,
-}: {
-  question: string;
-  answer: string;
-}) {
-  return (
-    <details className="group rounded-2xl border border-zinc-200 bg-white p-5">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-zinc-950">
-        <span>{question}</span>
-
-        <ChevronDown className="h-5 w-5 shrink-0 text-zinc-400 transition group-open:rotate-180" />
-      </summary>
-
-      <p className="mt-4 max-w-2xl leading-7 text-zinc-600">
-        {answer}
-      </p>
-    </details>
-  );
-}
-
-function FooterLink({
-  href,
-  text,
-}: {
-  href: string;
-  text: string;
-}) {
-  return (
-    <a
-      href={href}
-      className="block transition hover:text-white"
-    >
-      {text}
-    </a>
+              <Link
+                href={`/${locale}/services`}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 py-4 text-sm font-bold text-white transition hover:bg-white/[0.08]"
+              >
+                {ar
+                  ? "استكشف الخدمات"
+                  : "Explore Services"}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }

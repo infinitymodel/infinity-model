@@ -1,67 +1,49 @@
 import Link from "next/link";
-import { ArrowRight, FolderKanban } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { notFound } from "next/navigation";
 
 import Container from "@/components/ui/Container";
-import Navbar from "@/components/layout/Navbar";
+import PageHeader from "@/components/ui/PageHeader";
 
-import ar from "@/i18n/ar.json";
-import en from "@/i18n/en.json";
+import { isValidLocale } from "@/i18n/config";
 
-import {
-  isValidLocale,
-  type Locale,
-} from "@/i18n/config";
-
-const translations: Record<Locale, typeof ar> = {
-  ar,
-  en,
-};
-
-const projects = [
+const categories = [
   {
-    slug: "engineering",
-    title: "Engineering Projects",
-    titleAr: "مشاريع هندسية",
-    description:
-      "Functional parts, fixtures, prototypes and engineering models.",
-    descriptionAr:
-      "قطع وظيفية وFixtures ونماذج أولية ومجسمات هندسية.",
+    key: "engineering",
+    title: "Engineering",
+    titleAr: "الهندسة",
+    image: "/images/services/3d-printing/resin-printer.jpg",
   },
   {
-    slug: "prototypes",
-    title: "Rapid Prototypes",
-    titleAr: "نماذج أولية سريعة",
-    description:
-      "Concept development and physical validation.",
-    descriptionAr:
-      "تطوير الأفكار واختبارها بشكل فعلي.",
+    key: "prototypes",
+    title: "Prototypes",
+    titleAr: "النماذج الأولية",
+    image: "/images/projects/prototypes/dragon-display.jpg",
   },
   {
-    slug: "creative",
-    title: "Creative Projects",
-    titleAr: "مشاريع إبداعية",
-    description:
-      "Figures, sculptures, decorative products and collectibles.",
-    descriptionAr:
-      "مجسمات وتماثيل وقطع ديكور ومقتنيات.",
+    key: "figures",
+    title: "Figures",
+    titleAr: "المجسمات",
+    image: "/images/products/figures/black-panther.jpg",
   },
   {
-    slug: "pcb",
-    title: "PCB Projects",
-    titleAr: "مشاريع PCB",
-    description:
-      "Digital PCB prototyping and fabrication.",
-    descriptionAr:
-      "تصنيع النماذج الأولية للدوائر المطبوعة.",
+    key: "creative",
+    title: "Creative",
+    titleAr: "الإبداعي",
+    image: "/images/projects/creative/jizan-relief.jpg",
   },
   {
-    slug: "custom",
-    title: "Custom Manufacturing",
-    titleAr: "تصنيع حسب الطلب",
-    description:
-      "Special products developed around customer requirements.",
-    descriptionAr:
-      "منتجات خاصة يتم تطويرها حسب متطلبات العميل.",
+    key: "pcb",
+    title: "PCB",
+    titleAr: "PCB",
+    image: "/images/products/decor/incense-holder.jpg",
+  },
+  {
+    key: "custom",
+    title: "Custom",
+    titleAr: "مخصص",
+    image: "/images/projects/custom/saudi-cup-holder.jpg",
   },
 ];
 
@@ -73,72 +55,62 @@ export default async function ProjectsPage({
   const { locale } = await params;
 
   if (!isValidLocale(locale)) {
-    return null;
+    notFound();
   }
 
-  const t = translations[locale];
   const isAr = locale === "ar";
 
   return (
-    <>
-      <Navbar locale={locale} labels={t.navigation} />
-
-      <main>
-        <section className="bg-zinc-950 py-24 text-white">
-          <Container>
-            <FolderKanban className="h-10 w-10 text-zinc-400" />
-
-            <h1 className="mt-7 text-5xl font-bold tracking-tight sm:text-6xl">
-              {isAr ? "مشاريعنا" : "Our Projects"}
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400">
-              {isAr
-                ? "من النماذج الهندسية إلى المنتجات الإبداعية والتصنيع المخصص."
-                : "From engineering models to creative products and custom manufacturing."}
-            </p>
-          </Container>
-        </section>
+    <main>
+      <PageHeader
+        locale={locale}
+        eyebrow={isAr ? "المشاريع" : "Projects"}
+        title={isAr ? "أعمال رقمية، نتائج ملموسة." : "Digital work, tangible results."}
+        description={isAr ? "نماذج من أعمال Infinity Model في التصميم والتصنيع الرقمي والنمذجة الأولية." : "Selected Infinity Model work across design, digital manufacturing and rapid prototyping."}
+      />
 
         <section className="py-24">
           <Container>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project) => (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {categories.map((category) => (
                 <Link
-                  key={project.slug}
-                  href={`/${locale}/projects/${project.slug}`}
-                  className="group rounded-3xl border border-zinc-200 p-8 transition hover:-translate-y-1 hover:shadow-xl"
+                  key={category.key}
+                  href={`/${locale}/projects/${category.key}`}
+                  className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white"
                 >
-                  <span className="text-sm font-semibold text-zinc-400">
-                    01
-                  </span>
-
-                  <h2 className="mt-7 text-2xl font-bold">
-                    {isAr
-                      ? project.titleAr
-                      : project.title}
-                  </h2>
-
-                  <p className="mt-4 leading-7 text-zinc-600">
-                    {isAr
-                      ? project.descriptionAr
-                      : project.description}
-                  </p>
-
-                  <div className="mt-7 flex items-center text-sm font-semibold">
-                    {isAr ? "استكشف المشروع" : "Explore Project"}
-                    <ArrowRight
-                      className={`ms-2 h-4 w-4 ${
-                        isAr ? "rotate-180" : ""
-                      }`}
+                  <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
+                    <Image
+                      src={category.image}
+                      alt={isAr ? category.titleAr : category.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition duration-700 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/35 to-transparent" />
+                  </div>
+
+                  <div className="flex items-center justify-between p-6">
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-zinc-400">
+                        {category.key}
+                      </p>
+
+                      <h2 className="mt-2 text-xl font-bold">
+                        {isAr
+                          ? category.titleAr
+                          : category.title}
+                      </h2>
+                    </div>
+
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 transition group-hover:bg-zinc-950 group-hover:text-white">
+                      <ArrowUpRight className="h-4 w-4" />
+                    </span>
                   </div>
                 </Link>
               ))}
             </div>
           </Container>
         </section>
-      </main>
-    </>
+    </main>
   );
 }

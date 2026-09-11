@@ -1,22 +1,14 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import Navbar from "@/components/layout/Navbar";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
-import ar from "@/i18n/ar.json";
-import en from "@/i18n/en.json";
-
-import {
-  isValidLocale,
-  type Locale,
-} from "@/i18n/config";
-
-const translations: Record<Locale, typeof ar> = {
-  ar,
-  en,
-};
+import { isValidLocale } from "@/i18n/config";
+import { buildMetadata } from "@/lib/seo";
 
 const projects = {
   engineering: {
@@ -34,6 +26,12 @@ const projects = {
       "Physical prototypes for testing concepts before production.",
     descriptionAr:
       "نماذج أولية فعلية لاختبار الأفكار قبل الإنتاج.",
+  },
+  figures: {
+    title: "Figures & Collectibles",
+    titleAr: "مجسمات ومقتنيات",
+    description: "Custom figures, collectibles and display pieces created through digital manufacturing.",
+    descriptionAr: "مجسمات ومقتنيات وقطع عرض مخصصة مصنعة بتقنيات التصنيع الرقمي.",
   },
   creative: {
     title: "Creative Projects",
@@ -59,6 +57,15 @@ const projects = {
     descriptionAr:
       "منتجات وقطع يتم تطويرها حسب متطلبات العميل.",
   },
+};
+
+const projectImages: Record<keyof typeof projects, string[]> = {
+  engineering: ["/images/services/3d-printing/resin-printer.jpg", "/images/projects/prototypes/dragon-display.jpg"],
+  prototypes: ["/images/projects/prototypes/dragon-display.jpg", "/images/products/figures/dragon-winged.jpg"],
+  figures: ["/images/products/figures/black-panther.jpg", "/images/products/figures/turquoise-bust.jpg", "/images/products/figures/pink-character.jpg"],
+  creative: ["/images/projects/creative/jizan-relief.jpg", "/images/projects/creative/dragon-sculpture.jpg", "/images/products/decor/deer-wall-art.jpg"],
+  pcb: ["/images/products/decor/incense-holder.jpg", "/images/services/3d-printing/resin-printer.jpg"],
+  custom: ["/images/projects/custom/saudi-cup-holder.jpg", "/images/products/decor/incense-holder.jpg"],
 };
 
 export function generateStaticParams() {
@@ -91,16 +98,20 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const t = translations[locale];
   const isAr = locale === "ar";
+  const images = projectImages[slug as keyof typeof projectImages];
 
   return (
-    <>
-      <Navbar locale={locale} labels={t.navigation} />
-
-      <main>
-        <section className="bg-zinc-950 py-24 text-white">
-          <Container>
+    <main>
+      <section className="bg-zinc-950 py-24 text-white">
+        <Container>
+          <Breadcrumbs
+            locale={locale}
+            items={[
+              { label: isAr ? "المشاريع" : "Projects", href: `/${locale}/projects` },
+              { label: isAr ? project.titleAr : project.title },
+            ]}
+          />
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
               {isAr ? "مشروع" : "PROJECT"}
             </p>
@@ -120,16 +131,18 @@ export default async function ProjectDetailPage({
         <section className="py-24">
           <Container>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {[1, 2, 3].map((item) => (
+              {images.map((image, index) => (
                 <div
-                  key={item}
-                  className="aspect-[4/3] rounded-3xl border border-zinc-200 bg-zinc-100"
+                  key={image}
+                  className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100"
                 >
-                  <div className="flex h-full items-center justify-center text-sm text-zinc-400">
-                    {isAr
-                      ? "مكان صورة المشروع"
-                      : "Project Image Placeholder"}
-                  </div>
+                  <Image
+                    src={image}
+                    alt={`${isAr ? project.titleAr : project.title} ${index + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
               ))}
             </div>
@@ -183,7 +196,24 @@ export default async function ProjectDetailPage({
             </div>
           </Container>
         </section>
-      </main>
-    </>
+    </main>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  if (!isValidLocale(locale)) return {};
+  const project = projects[slug as keyof typeof projects];
+  if (!project) return {};
+  const ar = locale === "ar";
+  return buildMetadata({
+    locale,
+    path: `/projects/${slug}`,
+    title: ar ? project.titleAr : project.title,
+    description: ar ? project.descriptionAr : project.description,
+  });
 }

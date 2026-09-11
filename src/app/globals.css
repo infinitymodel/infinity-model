@@ -5,6 +5,12 @@
   --foreground: #111111;
   --muted: #71717a;
   --border: #e4e4e7;
+
+  --surface: #f7f7f5;
+  --surface-dark: #101010;
+
+  --accent: #c59b27;
+  --accent-light: #ead79b;
 }
 
 * {
@@ -19,10 +25,15 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
+
   font-family:
     Arial,
     Helvetica,
     sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 a {
@@ -39,6 +50,141 @@ img {
 }
 
 ::selection {
-  background: #111111;
-  color: #ffffff;
+  background: var(--accent);
+  color: #111111;
+}
+
+/* --------------------------------
+   Scrollbar
+-------------------------------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4f4f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a1a1aa;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #71717a;
+}
+
+/* --------------------------------
+   Container helpers
+-------------------------------- */
+
+.im-grid-bg {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 48px 48px;
+}
+
+.im-dark-grid {
+  background-color: #101010;
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 48px 48px;
+}
+
+/* --------------------------------
+   Glow
+-------------------------------- */
+
+.im-glow {
+  position: relative;
+}
+
+.im-glow::before {
+  content: "";
+  position: absolute;
+  inset: 10% 20%;
+  z-index: 0;
+
+  background: rgba(197, 155, 39, 0.1);
+
+  filter: blur(80px);
+  border-radius: 999px;
+
+  pointer-events: none;
+}
+
+/* --------------------------------
+   Reveal utility
+-------------------------------- */
+
+.im-hover-lift {
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+.im-hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* --------------------------------
+   Focus
+-------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------
+   Horizontal scroll
+-------------------------------- */
+
+.im-hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.im-hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

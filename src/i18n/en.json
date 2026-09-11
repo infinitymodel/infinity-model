@@ -14,8 +14,8 @@
     "eyebrow": "DESIGN • DIGITAL MANUFACTURING • RAPID PROTOTYPING",
     "title": "Turn Your Ideas Into Physical Reality",
     "description": "From digital design to physical products. We design, prototype, manufacture, and customize using modern digital manufacturing technologies.",
-    "primary": "Start Your Project",
-    "secondary": "Explore Shop"
+    "primaryCta": "Start Your Project",
+    "secondaryCta": "Explore Shop"
   },
 
   "products": {

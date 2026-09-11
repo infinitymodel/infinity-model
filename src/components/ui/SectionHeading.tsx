@@ -1,28 +1,42 @@
-import React from "react";
-
 interface SectionHeadingProps {
-  eyebrow?: string; // أضفنا هذه الخاصية هنا
+  eyebrow: string;
   title: string;
   description?: string;
+  centered?: boolean;
 }
 
 export default function SectionHeading({
   eyebrow,
   title,
   description,
+  centered = false,
 }: SectionHeadingProps) {
   return (
-    <div className="max-w-2xl">
-      {eyebrow && (
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-cyan-600">
+    <div
+      className={[
+        "max-w-3xl",
+        centered ? "mx-auto text-center" : "",
+      ].join(" ")}
+    >
+      <div
+        className={[
+          "flex items-center gap-3",
+          centered ? "justify-center" : "",
+        ].join(" ")}
+      >
+        <span className="h-px w-8 bg-zinc-300" />
+
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
           {eyebrow}
-        </span>
-      )}
-      <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+        </p>
+      </div>
+
+      <h2 className="mt-4 text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
         {title}
       </h2>
+
       {description && (
-        <p className="mt-4 text-base text-slate-600">
+        <p className="mt-5 text-base leading-8 text-zinc-600 sm:text-lg">
           {description}
         </p>
       )}

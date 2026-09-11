@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
@@ -10,25 +11,15 @@ import {
 
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import Navbar from "@/components/layout/Navbar";
-
-import ar from "@/i18n/ar.json";
-import en from "@/i18n/en.json";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 import {
   getService,
   services,
 } from "@/data/services";
 
-import {
-  isValidLocale,
-  type Locale,
-} from "@/i18n/config";
-
-const translations: Record<Locale, typeof ar> = {
-  ar,
-  en,
-};
+import { isValidLocale } from "@/i18n/config";
+import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return services.flatMap((service) =>
@@ -37,6 +28,28 @@ export function generateStaticParams() {
       slug: service.slug,
     }))
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+
+  if (!isValidLocale(locale)) return {};
+
+  const service = getService(slug);
+  if (!service) return {};
+
+  const ar = locale === "ar";
+
+  return buildMetadata({
+    locale,
+    path: `/services/${slug}`,
+    title: ar ? service.titleAr : service.title,
+    description: ar ? service.shortDescriptionAr : service.shortDescription,
+  });
 }
 
 export default async function ServiceDetailPage({
@@ -59,7 +72,6 @@ export default async function ServiceDetailPage({
     notFound();
   }
 
-  const t = translations[locale];
   const isAr = locale === "ar";
 
   const title = isAr
@@ -75,12 +87,16 @@ export default async function ServiceDetailPage({
     : service.features;
 
   return (
-    <>
-      <Navbar locale={locale} labels={t.navigation} />
-
-      <main>
+    <main>
         <section className="bg-zinc-950 py-24 text-white">
           <Container>
+            <Breadcrumbs
+              locale={locale}
+              items={[
+                { label: isAr ? "الخدمات" : "Services", href: `/${locale}/services` },
+                { label: title },
+              ]}
+            />
             <div className="max-w-4xl">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-400">
                 {isAr ? "الخدمة" : "SERVICE"}
@@ -204,7 +220,6 @@ export default async function ServiceDetailPage({
             </div>
           </Container>
         </section>
-      </main>
-    </>
+    </main>
   );
 }

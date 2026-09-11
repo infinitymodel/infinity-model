@@ -2,17 +2,17 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import ProductCard from "@/components/home/ProductCard";
+import ProductCard from "./ProductCard";
 
 import { products } from "@/data/products";
 
 interface ReadyProductsProps {
   locale: string;
   content: {
+    eyebrow?: string;
     title: string;
-    description: string;
-    viewAll: string;
+    description?: string;
+    viewAll?: string;
   };
 }
 
@@ -20,44 +20,65 @@ export default function ReadyProducts({
   locale,
   content,
 }: ReadyProductsProps) {
+  const ar = locale === "ar";
+
   return (
-    <section className="border-y border-zinc-200 bg-zinc-50 py-20 sm:py-24">
+    <section className="overflow-hidden border-b border-zinc-200 bg-white py-20 sm:py-24">
       <Container>
-        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionHeading
-            eyebrow="SHOP"
-            title={content.title}
-            description={content.description}
-          />
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-zinc-300" />
+
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-zinc-500">
+                {content.eyebrow ||
+                  (ar
+                    ? "منتجات مختارة"
+                    : "Featured Products")}
+              </p>
+            </div>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
+              {content.title}
+            </h2>
+
+            {content.description && (
+              <p className="mt-5 text-base leading-8 text-zinc-600">
+                {content.description}
+              </p>
+            )}
+          </div>
 
           <Link
             href={`/${locale}/shop`}
-            className="inline-flex shrink-0 items-center text-sm font-semibold text-zinc-900"
+            className="group inline-flex w-fit items-center gap-2 text-sm font-bold text-zinc-950"
           >
-            {content.viewAll}
+            {content.viewAll ||
+              (ar
+                ? "عرض جميع المنتجات"
+                : "View All Products")}
 
             <ArrowRight
-              className={`ms-2 h-4 w-4 ${
-                locale === "ar" ? "rotate-180" : ""
-              }`}
+              className={[
+                "h-4 w-4 transition-transform group-hover:translate-x-1",
+                ar ? "rotate-180 group-hover:-translate-x-1" : "",
+              ].join(" ")}
             />
           </Link>
         </div>
+      </Container>
 
-        <div className="mt-12 flex gap-5 overflow-x-auto pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {products.map((product: any) => (
-            <div
+      <div className="mt-12 overflow-hidden">
+        <div className="im-hide-scrollbar flex gap-5 overflow-x-auto px-5 pb-5 sm:px-6 lg:px-[max(calc((100vw-1280px)/2),32px)]">
+          {products.map((product) => (
+            <ProductCard
               key={product.id}
-              className="w-[280px] shrink-0 sm:w-[310px]"
-            >
-              <ProductCard
-                product={product}
-                locale={locale}
-              />
-            </div>
+              product={product}
+              locale={locale}
+            />
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

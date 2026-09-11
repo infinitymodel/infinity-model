@@ -24,9 +24,11 @@ export default function SectionHeading({
           centered ? "justify-center" : "",
         ].join(" ")}
       >
-        <span className="h-px w-8 bg-zinc-300" />
+        <span className="h-px w-8 bg-[#c59b27]/70" />
 
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
+        <Sparkles className="h-3.5 w-3.5 text-[#c59b27]" aria-hidden="true" />
+
+        <p className="im-eyebrow text-xs font-bold uppercase text-zinc-600">
           {eyebrow}
         </p>
       </div>
@@ -36,10 +38,11 @@ export default function SectionHeading({
       </h2>
 
       {description && (
-        <p className="mt-5 text-base leading-8 text-zinc-600 sm:text-lg">
+        <p className="mt-5 text-base leading-8 text-zinc-700 sm:text-lg">
           {description}
         </p>
       )}
     </div>
   );
 }
+import { Sparkles } from "lucide-react";

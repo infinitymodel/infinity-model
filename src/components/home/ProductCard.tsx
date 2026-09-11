@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowUpRight,
+  BadgeCheck,
   Clock3,
   Layers3,
 } from "lucide-react";
@@ -67,13 +68,13 @@ export default function ProductCard({
 
         <div className="p-5">
           <div className="flex items-center justify-between gap-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-zinc-400">
+            <p className="im-eyebrow text-[10px] font-black uppercase text-zinc-600">
               {product.material}
             </p>
 
             {product.inStock !== false && (
-              <span className="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-700">
+                <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
                 {ar ? "متوفر" : "Available"}
               </span>
             )}
@@ -84,20 +85,20 @@ export default function ProductCard({
           </h3>
 
           {productDescription && (
-            <p className="mt-2 line-clamp-2 text-sm leading-6 text-zinc-500">
+            <p className="mt-2 line-clamp-2 text-sm leading-6 text-zinc-600">
               {productDescription}
             </p>
           )}
 
           <div className="mt-5 flex items-end justify-between gap-4 border-t border-zinc-100 pt-4">
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+              <p className="im-eyebrow text-[10px] font-bold uppercase text-zinc-500">
                 {ar ? "السعر" : "Price"}
               </p>
 
               <p className="mt-1 text-xl font-black text-zinc-950">
                 {product.price > 0 ? (
-                  <>{product.price} <span className="text-xs font-bold text-zinc-500">{product.currency}</span></>
+                  <>{product.price} <span className="text-xs font-bold text-zinc-600">{product.currency}</span></>
                 ) : (
                   ar ? "اطلب السعر" : "Request quote"
                 )}
@@ -106,7 +107,7 @@ export default function ProductCard({
 
             {product.productionTime && (
               <div className="text-right">
-                <p className="flex items-center justify-end gap-1 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+                <p className="im-eyebrow flex items-center justify-end gap-1 text-[10px] font-bold uppercase text-zinc-500">
                   <Clock3 className="h-3 w-3" />
 
                   {ar ? "الإنتاج" : "Production"}

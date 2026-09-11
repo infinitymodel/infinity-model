@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import Navbar from "@/components/layout/Navbar";
 import SiteFooterShell from "@/components/layout/SiteFooterShell";
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import ar from "@/i18n/ar.json";
 import en from "@/i18n/en.json";
 
@@ -44,6 +45,7 @@ export default async function LocaleLayout({
       <SiteFooterShell locale={validLocale}>
         <Navbar locale={validLocale} labels={translations[validLocale].navigation} />
         {children}
+        <FloatingWhatsApp locale={validLocale} />
       </SiteFooterShell>
     </div>
   );

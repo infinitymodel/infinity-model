@@ -26,10 +26,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
 
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -52,6 +49,27 @@ img {
 ::selection {
   background: var(--accent);
   color: #111111;
+}
+
+[dir="rtl"] {
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] p,
+[dir="rtl"] a,
+[dir="rtl"] button,
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  letter-spacing: normal;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3 {
+  line-height: 1.35;
 }
 
 /* --------------------------------
@@ -159,6 +177,26 @@ img {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* Make supporting copy comfortably legible on bright and dark surfaces. */
+main .text-zinc-400 {
+  color: #71717a;
+}
+
+.bg-zinc-950 .text-zinc-400,
+.im-dark-grid .text-zinc-400,
+.bg-zinc-950 .text-zinc-500,
+.im-dark-grid .text-zinc-500 {
+  color: #d4d4d8;
+}
+
+.im-eyebrow {
+  letter-spacing: 0.16em;
+}
+
+[dir="rtl"] .im-eyebrow {
+  letter-spacing: 0.03em;
 }
 
 @media (prefers-reduced-motion: reduce) {

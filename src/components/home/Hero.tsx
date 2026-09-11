@@ -62,7 +62,7 @@ export default function Hero({
               {content.title}
             </h1>
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-zinc-400 sm:text-lg">
+            <p className="mt-7 max-w-2xl text-base leading-8 text-zinc-300 sm:text-lg">
               {content.description}
             </p>
 

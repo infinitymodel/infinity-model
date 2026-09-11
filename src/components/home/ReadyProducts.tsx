@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 import Container from "@/components/ui/Container";
 import ProductCard from "./ProductCard";
@@ -28,9 +28,11 @@ export default function ReadyProducts({
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-zinc-300" />
+              <span className="h-px w-8 bg-[#c59b27]/70" />
 
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-zinc-500">
+              <Sparkles className="h-3.5 w-3.5 text-[#c59b27]" aria-hidden="true" />
+
+              <p className="im-eyebrow text-xs font-black uppercase text-zinc-600">
                 {content.eyebrow ||
                   (ar
                     ? "منتجات مختارة"
@@ -43,7 +45,7 @@ export default function ReadyProducts({
             </h2>
 
             {content.description && (
-              <p className="mt-5 text-base leading-8 text-zinc-600">
+              <p className="mt-5 text-base leading-8 text-zinc-700">
                 {content.description}
               </p>
             )}

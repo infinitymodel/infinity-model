@@ -2,8 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowUpRight,
+  Camera,
+  Link as LinkIcon,
   MapPin,
+  Music2,
 } from "lucide-react";
+
+import { contactDetails } from "@/data/contact";
 
 interface FooterProps {
   locale: string;
@@ -72,6 +77,24 @@ export default function Footer({
     },
   ];
 
+  const socialLinks = [
+    {
+      label: "Instagram",
+      href: contactDetails.socialLinks.instagram,
+      icon: Camera,
+    },
+    {
+      label: "TikTok",
+      href: contactDetails.socialLinks.tiktok,
+      icon: Music2,
+    },
+    {
+      label: "Linktree",
+      href: contactDetails.socialLinks.linktree,
+      icon: LinkIcon,
+    },
+  ];
+
   return (
     <footer className="border-t border-zinc-200 bg-zinc-950 text-white">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8">
@@ -95,13 +118,13 @@ export default function Footer({
               </div>
             </Link>
 
-            <p className="mt-6 max-w-md text-sm leading-7 text-zinc-400">
+            <p className="mt-6 max-w-md text-sm leading-7 text-zinc-300">
               {ar
                 ? "نحوّل الأفكار والملفات الرقمية إلى منتجات ونماذج واقعية من خلال التصميم والتصنيع الرقمي والطباعة ثلاثية الأبعاد."
                 : "We transform ideas and digital files into physical products through design, digital manufacturing and 3D technology."}
             </p>
 
-            <div className="mt-6 flex items-center gap-2 text-sm text-zinc-400">
+            <div className="mt-6 flex items-center gap-2 text-sm text-zinc-300">
               <MapPin className="h-4 w-4" />
 
               <span>
@@ -109,6 +132,25 @@ export default function Footer({
                   ? "جازان، المملكة العربية السعودية"
                   : "Jizan, Saudi Arabia"}
               </span>
+            </div>
+
+            <div className="mt-7 flex items-center gap-3" aria-label={ar ? "وسائل التواصل الاجتماعي" : "Social media"}>
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-zinc-200 transition hover:-translate-y-0.5 hover:border-[#e3bd50]/70 hover:bg-[#c59b27] hover:text-zinc-950"
+                  >
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -122,7 +164,7 @@ export default function Footer({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-zinc-400 transition hover:text-white"
+                  className="text-sm text-zinc-300 transition hover:text-[#e3bd50]"
                 >
                   {link.label}
                 </Link>
@@ -140,7 +182,7 @@ export default function Footer({
                 <Link
                   key={service.href}
                   href={service.href}
-                  className="text-sm text-zinc-400 transition hover:text-white"
+                  className="text-sm text-zinc-300 transition hover:text-[#e3bd50]"
                 >
                   {service.label}
                 </Link>
@@ -153,7 +195,7 @@ export default function Footer({
               {ar ? "ابدأ مشروعك" : "Start Your Project"}
             </h3>
 
-            <p className="mt-5 text-sm leading-6 text-zinc-400">
+            <p className="mt-5 text-sm leading-6 text-zinc-300">
               {ar
                 ? "لديك فكرة أو ملف CAD؟ دعنا نحوله إلى نموذج أو منتج حقيقي."
                 : "Have an idea or CAD file? Let us turn it into a real prototype or product."}

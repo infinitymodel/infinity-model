@@ -26,7 +26,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 
-  font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: var(--font-latin), "Segoe UI", Arial, Helvetica, sans-serif;
 
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -52,7 +52,7 @@ img {
 }
 
 [dir="rtl"] {
-  font-family: Tahoma, Arial, sans-serif;
+  font-family: var(--font-arabic), Tahoma, Arial, sans-serif;
 }
 
 [dir="rtl"] h1,

@@ -1,6 +1,8 @@
 export const contactDetails = {
   phoneDisplay: "+966 59 407 6000",
   phoneHref: "tel:+966594076000",
+  email: "3dinfinitymodel@gmail.com",
+  emailHref: "mailto:3dinfinitymodel@gmail.com",
   whatsappNumber: "966594076000",
   socialLinks: {
     instagram: "https://www.instagram.com/infinitymodel__?stkn=MXh3cHFxazBicGgxaA==",

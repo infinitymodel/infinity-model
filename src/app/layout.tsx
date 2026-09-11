@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import { Cairo, Manrope } from "next/font/google";
 import "./globals.css";
+
+const arabicFont = Cairo({
+  subsets: ["arabic", "latin"],
+  variable: "--font-arabic",
+  display: "swap",
+});
+
+const latinFont = Manrope({
+  subsets: ["latin"],
+  variable: "--font-latin",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://3dinfinitymodel.com"),
@@ -42,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
-      <body>{children}</body>
+      <body className={`${arabicFont.variable} ${latinFont.variable}`}>{children}</body>
     </html>
   );
 }

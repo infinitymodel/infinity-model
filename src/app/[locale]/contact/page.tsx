@@ -74,10 +74,10 @@ export default async function ContactPage({
                     <span className="font-semibold">{contactDetails.phoneDisplay}</span>
                   </a>
 
-                  <div className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5">
+                  <a href={contactDetails.emailHref} className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5 transition hover:border-zinc-400 hover:bg-zinc-50">
                     <Mail className="h-5 w-5" />
-                    <span>{isAr ? "البريد الإلكتروني متاح قريباً" : "Email coming soon"}</span>
-                  </div>
+                    <span className="font-semibold">{contactDetails.email}</span>
+                  </a>
 
                   <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
                     <p className="text-sm font-bold text-zinc-950">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -51,6 +52,10 @@ export default function HomeSections({
       />
 
       <TechnologySection
+        locale={locale}
+      />
+
+      <MaterialsSection
         locale={locale}
       />
 
@@ -455,6 +460,7 @@ function TechnologySection({
         ? "عملية وعملية للأجزاء الهندسية والنماذج الأكبر."
         : "Practical for engineering parts, functional models and larger prints.",
       icon: Printer,
+      image: "/images/showcase/blue-filament-spools.jpg",
     },
     {
       code: "RESIN",
@@ -465,6 +471,7 @@ function TechnologySection({
         ? "تفاصيل دقيقة للمجسمات والنماذج ذات التفاصيل العالية."
         : "High-detail production for figures and detailed models.",
       icon: Sparkles,
+      image: "/images/showcase/turquoise-character-bust.jpg",
     },
     {
       code: "CAD/CAM",
@@ -475,6 +482,7 @@ function TechnologySection({
         ? "تصميم وتجهيز الملفات للتصنيع الرقمي."
         : "Design and manufacturing preparation for digital production.",
       icon: PencilRuler,
+      image: "/images/showcase/applications-showcase.jpg",
     },
     {
       code: "CNC",
@@ -485,6 +493,7 @@ function TechnologySection({
         ? "حفر ونقش وتصنيع رقمي حسب طبيعة المشروع."
         : "Drilling, engraving and digital fabrication.",
       icon: Settings2,
+      image: "/images/showcase/functional-bracket.jpg",
     },
     {
       code: "UV",
@@ -495,6 +504,7 @@ function TechnologySection({
         ? "طباعة وتخصيص المنتجات والأسطح."
         : "Product and surface customization.",
       icon: Palette,
+      image: "/images/showcase/pink-character-bust.jpg",
     },
   ];
 
@@ -526,26 +536,113 @@ function TechnologySection({
             return (
               <div
                 key={technology.code}
-                className="group rounded-[1.75rem] border border-zinc-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
+                className="group overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="flex items-center justify-between">
-                  <Icon className="h-5 w-5 text-zinc-950" />
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+                  <Image
+                    src={technology.image}
+                    alt={technology.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
 
-                  <span className="text-[10px] font-black tracking-[0.15em] text-zinc-400">
+                  <span className="absolute right-4 top-4 rounded-full bg-zinc-950/85 px-3 py-1.5 text-[10px] font-black tracking-[0.15em] text-white backdrop-blur">
                     {technology.code}
                   </span>
                 </div>
 
-                <h3 className="mt-10 font-black">
-                  {technology.title}
-                </h3>
+                <div className="p-6">
+                  <div className="flex items-center justify-between">
+                    <Icon className="h-5 w-5 text-zinc-950" />
 
-                <p className="mt-3 text-sm leading-6 text-zinc-500">
-                  {technology.description}
-                </p>
+                    <span className="text-[10px] font-black tracking-[0.15em] text-zinc-400">
+                      {technology.code}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-6 font-black">
+                    {technology.title}
+                  </h3>
+
+                  <p className="mt-3 text-sm leading-6 text-zinc-500">
+                    {technology.description}
+                  </p>
+                </div>
               </div>
             );
           })}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* =========================================================
+   MATERIALS
+========================================================= */
+
+function MaterialsSection({
+  locale,
+}: {
+  locale: string;
+}) {
+  const ar = locale === "ar";
+
+  const materials = [
+    {
+      name: "PLA Matte",
+      description: ar ? "خامة متعددة الاستخدامات للنماذج وقطع العرض." : "A versatile material for models and display pieces.",
+      image: "/images/showcase/bambu-pla-matte-red.jpg",
+    },
+    {
+      name: "PETG",
+      description: ar ? "توازن عملي بين المتانة وسهولة الطباعة." : "A practical balance of durability and printability.",
+      image: "/images/showcase/bambu-petg-red.jpg",
+    },
+    {
+      name: "ASA",
+      description: ar ? "خيار مناسب لتطبيقات تتطلب تحملاً أكبر." : "A considered option for more demanding applications.",
+      image: "/images/showcase/bambu-asa-aero.jpg",
+    },
+    {
+      name: "PC FR",
+      description: ar ? "مادة متخصصة نختارها عندما يطلب التطبيق ذلك." : "A specialist material selected when the application calls for it.",
+      image: "/images/showcase/bambu-pc-fr.jpg",
+    },
+  ];
+
+  return (
+    <section className="bg-white py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow={ar ? "الخامات" : "Materials"}
+          title={ar ? "الخامة جزء من قرار التصنيع." : "Material is part of the manufacturing decision."}
+          description={ar ? "نعرض أمثلة للخامات المستخدمة ونختار الأنسب حسب الوظيفة والتشطيب والبيئة التشغيلية." : "These examples inform a material choice based on function, finish and operating environment."}
+        />
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {materials.map((material) => (
+            <article
+              key={material.name}
+              className="group overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-50"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+                <Image
+                  src={material.image}
+                  alt={material.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="p-6">
+                <p className="text-sm font-black text-zinc-950">{material.name}</p>
+                <p className="mt-2 text-sm leading-6 text-zinc-600">{material.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </Container>
     </section>
@@ -570,6 +667,8 @@ function ProjectsSection({
         ? "نموذج هندسي"
         : "Engineering Model",
       code: "ENG-01",
+      image: "/images/showcase/functional-bracket.jpg",
+      slug: "engineering",
     },
     {
       category: ar ? "نماذج أولية" : "Prototype",
@@ -577,6 +676,8 @@ function ProjectsSection({
         ? "نموذج أولي وظيفي"
         : "Functional Prototype",
       code: "PRO-02",
+      image: "/images/showcase/applications-showcase.jpg",
+      slug: "prototypes",
     },
     {
       category: ar ? "مجسمات" : "Figures",
@@ -584,6 +685,8 @@ function ProjectsSection({
         ? "مجسم عالي التفاصيل"
         : "High Detail Figure",
       code: "FIG-03",
+      image: "/images/showcase/black-panther.jpg",
+      slug: "figures",
     },
     {
       category: "PCB",
@@ -591,6 +694,8 @@ function ProjectsSection({
         ? "نموذج PCB"
         : "PCB Prototype",
       code: "PCB-04",
+      image: "/images/showcase/pcb-holder.jpg",
+      slug: "pcb",
     },
   ];
 
@@ -636,23 +741,20 @@ function ProjectsSection({
         </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <Link
               key={project.code}
-              href={`/${locale}/projects`}
+              href={`/${locale}/projects/${project.slug}`}
               className="group relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-100"
             >
               <div className="im-grid-bg relative aspect-[16/10] overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className={[
-                      "h-40 w-40 rotate-12 rounded-[2rem] border border-zinc-300 bg-white shadow-xl transition duration-500 group-hover:scale-110 group-hover:rotate-6",
-                      index % 2 === 0
-                        ? "rounded-[2rem]"
-                        : "rounded-full",
-                    ].join(" ")}
-                  />
-                </div>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                />
 
                 <div className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider backdrop-blur">
                   {project.category}
@@ -914,16 +1016,18 @@ function MaintenanceSection({
             </Link>
           </div>
 
-          <div className="im-grid-bg relative min-h-[320px] overflow-hidden bg-zinc-100">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative h-52 w-64 rounded-3xl border border-zinc-300 bg-white shadow-2xl">
-                <div className="absolute left-1/2 top-8 h-28 w-40 -translate-x-1/2 rounded-2xl border border-zinc-200 bg-zinc-100" />
+          <div className="relative min-h-[320px] overflow-hidden bg-zinc-100">
+            <Image
+              src="/images/showcase/printer-x2d-workshop.jpg"
+              alt={ar ? "ورشة طباعة ثلاثية الأبعاد" : "3D printer workshop"}
+              fill
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="object-cover object-[center_35%]"
+            />
 
-                <div className="absolute bottom-5 left-1/2 h-3 w-32 -translate-x-1/2 rounded-full bg-zinc-200" />
-              </div>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/50 via-transparent to-transparent" />
 
-            <div className="absolute bottom-6 left-6 rounded-xl border border-zinc-200 bg-white/90 px-4 py-3 text-xs font-bold shadow-lg backdrop-blur">
+            <div className="absolute bottom-6 left-6 rounded-xl border border-white/20 bg-white/90 px-4 py-3 text-xs font-bold shadow-lg backdrop-blur">
               {ar
                 ? "تشخيص • صيانة • تحسين"
                 : "Diagnose • Maintain • Optimize"}
@@ -1239,37 +1343,26 @@ function EquipmentSection({
     {
       brand: "Bambu Lab",
       model: "H2D",
-      category: ar
-        ? "FDM"
-        : "FDM",
+      category: "FDM",
+      image: "/images/showcase/printer-h2d.jpg",
     },
     {
       brand: "Bambu Lab",
-      model: "H2S",
-      category: ar
-        ? "FDM"
-        : "FDM",
+      model: "X Series",
+      category: ar ? "نظام طباعة متعدد الخامات" : "Multi-material printing",
+      image: "/images/showcase/printer-x1.jpg",
     },
     {
       brand: "Bambu Lab",
-      model: "P1S",
-      category: ar
-        ? "FDM"
-        : "FDM",
+      model: ar ? "إعداد إنتاج" : "Production Setup",
+      category: ar ? "طباعة FDM" : "FDM printing",
+      image: "/images/showcase/printer-x2d.jpg",
     },
     {
       brand: "Bambu Lab",
-      model: "A1",
-      category: ar
-        ? "FDM"
-        : "FDM",
-    },
-    {
-      brand: "Creality",
-      model: "HALOT-X1",
-      category: ar
-        ? "Resin"
-        : "Resin",
+      model: ar ? "مساحة تصنيع" : "Production Workspace",
+      category: ar ? "حلول متعددة الأنظمة" : "Multi-system setup",
+      image: "/images/showcase/printer-x2d-workshop.jpg",
     },
   ];
 
@@ -1294,16 +1387,20 @@ function EquipmentSection({
           }
         />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {machines.map((machine) => (
             <div
               key={`${machine.brand}-${machine.model}`}
               className="group overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-50"
             >
-              <div className="im-grid-bg flex aspect-square items-center justify-center">
-                <div className="relative h-28 w-28 rounded-[1.75rem] border border-zinc-300 bg-white shadow-lg transition duration-500 group-hover:scale-105">
-                  <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-zinc-200 bg-zinc-100" />
-                </div>
+              <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
+                <Image
+                  src={machine.image}
+                  alt={`${machine.brand} ${machine.model}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover object-[center_35%] transition duration-700 group-hover:scale-105"
+                />
               </div>
 
               <div className="p-5">

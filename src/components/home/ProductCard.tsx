@@ -28,6 +28,10 @@ export default function ProductCard({
     ? product.descriptionAr
     : product.description;
 
+  const productBadge = ar
+    ? product.badgeAr || product.badge
+    : product.badge;
+
   return (
     <article className="group min-w-[285px] overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] sm:min-w-[320px]">
       <a
@@ -41,9 +45,9 @@ export default function ProductCard({
         <div className="relative aspect-square overflow-hidden bg-zinc-100">
           <div className="absolute inset-0 im-grid-bg opacity-60" />
 
-          {product.badge && (
+          {productBadge && (
             <span className="absolute left-4 top-4 z-10 rounded-full bg-zinc-950 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-white">
-              {product.badge}
+              {productBadge}
             </span>
           )}
 

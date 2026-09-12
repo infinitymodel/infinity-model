@@ -60,12 +60,12 @@ const projects = {
 };
 
 const projectImages: Record<keyof typeof projects, string[]> = {
-  engineering: ["/images/services/3d-printing/resin-printer.jpg", "/images/projects/prototypes/dragon-display.jpg"],
-  prototypes: ["/images/projects/prototypes/dragon-display.jpg", "/images/products/figures/dragon-winged.jpg"],
-  figures: ["/images/products/figures/black-panther.jpg", "/images/products/figures/turquoise-bust.jpg", "/images/products/figures/pink-character.jpg"],
-  creative: ["/images/projects/creative/jizan-relief.jpg", "/images/projects/creative/dragon-sculpture.jpg", "/images/products/decor/deer-wall-art.jpg"],
-  pcb: ["/images/products/decor/incense-holder.jpg", "/images/services/3d-printing/resin-printer.jpg"],
-  custom: ["/images/projects/custom/saudi-cup-holder.jpg", "/images/products/decor/incense-holder.jpg"],
+  engineering: ["/images/showcase/functional-bracket.jpg", "/images/showcase/applications-showcase.jpg", "/images/showcase/printing-nozzle.jpg"],
+  prototypes: ["/images/showcase/pcb-holder.jpg", "/images/showcase/functional-bracket.jpg", "/images/showcase/printing-nozzle.jpg"],
+  figures: ["/images/showcase/black-panther.jpg", "/images/showcase/dragon-winged.jpg", "/images/showcase/turquoise-character-bust.jpg", "/images/showcase/pink-character-bust.jpg", "/images/showcase/collectible-figures.jpg"],
+  creative: ["/images/showcase/pink-character-bust.jpg", "/images/showcase/grim-cat-figure.jpg", "/images/showcase/collectible-figures.jpg", "/images/showcase/saudi-figure.jpg", "/images/showcase/dragon-winged-alt.jpg"],
+  pcb: ["/images/showcase/pcb-holder.jpg", "/images/showcase/functional-bracket.jpg"],
+  custom: ["/images/showcase/applications-showcase.jpg", "/images/showcase/saudi-figure.jpg", "/images/showcase/dragon-winged-alt.jpg"],
 };
 
 export function generateStaticParams() {

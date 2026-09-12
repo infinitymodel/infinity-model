@@ -21,7 +21,7 @@ const supplies = [
   {
     key: "printers",
     icon: Printer,
-    image: "/images/machines/creality/halot-x1.jpg",
+    image: "/images/showcase/printer-x2d.jpg",
     title: "3D Printers",
     titleAr: "الطابعات ثلاثية الأبعاد",
     description: "FDM and resin printing systems for makers, designers and production teams.",
@@ -30,6 +30,7 @@ const supplies = [
   {
     key: "filaments",
     icon: Layers3,
+    image: "/images/showcase/blue-filament-spools.jpg",
     title: "Filaments & Resin",
     titleAr: "الفيلمنتات والريزن",
     description: "Materials selected for prototypes, functional parts, models and display pieces.",
@@ -38,6 +39,7 @@ const supplies = [
   {
     key: "spares",
     icon: Wrench,
+    image: "/images/showcase/printing-nozzle.jpg",
     title: "Spare Parts & Accessories",
     titleAr: "قطع الغيار والإكسسوارات",
     description: "Essential replacements, nozzles, build surfaces and printer care accessories.",
@@ -82,18 +84,21 @@ export default async function ShopPage({
             </div>
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {products.map((product) => (
-                <a
-                  key={product.id}
-                  href={sallaStoreUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"
-                >
+              {products.map((product) => {
+                const badge = isAr ? product.badgeAr || product.badge : product.badge;
+
+                return (
+                  <a
+                    key={product.id}
+                    href={sallaStoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"
+                  >
                   <div className="relative aspect-square overflow-hidden bg-zinc-100">
-                    {product.badge && (
+                    {badge && (
                       <span className="absolute left-4 top-4 z-10 rounded-full bg-zinc-950 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                        {product.badge}
+                        {badge}
                       </span>
                     )}
 
@@ -130,8 +135,9 @@ export default async function ShopPage({
                       </span>
                     </div>
                   </div>
-                </a>
-              ))}
+                  </a>
+                );
+              })}
             </div>
           </Container>
         </section>

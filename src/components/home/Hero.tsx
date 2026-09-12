@@ -155,8 +155,8 @@ export default function Hero({
 
               <div className="absolute inset-[16%] overflow-hidden rounded-[2.5rem] border border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
                 <Image
-                  src="/images/services/3d-printing/resin-printer.jpg"
-                  alt={ar ? "طابعة ريزن ثلاثية الأبعاد" : "Resin 3D printer at Infinity Model"}
+                  src="/images/showcase/printer-x2d.jpg"
+                  alt={ar ? "إحدى طابعات Infinity Model ثلاثية الأبعاد" : "Infinity Model 3D printing equipment"}
                   fill
                   priority
                   sizes="(max-width: 1024px) 90vw, 560px"

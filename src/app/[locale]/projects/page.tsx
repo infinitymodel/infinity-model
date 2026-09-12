@@ -13,37 +13,37 @@ const categories = [
     key: "engineering",
     title: "Engineering",
     titleAr: "الهندسة",
-    image: "/images/services/3d-printing/resin-printer.jpg",
+    image: "/images/showcase/functional-bracket.jpg",
   },
   {
     key: "prototypes",
     title: "Prototypes",
     titleAr: "النماذج الأولية",
-    image: "/images/projects/prototypes/dragon-display.jpg",
+    image: "/images/showcase/pcb-holder.jpg",
   },
   {
     key: "figures",
     title: "Figures",
     titleAr: "المجسمات",
-    image: "/images/products/figures/black-panther.jpg",
+    image: "/images/showcase/black-panther.jpg",
   },
   {
     key: "creative",
     title: "Creative",
     titleAr: "الإبداعي",
-    image: "/images/projects/creative/jizan-relief.jpg",
+    image: "/images/showcase/pink-character-bust.jpg",
   },
   {
     key: "pcb",
     title: "PCB",
     titleAr: "PCB",
-    image: "/images/products/decor/incense-holder.jpg",
+    image: "/images/showcase/pcb-holder.jpg",
   },
   {
     key: "custom",
     title: "Custom",
     titleAr: "مخصص",
-    image: "/images/projects/custom/saudi-cup-holder.jpg",
+    image: "/images/showcase/applications-showcase.jpg",
   },
 ];
 

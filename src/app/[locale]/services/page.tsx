@@ -61,10 +61,10 @@ export default async function ServicesPage({
                   <Link
                   key={service.slug}
                   href={`/${locale}/services/${service.slug}`}
-                  className="group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-7 transition hover:-translate-y-1 hover:border-zinc-300 hover:shadow-xl"
+                  className="im-premium-card group relative rounded-[2rem] p-7 transition duration-500 hover:-translate-y-1.5 hover:border-[#c59b27]/45 hover:shadow-[0_28px_80px_rgba(24,24,27,0.12)]"
                 >
-                  <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-zinc-100 transition duration-500 group-hover:scale-125" />
-                  <div className="flex items-center justify-between">
+                  <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#c59b27]/10 transition duration-500 group-hover:scale-125" />
+                  <div className="relative z-10 flex items-center justify-between">
                     <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-[#e3bd50] shadow-lg">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
@@ -74,21 +74,21 @@ export default async function ServicesPage({
                     </span>
                   </div>
 
-                  <p className="im-eyebrow relative mt-8 text-xs font-bold uppercase text-zinc-500">
+                  <p className="im-eyebrow relative z-10 mt-8 text-xs font-bold uppercase text-zinc-500">
                     {service.category}
                   </p>
 
-                  <h2 className="relative mt-3 text-2xl font-bold text-zinc-950">
+                  <h2 className="relative z-10 mt-3 text-2xl font-black tracking-tight text-zinc-950">
                     {isAr ? service.titleAr : service.title}
                   </h2>
 
-                  <p className="relative mt-4 leading-7 text-zinc-600">
+                  <p className="relative z-10 mt-4 leading-7 text-zinc-600">
                     {isAr
                       ? service.shortDescriptionAr
                       : service.shortDescription}
                   </p>
 
-                  <div className="relative mt-8 flex items-center gap-2 text-sm font-semibold">
+                  <div className="relative z-10 mt-8 flex items-center gap-2 text-sm font-black">
                     {isAr ? "عرض الخدمة" : "View Service"}
 
                     <ArrowRight

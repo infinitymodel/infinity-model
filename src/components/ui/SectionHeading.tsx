@@ -1,3 +1,5 @@
+import { Sparkles } from "lucide-react";
+
 interface SectionHeadingProps {
   eyebrow: string;
   title: string;
@@ -33,7 +35,7 @@ export default function SectionHeading({
         </p>
       </div>
 
-      <h2 className="mt-4 text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl lg:text-5xl">
+      <h2 className="mt-4 text-3xl font-black tracking-[-0.035em] text-zinc-950 sm:text-4xl lg:text-5xl">
         {title}
       </h2>
 
@@ -45,4 +47,3 @@ export default function SectionHeading({
     </div>
   );
 }
-import { Sparkles } from "lucide-react";

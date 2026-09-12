@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Hero from "@/components/home/Hero";
+import CapabilityRail from "@/components/home/CapabilityRail";
 import ReadyProducts from "@/components/home/ReadyProducts";
 import HomeSections from "@/components/home/HomeSections";
 
@@ -75,6 +76,8 @@ export default async function HomePage({
           locale={locale}
           content={t.hero}
         />
+
+        <CapabilityRail locale={locale} />
 
         <ReadyProducts
           locale={locale}

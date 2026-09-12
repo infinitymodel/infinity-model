@@ -54,7 +54,7 @@ export default async function ContactPage({
         description={isAr ? "أخبرنا عن فكرتك أو مشروعك وسنساعدك في اختيار الحل المناسب." : "Tell us about your idea or project and we will help you choose the right solution."}
       />
 
-        <section className="py-24">
+        <section className="bg-zinc-50/70 py-20 sm:py-24">
           <Container>
             <div className="grid gap-8 lg:grid-cols-2">
               <div>
@@ -69,19 +69,23 @@ export default async function ContactPage({
                 </p>
 
                 <div className="mt-10 grid gap-4">
-                  <a href={contactDetails.phoneHref} className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5 transition hover:border-zinc-400 hover:bg-zinc-50">
-                    <Phone className="h-5 w-5" />
+                  <a href={contactDetails.phoneHref} className="im-premium-card flex items-center gap-4 rounded-2xl p-5 transition hover:-translate-y-0.5 hover:border-[#c59b27]/45 hover:shadow-lg">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zinc-950 text-[#e3bd50]">
+                      <Phone className="h-5 w-5" />
+                    </span>
                     <span dir="ltr" className="font-semibold text-left [unicode-bidi:isolate]">
                       {contactDetails.phoneDisplay}
                     </span>
                   </a>
 
-                  <a href={contactDetails.emailHref} className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5 transition hover:border-zinc-400 hover:bg-zinc-50">
-                    <Mail className="h-5 w-5" />
+                  <a href={contactDetails.emailHref} className="im-premium-card flex items-center gap-4 rounded-2xl p-5 transition hover:-translate-y-0.5 hover:border-[#c59b27]/45 hover:shadow-lg">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zinc-950 text-[#e3bd50]">
+                      <Mail className="h-5 w-5" />
+                    </span>
                     <span className="font-semibold">{contactDetails.email}</span>
                   </a>
 
-                  <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+                  <div className="im-premium-card rounded-2xl p-5">
                     <p className="text-sm font-bold text-zinc-950">
                       {isAr ? "تابعنا" : "Follow us"}
                     </p>
@@ -105,8 +109,10 @@ export default async function ContactPage({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 rounded-2xl border border-zinc-200 p-5">
-                    <MapPin className="h-5 w-5" />
+                  <div className="im-premium-card flex items-center gap-4 rounded-2xl p-5">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zinc-950 text-[#e3bd50]">
+                      <MapPin className="h-5 w-5" />
+                    </span>
                     <span>
                       {isAr
                         ? "جازان، المملكة العربية السعودية"
@@ -116,7 +122,13 @@ export default async function ContactPage({
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-8">
+              <div className="im-premium-card rounded-[2rem] p-7 shadow-[0_24px_70px_rgba(24,24,27,0.08)] sm:p-9">
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-[#c59b27] shadow-[0_0_0_5px_rgba(197,155,39,0.12)]" />
+                  <p className="im-eyebrow text-[11px] font-black text-zinc-500">
+                    {isAr ? "خطوتك الأولى نحو التنفيذ" : "Your first step to production"}
+                  </p>
+                </div>
                 <h2 className="text-2xl font-bold">
                   {isAr ? "اطلب عرض سعر" : "Request a Quote"}
                 </h2>

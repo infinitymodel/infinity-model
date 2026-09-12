@@ -282,6 +282,7 @@ function ServicesSection({
               }
               href={`/${locale}/services/${service.slug}`}
               index={index + 1}
+              locale={locale}
               icon={
                 iconMap[service.slug] ??
                 "prototype"

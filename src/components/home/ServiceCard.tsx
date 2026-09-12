@@ -17,6 +17,7 @@ interface ServiceCardProps {
   href: string;
   index: number;
   icon: string;
+  locale: string;
 }
 
 const icons = {
@@ -36,6 +37,7 @@ export default function ServiceCard({
   href,
   index,
   icon,
+  locale,
 }: ServiceCardProps) {
   const Icon =
     icons[icon as keyof typeof icons] ?? Box;
@@ -43,17 +45,17 @@ export default function ServiceCard({
   return (
     <Link
       href={href}
-      className="group relative min-h-[270px] overflow-hidden rounded-[2rem] border border-zinc-200 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_25px_70px_rgba(0,0,0,0.08)]"
+      className="im-premium-card group relative min-h-[280px] rounded-[2rem] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-[#c59b27]/45 hover:shadow-[0_28px_80px_rgba(24,24,27,0.12)]"
     >
-      <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-zinc-100 transition-transform duration-500 group-hover:scale-150" />
+      <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[#c59b27]/10 transition-transform duration-500 group-hover:scale-150" />
 
-      <div className="relative flex h-full flex-col">
+      <div className="relative z-10 flex h-full flex-col">
         <div className="flex items-start justify-between">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white transition-transform duration-500 group-hover:scale-105">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-[#e3bd50] shadow-lg shadow-zinc-950/10 transition-transform duration-500 group-hover:scale-105">
             <Icon className="h-5 w-5" />
           </div>
 
-          <span className="text-xs font-bold text-zinc-300">
+          <span className="im-eyebrow text-[10px] font-black text-zinc-400">
             {String(index).padStart(2, "0")}
           </span>
         </div>
@@ -67,10 +69,10 @@ export default function ServiceCard({
             {description}
           </p>
 
-          <div className="mt-5 flex items-center gap-2 text-xs font-bold text-zinc-950">
-            <span>Explore</span>
+          <div className="mt-5 flex items-center gap-2 text-xs font-black text-zinc-950">
+            <span>{locale === "ar" ? "اكتشف الخدمة" : "Explore service"}</span>
 
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <ArrowUpRight className={`h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 ${locale === "ar" ? "group-hover:-translate-x-1" : "group-hover:translate-x-1"}`} />
           </div>
         </div>
       </div>

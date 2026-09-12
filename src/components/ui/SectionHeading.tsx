@@ -5,6 +5,7 @@ interface SectionHeadingProps {
   title: string;
   description?: string;
   centered?: boolean;
+  tone?: "default" | "light";
 }
 
 export default function SectionHeading({
@@ -12,7 +13,10 @@ export default function SectionHeading({
   title,
   description,
   centered = false,
+  tone = "default",
 }: SectionHeadingProps) {
+  const isLight = tone === "light";
+
   return (
     <div
       className={[
@@ -30,17 +34,17 @@ export default function SectionHeading({
 
         <Sparkles className="h-3.5 w-3.5 text-[#c59b27]" aria-hidden="true" />
 
-        <p className="im-eyebrow text-xs font-bold uppercase text-zinc-600">
+        <p className={`im-eyebrow text-xs font-bold uppercase ${isLight ? "text-[#e3bd50]" : "text-zinc-600"}`}>
           {eyebrow}
         </p>
       </div>
 
-      <h2 className="mt-4 text-3xl font-black tracking-[-0.035em] text-zinc-950 sm:text-4xl lg:text-5xl">
+      <h2 className={`mt-4 text-3xl font-black tracking-[-0.035em] sm:text-4xl lg:text-5xl ${isLight ? "text-white" : "text-zinc-950"}`}>
         {title}
       </h2>
 
       {description && (
-        <p className="mt-5 text-base leading-8 text-zinc-700 sm:text-lg">
+        <p className={`mt-5 text-base leading-8 sm:text-lg ${isLight ? "text-zinc-300" : "text-zinc-700"}`}>
           {description}
         </p>
       )}

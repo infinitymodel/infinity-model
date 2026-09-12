@@ -315,7 +315,7 @@ function ProcessSection({
     {
       number: "01",
       icon: Target,
-      title: ar ? "Brief" : "Brief",
+      title: ar ? "فهم الطلب" : "Brief",
       description: ar
         ? "نفهم الفكرة والمتطلبات والاستخدام النهائي."
         : "We understand the idea, requirements and final application.",
@@ -323,7 +323,7 @@ function ProcessSection({
     {
       number: "02",
       icon: PencilRuler,
-      title: ar ? "Design" : "Design",
+      title: ar ? "التصميم" : "Design",
       description: ar
         ? "نجهز التصميم أو نراجع ملف CAD ونختار التقنية المناسبة."
         : "We prepare or review the CAD design and select the right technology.",
@@ -331,7 +331,7 @@ function ProcessSection({
     {
       number: "03",
       icon: PackageCheck,
-      title: ar ? "Quote" : "Quote",
+      title: ar ? "عرض السعر" : "Quote",
       description: ar
         ? "نحدد الخامة والكمية ووقت الإنتاج والتكلفة."
         : "We define material, quantity, production time and cost.",
@@ -339,7 +339,7 @@ function ProcessSection({
     {
       number: "04",
       icon: Boxes,
-      title: ar ? "Prototype" : "Prototype",
+      title: ar ? "النموذج الأولي" : "Prototype",
       description: ar
         ? "نصنع النموذج الأولي عند الحاجة للمراجعة والاختبار."
         : "We produce a prototype when validation is required.",
@@ -347,7 +347,7 @@ function ProcessSection({
     {
       number: "05",
       icon: Factory,
-      title: ar ? "Production" : "Production",
+      title: ar ? "الإنتاج" : "Production",
       description: ar
         ? "بعد الاعتماد نبدأ الإنتاج الفردي أو الدفعات."
         : "After approval, we begin single-unit or batch production.",
@@ -355,7 +355,7 @@ function ProcessSection({
     {
       number: "06",
       icon: ShieldCheck,
-      title: ar ? "Quality Control" : "Quality Control",
+      title: ar ? "فحص الجودة" : "Quality Control",
       description: ar
         ? "نفحص الشكل والأبعاد والوظيفة حسب طبيعة المشروع."
         : "We inspect appearance, dimensions and function based on the project.",
@@ -363,7 +363,7 @@ function ProcessSection({
     {
       number: "07",
       icon: Truck,
-      title: ar ? "Delivery" : "Delivery",
+      title: ar ? "التسليم" : "Delivery",
       description: ar
         ? "نسلم المنتج النهائي بالشكل المتفق عليه."
         : "We deliver the finished product as agreed.",
@@ -374,6 +374,7 @@ function ProcessSection({
     <section className="im-dark-grid overflow-hidden py-20 text-white sm:py-24">
       <Container>
         <SectionHeading
+          tone="light"
           eyebrow={
             ar
               ? "طريقة العمل"
@@ -1252,7 +1253,7 @@ function AboutSection({
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href={`/${locale}/about`}
-                className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-6 py-3.5 text-sm font-bold text-white"
+                className="im-cta-dark inline-flex items-center gap-2 rounded-full bg-zinc-950 px-6 py-3.5 text-sm font-bold text-white"
               >
                 {ar
                   ? "تعرف علينا أكثر"

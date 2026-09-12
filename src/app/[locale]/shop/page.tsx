@@ -13,7 +13,10 @@ import Container from "@/components/ui/Container";
 import PageHeader from "@/components/ui/PageHeader";
 
 import { products } from "@/data/products";
-import { sallaStoreUrl } from "@/data/store";
+import {
+  sallaCustomPrintingUrl,
+  sallaReadyProductsUrl,
+} from "@/data/store";
 
 import { isValidLocale } from "@/i18n/config";
 
@@ -73,14 +76,36 @@ export default async function ShopPage({
           <Container>
             <div className="max-w-2xl">
               <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c59b27]">
-                {isAr ? "01 — التصاميم الجاهزة" : "01 — Ready-Made Designs"}
+                {isAr ? "01 — متجر سلة الرسمي" : "01 — Official Salla Store"}
               </p>
               <h2 className="mt-4 text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl">
-                {isAr ? "مجسمات وديكورات جاهزة للطلب." : "Distinctive prints, ready to order."}
+                {isAr ? "منتجات جاهزة وخدمة طباعة حسب الطلب." : "Ready-made products and print-on-demand service."}
               </h2>
               <p className="mt-4 text-base leading-8 text-zinc-600">
-                {isAr ? "تشكيلة من المجسمات الإبداعية والقطع الديكورية المطبوعة بعناية. يمكن طلب المقاس أو اللون المناسب لمشروعك." : "A curated collection of creative figures and decorative pieces, printed with care. Ask us about custom size and color options."}
+                {isAr ? "استعرض المنتجات المتاحة وأسعارها مباشرةً في متجر Infinity Model على سلة. الصور التالية نماذج من أعمالنا وتطبيقات الطباعة التي ننفذها." : "Browse current products and prices in Infinity Model’s Salla store. The images below are examples of the work and print applications we produce."}
               </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href={sallaReadyProductsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-zinc-800"
+                >
+                  {isAr ? "تسوّق المنتجات الجاهزة" : "Shop ready-made products"}
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={sallaCustomPrintingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-3 text-sm font-bold text-zinc-950 transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
+                >
+                  {isAr ? "اطلب طباعة مخصصة" : "Request custom printing"}
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
             </div>
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -90,7 +115,7 @@ export default async function ShopPage({
                 return (
                   <a
                     key={product.id}
-                    href={sallaStoreUrl}
+                  href={sallaReadyProductsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"

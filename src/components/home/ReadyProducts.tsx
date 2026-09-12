@@ -54,7 +54,7 @@ export default function ReadyProducts({
           <a
             href={sallaStoreUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="group inline-flex w-fit items-center gap-2 text-sm font-bold text-zinc-950"
           >
             {content.viewAll ||

@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Infinity Model
+
+Marketing website for Infinity Model, a digital manufacturing studio in Jizan. The site is bilingual (Arabic and English) and covers services, products, training, projects and quote requests.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`. The root route redirects to the Arabic homepage; English is available at `/en`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and set the public URL used in canonical links, sitemap and Open Graph metadata:
 
-## Learn More
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.example
+```
 
-To learn more about Next.js, take a look at the following resources:
+If the variable is not set, the deployed Vercel URL is used as the safe default. The product store URL and contact details live in `src/data/store.ts` and `src/data/contact.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quality checks
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+npm run build
+```
 
-## Deploy on Vercel
+The production build does not depend on fetching third-party font files, so it can run in restricted or offline build environments.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy as a standard Next.js application. Set `NEXT_PUBLIC_SITE_URL` to the final marketing-site domain before deploying so search engines receive correct canonical URLs and sitemap entries.

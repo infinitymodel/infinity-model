@@ -145,7 +145,7 @@ export default function Footer({
                     key={social.label}
                     href={social.href}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-zinc-200 transition hover:-translate-y-0.5 hover:border-[#e3bd50]/70 hover:bg-[#c59b27] hover:text-zinc-950"
                   >
@@ -167,7 +167,7 @@ export default function Footer({
                   key={link.href}
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noreferrer" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   className="text-sm text-zinc-300 transition hover:text-[#e3bd50]"
                 >
                   {link.label}

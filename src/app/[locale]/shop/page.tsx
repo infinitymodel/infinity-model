@@ -87,7 +87,7 @@ export default async function ShopPage({
                   key={product.id}
                   href={sallaStoreUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative aspect-square overflow-hidden bg-zinc-100">

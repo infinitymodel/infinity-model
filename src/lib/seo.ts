@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 
 import type { Locale } from "@/i18n/config";
 
-export const SITE_URL = "https://3dinfinitymodel.com";
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
+// Keep this separate from the Salla shop URL. Canonical links must point to the
+// marketing site itself, not to a different product storefront.
+export const SITE_URL = (configuredSiteUrl || "https://infinity-model-sigma.vercel.app")
+  .replace(/\/+$/, "");
 export const SITE_NAME = "Infinity Model";
 
 export const DEFAULT_DESCRIPTION =

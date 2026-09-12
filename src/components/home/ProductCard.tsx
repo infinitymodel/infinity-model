@@ -33,7 +33,7 @@ export default function ProductCard({
       <a
         href={sallaStoreUrl}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="block"
       >
         {/* Image */}

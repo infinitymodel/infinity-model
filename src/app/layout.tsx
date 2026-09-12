@@ -1,21 +1,10 @@
-import type { Metadata } from "next";
-import { Cairo, Manrope } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const arabicFont = Cairo({
-  subsets: ["arabic", "latin"],
-  variable: "--font-arabic",
-  display: "swap",
-});
-
-const latinFont = Manrope({
-  subsets: ["latin"],
-  variable: "--font-latin",
-  display: "swap",
-});
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://3dinfinitymodel.com"),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: "Infinity Model",
@@ -46,6 +35,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_SA",
   },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#101010",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -55,7 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${arabicFont.variable} ${latinFont.variable}`}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

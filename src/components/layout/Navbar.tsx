@@ -97,7 +97,7 @@ export default function Navbar({
                 href={link.href}
                 aria-current={!link.external && pathname === link.href ? "page" : undefined}
                 target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noreferrer" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
                 className={`rounded-full px-3 py-2 text-[13px] font-semibold transition hover:bg-zinc-100 hover:text-zinc-950 ${
                   !link.external && pathname === link.href
                     ? "bg-zinc-100 text-zinc-950"
@@ -172,7 +172,7 @@ export default function Navbar({
                   onClick={() => setOpen(false)}
                   aria-current={!link.external && pathname === link.href ? "page" : undefined}
                   target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noreferrer" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   className={`rounded-2xl px-4 py-3.5 text-sm font-semibold transition hover:bg-zinc-100 hover:text-zinc-950 ${
                     !link.external && pathname === link.href
                       ? "bg-zinc-100 text-zinc-950"

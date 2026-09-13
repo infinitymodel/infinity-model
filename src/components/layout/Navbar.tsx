@@ -21,6 +21,7 @@ interface NavbarProps {
     training: string;
     projects: string;
     about: string;
+    proof: string;
     contact: string;
     quote: string;
   };
@@ -58,6 +59,10 @@ export default function Navbar({
     {
       label: labels.about,
       href: `/${locale}/about`,
+    },
+    {
+      label: labels.proof,
+      href: `/${locale}/proof`,
     },
     {
       label: labels.contact,

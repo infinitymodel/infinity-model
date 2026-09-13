@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.assets.salla.network" },
+      { protocol: "https", hostname: "*.salla.network" },
+      { protocol: "https", hostname: "salla-dev.s3.eu-central-1.amazonaws.com" },
+    ],
+  },
   async headers() {
     return [
       {
@@ -25,12 +32,12 @@ const nextConfig: NextConfig = {
               "object-src 'none'",
               "frame-ancestors 'none'",
               "form-action 'self'",
-              "img-src 'self' data: blob:",
+              "img-src 'self' data: blob: https://www.google-analytics.com",
               "font-src 'self' data:",
               "style-src 'self' 'unsafe-inline'",
-              "script-src 'self' 'unsafe-inline'",
+              "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
               "script-src-attr 'none'",
-              "connect-src 'self'",
+              "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
               "upgrade-insecure-requests",
             ].join("; "),
           },

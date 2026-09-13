@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+import Analytics from "@/components/analytics/Analytics";
 import { SITE_URL } from "@/lib/seo";
+
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -47,6 +50,10 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+
+  verification: googleVerification
+    ? { google: googleVerification }
+    : undefined,
 };
 
 export const viewport: Viewport = {
@@ -61,7 +68,10 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

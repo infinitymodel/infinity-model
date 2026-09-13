@@ -79,6 +79,26 @@ img {
   line-height: 1.35;
 }
 
+.quote-input {
+  width: 100%;
+  border: 1px solid #e4e4e7;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 1rem 1.25rem;
+  color: #18181b;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.quote-input::placeholder {
+  color: #a1a1aa;
+}
+
+.quote-input:focus {
+  border-color: #c59b27;
+  box-shadow: 0 0 0 4px rgba(197, 155, 39, 0.15);
+}
+
 /* --------------------------------
    Scrollbar
 -------------------------------- */

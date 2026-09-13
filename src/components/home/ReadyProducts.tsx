@@ -8,14 +8,29 @@ import {
   ShieldCheck,
   ShoppingBag,
   Sparkles,
+  type LucideIcon,
 } from "lucide-react";
 
 import Container from "@/components/ui/Container";
+import TrackedStoreLink from "@/components/analytics/TrackedStoreLink";
 import {
   sallaCustomPrintingUrl,
   sallaReadyProductsUrl,
   sallaStoreUrl,
 } from "@/data/store";
+import { getSallaProducts } from "@/lib/salla";
+
+interface StoreRailItem {
+  number: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  details: string[];
+  cta: string;
+  href: string;
+  image?: string;
+  isLive?: boolean;
+}
 
 interface ReadyProductsProps {
   locale: string;
@@ -24,13 +39,13 @@ interface ReadyProductsProps {
   };
 }
 
-export default function ReadyProducts({
+export default async function ReadyProducts({
   locale,
   content,
 }: ReadyProductsProps) {
   const ar = locale === "ar";
 
-  const collections = [
+  const collections: StoreRailItem[] = [
     {
       number: "01",
       icon: ShoppingBag,
@@ -89,6 +104,32 @@ export default function ReadyProducts({
     },
   ];
 
+  const liveProducts = await getSallaProducts(8);
+  const railItems: StoreRailItem[] = liveProducts.length > 0
+    ? liveProducts.map((product, index) => ({
+      number: String(index + 1).padStart(2, "0"),
+      icon: ShoppingBag,
+      title: product.name,
+      description: ar
+        ? "منتج متاح من متجر Infinity Model الرسمي على سلة."
+        : "A product available from Infinity Model’s official Salla store.",
+      details: [
+        product.price === null
+          ? (ar ? "السعر عند الطلب" : "Price on request")
+          : new Intl.NumberFormat(ar ? "ar-SA" : "en-SA", {
+            style: "currency",
+            currency: product.currency,
+            maximumFractionDigits: 2,
+          }).format(product.price),
+        ar ? "متاح للطلب" : "Available to order",
+      ],
+      cta: ar ? "عرض المنتج في سلة" : "View product on Salla",
+      href: product.href,
+      image: product.image,
+      isLive: true,
+    }))
+    : collections;
+
   return (
     <section className="overflow-hidden border-b border-zinc-200 bg-white py-20 sm:py-24">
       <Container>
@@ -115,10 +156,11 @@ export default function ReadyProducts({
             </p>
           </div>
 
-          <a
+          <TrackedStoreLink
             href={sallaStoreUrl}
             target="_blank"
             rel="noopener noreferrer"
+            eventParameters={{ item_category: "store", item_name: "all-products" }}
             className="group inline-flex w-fit items-center gap-2 rounded-full bg-zinc-950 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-zinc-800"
           >
             {content.viewAll ||
@@ -127,26 +169,31 @@ export default function ReadyProducts({
                 : "View All Products")}
 
             <ExternalLink className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
+          </TrackedStoreLink>
         </div>
       </Container>
 
       <div className="mt-12 overflow-hidden">
         <div className="im-hide-scrollbar flex gap-5 overflow-x-auto px-5 pb-5 sm:px-6 lg:px-[max(calc((100vw-1280px)/2),32px)]">
-          {collections.map((collection) => {
+          {railItems.map((collection) => {
             const Icon = collection.icon;
 
             return (
-              <a
+              <TrackedStoreLink
                 key={collection.number}
                 href={collection.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                eventParameters={{
+                  item_category: collection.isLive ? "salla-product" : "salla-category",
+                  item_id: collection.number,
+                  item_name: collection.title,
+                }}
                 className="group min-w-[285px] overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-50 transition hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_20px_50px_rgba(24,24,27,0.09)] sm:min-w-[340px]"
               >
                 <div className="relative aspect-square overflow-hidden bg-zinc-950">
                   <Image
-                    src={collection.image}
+                    src={collection.image ?? "/images/showcase/applications-showcase.jpg"}
                     alt={collection.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -156,7 +203,7 @@ export default function ReadyProducts({
 
                   <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-950/75 px-3 py-1.5 text-[10px] font-black tracking-[0.16em] text-white backdrop-blur">
                     <Icon className="h-3.5 w-3.5 text-[#e3bd50]" aria-hidden="true" />
-                    SALLA
+                    {collection.isLive ? (ar ? "محدّث" : "LIVE") : "SALLA"}
                   </div>
 
                   <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white">
@@ -187,13 +234,14 @@ export default function ReadyProducts({
                     <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${ar ? "rotate-180 group-hover:-translate-x-1" : ""}`} />
                   </span>
                 </div>
-              </a>
+              </TrackedStoreLink>
             );
           })}
         </div>
       </div>
 
-        <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-[#c59b27]/25 bg-[#c59b27]/[0.07] px-5 py-4 text-sm text-zinc-700 sm:flex-row sm:items-center sm:justify-between">
+      <Container>
+        <div className="mt-1 flex flex-col gap-4 rounded-2xl border border-[#c59b27]/25 bg-[#c59b27]/[0.07] px-5 py-4 text-sm text-zinc-700 sm:flex-row sm:items-center sm:justify-between">
           <span className="flex items-center gap-3">
             <ShieldCheck className="h-5 w-5 shrink-0 text-[#a67d0b]" aria-hidden="true" />
             {ar ? "الطلب والدفع ومتابعة الشحن تتم عبر متجر سلة الرسمي." : "Ordering, payment and delivery tracking happen through the official Salla store."}
@@ -203,6 +251,7 @@ export default function ReadyProducts({
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
           </span>
         </div>
+      </Container>
     </section>
   );
 }

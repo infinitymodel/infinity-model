@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import {
   ArrowRight,
   CheckCircle2,
+  FileText,
   Layers3,
+  Ruler,
   Settings,
   ShieldCheck,
   Zap,
@@ -88,6 +90,39 @@ export default async function ServiceDetailPage({
     ? service.featuresAr
     : service.features;
 
+  const projectBrief = [
+    {
+      icon: FileText,
+      title: isAr ? "الفكرة أو الملف" : "Idea or file",
+      description: isAr ? "شارك الملف أو الصورة أو شرحاً مبسطاً للاستخدام المطلوب." : "Share a file, reference image or a short description of the intended use.",
+    },
+    {
+      icon: Ruler,
+      title: isAr ? "الأبعاد والكمية" : "Dimensions and quantity",
+      description: isAr ? "حدد المقاسات التقريبية والكمية المطلوبة لنعطيك مساراً أدق." : "Provide approximate dimensions and quantity for a more accurate route.",
+    },
+    {
+      icon: CheckCircle2,
+      title: isAr ? "النتيجة المطلوبة" : "Desired outcome",
+      description: isAr ? "أخبرنا بالاستخدام والخامة والتشطيب أو الموعد المهم للمشروع." : "Tell us about use, material, finish or the project deadline that matters.",
+    },
+  ];
+
+  const faqs = [
+    {
+      question: isAr ? "هل أحتاج إلى ملف جاهز؟" : "Do I need a ready file?",
+      answer: isAr ? "ليس بالضرورة؛ يمكن أن نبدأ من فكرة أو رسم أو أبعاد بحسب الخدمة." : "Not necessarily; depending on the service, we can start from an idea, sketch or dimensions.",
+    },
+    {
+      question: isAr ? "كيف تحددون الخامة والتقنية؟" : "How do you select material and process?",
+      answer: isAr ? "نربط الاختيار بالاستخدام النهائي والمظهر المطلوب والكمية والبيئة التشغيلية." : "We relate the choice to the final use, desired finish, quantity and operating environment.",
+    },
+    {
+      question: isAr ? "هل يمكن البدء بنموذج أولي؟" : "Can we start with a prototype?",
+      answer: isAr ? "نعم، ويمكن اعتماد النموذج قبل الانتقال إلى الإنتاج أو الكميات عند الحاجة." : "Yes. A prototype can be reviewed before moving to production or quantity when needed.",
+    },
+  ];
+
   return (
     <main>
         <section className="bg-zinc-950 py-24 text-white">
@@ -125,7 +160,7 @@ export default async function ServiceDetailPage({
               </div>
 
               <div className="mt-9">
-                <Button href={`/${locale}/contact`}>
+                <Button href={`/${locale}/contact?service=${service.slug}`}>
                   {isAr
                     ? "اطلب عرض سعر"
                     : "Request a Quote"}
@@ -211,6 +246,41 @@ export default async function ServiceDetailPage({
           </Container>
         </section>
 
+        <section className="bg-white py-20 sm:py-24">
+          <Container>
+            <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+              <div>
+                <p className="im-eyebrow text-xs font-black text-[#a67d0b]">{isAr ? "لتسريع عرض السعر" : "For a faster quote"}</p>
+                <h2 className="mt-4 text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl">{isAr ? "ثلاث معلومات تكفي لنبدأ." : "Three details are enough to begin."}</h2>
+                <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                  {projectBrief.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <article key={item.title} className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-950 text-[#e3bd50]"><Icon className="h-5 w-5" /></span>
+                        <h3 className="mt-5 font-black text-zinc-950">{item.title}</h3>
+                        <p className="mt-2 text-sm leading-6 text-zinc-600">{item.description}</p>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="rounded-[2rem] border border-zinc-200 bg-zinc-50 p-7 sm:p-8">
+                <h2 className="text-2xl font-black text-zinc-950">{isAr ? "أسئلة سريعة" : "Quick questions"}</h2>
+                <div className="mt-5 divide-y divide-zinc-200">
+                  {faqs.map((faq) => (
+                    <details key={faq.question} className="group py-4">
+                      <summary className="cursor-pointer list-none text-sm font-black text-zinc-950 marker:hidden">{faq.question}</summary>
+                      <p className="mt-3 text-sm leading-7 text-zinc-600">{faq.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+
         <section className="py-24">
           <Container>
             <div className="rounded-[2rem] bg-zinc-950 p-10 text-white sm:p-14">
@@ -227,7 +297,7 @@ export default async function ServiceDetailPage({
               </p>
 
               <div className="mt-8">
-                <Button href={`/${locale}/contact`}>
+                <Button href={`/${locale}/contact?service=${service.slug}`}>
                   {isAr ? "تواصل معنا" : "Contact Us"}
                 </Button>
               </div>

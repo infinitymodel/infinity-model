@@ -12,21 +12,29 @@ import Container from "@/components/ui/Container";
 import PageHeader from "@/components/ui/PageHeader";
 import QuoteForm from "@/components/contact/QuoteForm";
 import { contactDetails } from "@/data/contact";
+import { services } from "@/data/services";
 
 import { isValidLocale } from "@/i18n/config";
 
 export default async function ContactPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ service?: string }>;
 }) {
   const { locale } = await params;
+  const { service: serviceSlug } = await searchParams;
 
   if (!isValidLocale(locale)) {
     notFound();
   }
 
   const isAr = locale === "ar";
+  const selectedService = services.find((service) => service.slug === serviceSlug);
+  const initialService = selectedService
+    ? isAr ? selectedService.titleAr : selectedService.title
+    : undefined;
   const socialLinks = [
     {
       label: "Instagram",
@@ -133,7 +141,7 @@ export default async function ContactPage({
                   {isAr ? "اطلب عرض سعر" : "Request a Quote"}
                 </h2>
 
-                <QuoteForm locale={locale} />
+                <QuoteForm locale={locale} initialService={initialService} />
               </div>
             </div>
           </Container>

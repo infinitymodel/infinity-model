@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/training",
     "/projects",
     "/about",
+    "/proof",
     "/contact",
   ];
   const projectCategories = [

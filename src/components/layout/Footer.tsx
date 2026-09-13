@@ -47,6 +47,10 @@ export default function Footer({
       href: `/${locale}/about`,
     },
     {
+      label: ar ? "الثقة والجودة" : "Trust & Quality",
+      href: `/${locale}/proof`,
+    },
+    {
       label: ar ? "تواصل معنا" : "Contact",
       href: `/${locale}/contact`,
     },

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 import Analytics from "@/components/analytics/Analytics";
+import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import { SITE_URL } from "@/lib/seo";
 
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
@@ -71,6 +72,7 @@ export default function RootLayout({
       <body>
         {children}
         <Analytics />
+        <OrganizationJsonLd />
       </body>
     </html>
   );

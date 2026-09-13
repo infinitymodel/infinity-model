@@ -118,7 +118,7 @@ export default async function ShopPage({
                   href={sallaReadyProductsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group overflow-hidden rounded-3xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:shadow-xl"
+                    className="im-interactive-card group overflow-hidden rounded-3xl border border-zinc-200 bg-white"
                   >
                   <div className="relative aspect-square overflow-hidden bg-zinc-100">
                     {badge && (
@@ -194,7 +194,7 @@ export default async function ShopPage({
               {supplies.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <article key={item.key} className="group overflow-hidden rounded-[2rem] border border-zinc-200 bg-white">
+                  <article key={item.key} className="im-interactive-card group overflow-hidden rounded-[2rem] border border-zinc-200 bg-white">
                     <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
                       {item.image ? (
                         <Image

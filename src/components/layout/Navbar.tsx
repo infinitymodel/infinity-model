@@ -6,7 +6,7 @@ import {
   X,
   ArrowUpRight,
 } from "lucide-react";
-import { useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { usePathname } from "next/navigation";
 
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -33,6 +33,7 @@ export default function Navbar({
 }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isArabic = locale === "ar";
 
   const links = [
     {
@@ -70,8 +71,23 @@ export default function Navbar({
     },
   ];
 
+  const isCurrentLink = (href: string, external?: boolean) => {
+    if (external) return false;
+    if (href === `/${locale}`) return pathname === href;
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/90 shadow-[0_8px_28px_rgba(24,24,27,0.035)] backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="flex h-[76px] items-center justify-between gap-5">
           {/* Logo */}
@@ -95,17 +111,20 @@ export default function Navbar({
 
           {/* Desktop Navigation */}
 
-          <nav className="hidden items-center gap-1 xl:flex">
+          <nav
+            aria-label={isArabic ? "التنقل الرئيسي" : "Primary navigation"}
+            className="hidden items-center gap-1 xl:flex"
+          >
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={!link.external && pathname === link.href ? "page" : undefined}
+                aria-current={isCurrentLink(link.href, link.external) ? "page" : undefined}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
                 className={`rounded-full px-3 py-2 text-[13px] font-semibold transition hover:bg-zinc-100 hover:text-zinc-950 ${
-                  !link.external && pathname === link.href
-                    ? "bg-zinc-100 text-zinc-950"
+                  isCurrentLink(link.href, link.external)
+                    ? "bg-zinc-950 text-white shadow-sm"
                     : "text-zinc-600"
                 }`}
               >
@@ -116,7 +135,7 @@ export default function Navbar({
 
           {/* Actions */}
 
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className="hidden items-center gap-2 xl:flex">
             <Suspense fallback={<div className="h-9 w-16 animate-pulse rounded-full bg-zinc-100" />}>
               <LanguageSwitcher />
             </Suspense>
@@ -133,7 +152,7 @@ export default function Navbar({
 
           {/* Mobile */}
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <Suspense fallback={<div className="h-9 w-16 animate-pulse rounded-full bg-zinc-100" />}>
               <LanguageSwitcher />
             </Suspense>
@@ -154,7 +173,7 @@ export default function Navbar({
               onClick={() =>
                 setOpen((value) => !value)
               }
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-950 transition hover:border-zinc-950 hover:bg-zinc-950 hover:text-white"
             >
               {open ? (
                 <X className="h-5 w-5" />
@@ -168,20 +187,24 @@ export default function Navbar({
         {/* Mobile menu */}
 
         {open && (
-          <div className="border-t border-zinc-200 py-5 lg:hidden">
-            <nav id="mobile-navigation" className="flex flex-col gap-1">
+          <div className="border-t border-zinc-200 py-5 xl:hidden">
+            <nav
+              id="mobile-navigation"
+              aria-label={isArabic ? "التنقل على الجوال" : "Mobile navigation"}
+              className="flex flex-col gap-1"
+            >
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  aria-current={!link.external && pathname === link.href ? "page" : undefined}
+                  aria-current={isCurrentLink(link.href, link.external) ? "page" : undefined}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
                   className={`rounded-2xl px-4 py-3.5 text-sm font-semibold transition hover:bg-zinc-100 hover:text-zinc-950 ${
-                    !link.external && pathname === link.href
-                      ? "bg-zinc-100 text-zinc-950"
-                      : "text-zinc-700"
+                    isCurrentLink(link.href, link.external)
+                      ? "bg-zinc-950 text-white"
+                    : "text-zinc-700"
                   }`}
                 >
                   {link.label}

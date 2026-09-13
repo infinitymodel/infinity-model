@@ -29,6 +29,17 @@ The home product rail can display live products, prices and product links from S
 SALLA_ACCESS_TOKEN=your-server-only-token
 ```
 
+### Salla storefront structure
+
+The marketing site mirrors the approved two-group Salla catalogue and only displays live products when Salla returns a published price. The full merchant-side launch checklist, category images, custom-service form specification and policy placeholders are in [docs/salla-store-launch.md](docs/salla-store-launch.md).
+
+After Salla confirms `shop.3dinfinitymodel.com`, configure these public deployment values:
+
+```bash
+NEXT_PUBLIC_SALLA_STORE_URL=https://shop.3dinfinitymodel.com
+NEXT_PUBLIC_SALLA_CUSTOM_SERVICE_URL=https://shop.3dinfinitymodel.com/custom-3d-request
+```
+
 ### Quote requests and attachments
 
 The quote form accepts project details plus files up to 4 MB (`STL`, `OBJ`, `3MF`, `STEP`, `ZIP`, `PDF` and common images). To send those requests to your own CRM, email automation or serverless workflow, set an HTTPS endpoint in `QUOTE_WEBHOOK_URL`. Without it, the form keeps WhatsApp as a clear fallback and does not store customer files on the website.

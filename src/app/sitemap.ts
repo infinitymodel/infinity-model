@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 
-import { products } from "@/data/products";
 import { services } from "@/data/services";
 import { trainingCourses } from "@/data/training";
 
@@ -57,14 +56,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({
         url: `${SITE_URL}/${locale}/training/${course.slug}`,
         changeFrequency: "monthly",
-        priority: 0.7,
-      });
-    }
-
-    for (const product of products) {
-      entries.push({
-        url: `${SITE_URL}/${locale}/shop/${product.id}`,
-        changeFrequency: "weekly",
         priority: 0.7,
       });
     }

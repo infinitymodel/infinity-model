@@ -4,7 +4,12 @@ import {
   ArrowUpRight,
   BadgeCheck,
   ExternalLink,
-  Printer,
+  Box,
+  Cuboid,
+  FileUp,
+  Layers3,
+  Palette,
+  Wrench,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
@@ -13,12 +18,9 @@ import {
 
 import Container from "@/components/ui/Container";
 import TrackedStoreLink from "@/components/analytics/TrackedStoreLink";
-import {
-  sallaCustomPrintingUrl,
-  sallaReadyProductsUrl,
-  sallaStoreUrl,
-} from "@/data/store";
-import { getSallaProducts } from "@/lib/salla";
+import { sallaStoreUrl } from "@/data/store";
+import { customServiceProduct, storeCategoryGroups } from "@/data/store-catalog";
+import { getSallaProducts, type SallaProduct } from "@/lib/salla";
 
 interface StoreRailItem {
   number: string;
@@ -45,66 +47,35 @@ export default async function ReadyProducts({
 }: ReadyProductsProps) {
   const ar = locale === "ar";
 
-  const collections: StoreRailItem[] = [
-    {
-      number: "01",
-      icon: ShoppingBag,
-      title: ar ? "منتجات جاهزة" : "Ready-made products",
-      description: ar
-        ? "تسوّق المنتجات المعروضة حالياً في متجر Infinity Model الرسمي على سلة."
-        : "Shop the products currently featured in Infinity Model’s official Salla store.",
-      details: ar
-        ? ["منتجات متاحة", "طلب آمن عبر سلة"]
-        : ["Available products", "Secure ordering via Salla"],
-      cta: ar ? "تسوّق المنتجات الجاهزة" : "Shop ready-made products",
-      href: sallaReadyProductsUrl,
-      image: "/images/showcase/applications-showcase.jpg",
-    },
-    {
-      number: "02",
-      icon: ShoppingBag,
-      title: ar ? "منظمات مكتبية" : "Desk organisers",
-      description: ar
-        ? "حلول عملية وأنيقة لترتيب الأدوات والمستندات والإكسسوارات المكتبية."
-        : "Practical, refined solutions for organising desk tools, documents and accessories.",
-      details: ar
-        ? ["تصميم عملي", "ضمن المنتجات الجاهزة"]
-        : ["Practical design", "Part of ready-made products"],
-      cta: ar ? "استعرض الفئة في سلة" : "Browse category on Salla",
-      href: sallaReadyProductsUrl,
-      image: "/images/showcase/functional-bracket.jpg",
-    },
-    {
-      number: "03",
-      icon: Sparkles,
-      title: ar ? "فازات عصرية" : "Modern vases",
-      description: ar
-        ? "قطع ديكورية مطبوعة تضيف لمسة عصرية للمكتب أو المنزل."
-        : "Printed decorative pieces that add a contemporary touch to home or office spaces.",
-      details: ar
-        ? ["قطع ديكورية", "ضمن المنتجات الجاهزة"]
-        : ["Decorative pieces", "Part of ready-made products"],
-      cta: ar ? "استعرض الفئة في سلة" : "Browse category on Salla",
-      href: sallaReadyProductsUrl,
-      image: "/images/showcase/pink-character-bust.jpg",
-    },
-    {
-      number: "04",
-      icon: Printer,
-      title: ar ? "طباعة حسب الطلب" : "Print on demand",
-      description: ar
-        ? "أرسل فكرتك أو ملفك واطلب خدمة الطباعة حسب الطلب مباشرةً عبر متجر سلة."
-        : "Send your idea or file and request on-demand printing directly through Salla.",
-      details: ar
-        ? ["خدمة طباعة مخصصة", "طلب ومتابعة عبر سلة"]
-        : ["Custom printing service", "Order and follow-up via Salla"],
-      cta: ar ? "اطلب طباعة مخصصة" : "Request custom printing",
-      href: sallaCustomPrintingUrl,
-      image: "/images/showcase/printing-nozzle.jpg",
-    },
-  ];
+  const categoryIcons = {
+    figures: Box,
+    decor: Palette,
+    custom: Cuboid,
+    printer: ShoppingBag,
+    filament: Layers3,
+    spares: Wrench,
+  };
 
-  const liveProducts = await getSallaProducts(8);
+  const collections: StoreRailItem[] = storeCategoryGroups
+    .flatMap((group) =>
+      group.children.map((category) => ({
+        number: "",
+        icon: categoryIcons[category.icon],
+        title: ar ? category.titleAr : category.titleEn,
+        description: ar ? category.descriptionAr : category.descriptionEn,
+        details: ar
+          ? [group.titleAr, "تصفّح الفئة في متجر سلة"]
+          : [group.titleEn, "Browse this category on Salla"],
+        cta: ar ? "استعرض الفئة" : "Browse category",
+        href: category.href,
+        image: category.image,
+      }))
+    )
+    .map((item, index) => ({ ...item, number: String(index + 1).padStart(2, "0") }));
+
+  const liveProducts = (await getSallaProducts(8)).filter(
+    (product): product is SallaProduct & { price: number } => product.price !== null
+  );
   const railItems: StoreRailItem[] = liveProducts.length > 0
     ? liveProducts.map((product, index) => ({
       number: String(index + 1).padStart(2, "0"),
@@ -114,13 +85,11 @@ export default async function ReadyProducts({
         ? "منتج متاح من متجر Infinity Model الرسمي على سلة."
         : "A product available from Infinity Model’s official Salla store.",
       details: [
-        product.price === null
-          ? (ar ? "السعر عند الطلب" : "Price on request")
-          : new Intl.NumberFormat(ar ? "ar-SA" : "en-SA", {
-            style: "currency",
-            currency: product.currency,
-            maximumFractionDigits: 2,
-          }).format(product.price),
+        new Intl.NumberFormat(ar ? "ar-SA" : "en-SA", {
+          style: "currency",
+          currency: product.currency,
+          maximumFractionDigits: 2,
+        }).format(product.price),
         ar ? "متاح للطلب" : "Available to order",
       ],
       cta: ar ? "عرض المنتج في سلة" : "View product on Salla",
@@ -241,6 +210,41 @@ export default async function ReadyProducts({
       </div>
 
       <Container>
+        <TrackedStoreLink
+          href={customServiceProduct.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          eventParameters={{ item_category: "salla-custom-service", item_name: customServiceProduct.titleEn }}
+          className="group mt-2 grid overflow-hidden rounded-[1.75rem] border border-zinc-800 bg-zinc-950 text-white sm:grid-cols-[0.9fr_1.1fr]"
+        >
+          <div className="relative min-h-56 overflow-hidden">
+            <Image
+              src={customServiceProduct.image}
+              alt={ar ? customServiceProduct.titleAr : customServiceProduct.titleEn}
+              fill
+              sizes="(max-width: 640px) 100vw, 40vw"
+              className="object-cover opacity-65 transition duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/30 via-zinc-950/10 to-zinc-950 sm:bg-gradient-to-l" />
+          </div>
+          <div className="relative flex flex-col justify-center p-7 sm:p-9">
+            <div className="flex items-center gap-3 text-[#e3bd50]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#c59b27]/30 bg-[#c59b27]/10"><FileUp className="h-5 w-5" aria-hidden="true" /></span>
+              <p className="im-eyebrow text-xs font-black">{ar ? "خدمة حسب الطلب" : "ON-DEMAND SERVICE"}</p>
+            </div>
+            <h3 className="mt-5 text-2xl font-black leading-9 text-white">
+              {ar ? customServiceProduct.titleAr : customServiceProduct.titleEn}
+            </h3>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-300">
+              {ar ? customServiceProduct.descriptionAr : customServiceProduct.descriptionEn}
+            </p>
+            <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-white">
+              {ar ? "أرسل تفاصيل طلبك" : "Send your request details"}
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </span>
+          </div>
+        </TrackedStoreLink>
+
         <div className="mt-1 flex flex-col gap-4 rounded-2xl border border-[#c59b27]/25 bg-[#c59b27]/[0.07] px-5 py-4 text-sm text-zinc-700 sm:flex-row sm:items-center sm:justify-between">
           <span className="flex items-center gap-3">
             <ShieldCheck className="h-5 w-5 shrink-0 text-[#a67d0b]" aria-hidden="true" />

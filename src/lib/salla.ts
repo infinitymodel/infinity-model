@@ -34,6 +34,7 @@ function isTrustedStoreUrl(value: string | undefined): value is string {
     const url = new URL(value);
     return url.protocol === "https:" && (
       url.hostname === "3dinfinitymodel.com" ||
+      url.hostname.endsWith(".3dinfinitymodel.com") ||
       url.hostname === "salla.sa" ||
       url.hostname.endsWith(".salla.sa")
     );

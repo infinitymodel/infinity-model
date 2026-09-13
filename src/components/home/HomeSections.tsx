@@ -28,9 +28,11 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import ServiceCard from "./ServiceCard";
+import GalleryRail from "./GalleryRail";
 
 import { services } from "@/data/services";
 import { trainingCourses } from "@/data/training";
+import { galleryItems } from "@/data/gallery";
 
 interface HomeSectionsProps {
   locale: string;
@@ -59,7 +61,7 @@ export default function HomeSections({
         locale={locale}
       />
 
-      <ProjectsSection
+      <GallerySection
         locale={locale}
       />
 
@@ -654,51 +656,12 @@ function MaterialsSection({
    PROJECTS
 ========================================================= */
 
-function ProjectsSection({
+function GallerySection({
   locale,
 }: {
   locale: string;
 }) {
   const ar = locale === "ar";
-
-  const projects = [
-    {
-      category: ar ? "هندسي" : "Engineering",
-      title: ar
-        ? "نموذج هندسي"
-        : "Engineering Model",
-      code: "ENG-01",
-      image: "/images/showcase/functional-bracket.jpg",
-      slug: "engineering",
-    },
-    {
-      category: ar ? "نماذج أولية" : "Prototype",
-      title: ar
-        ? "نموذج أولي وظيفي"
-        : "Functional Prototype",
-      code: "PRO-02",
-      image: "/images/showcase/applications-showcase.jpg",
-      slug: "prototypes",
-    },
-    {
-      category: ar ? "مجسمات" : "Figures",
-      title: ar
-        ? "مجسم عالي التفاصيل"
-        : "High Detail Figure",
-      code: "FIG-03",
-      image: "/images/showcase/black-panther.jpg",
-      slug: "figures",
-    },
-    {
-      category: "PCB",
-      title: ar
-        ? "نموذج PCB"
-        : "PCB Prototype",
-      code: "PCB-04",
-      image: "/images/showcase/pcb-holder.jpg",
-      slug: "pcb",
-    },
-  ];
 
   return (
     <section className="bg-white py-20 sm:py-24">
@@ -707,28 +670,28 @@ function ProjectsSection({
           <SectionHeading
             eyebrow={
               ar
-                ? "أعمالنا"
-                : "Selected Work"
+                ? "معرض الأعمال"
+                : "Work Gallery"
             }
             title={
               ar
-                ? "أفكار تحولت إلى أشياء حقيقية."
-                : "Ideas turned into physical objects."
+                ? "شاهد ما نصنعه داخل الورشة."
+                : "See what we make in the workshop."
             }
             description={
               ar
-                ? "مجموعة من النماذج الهندسية والمجسمات والنماذج الأولية ومشاريع التصنيع الرقمي."
-                : "A selection of engineering models, figures, prototypes and digital fabrication projects."
+                ? "معرض متجدد يضم الأعمال المنفذة، المجسمات، القطع الهندسية، الخامات ومحطات الطباعة."
+                : "A growing gallery of completed work, figures, engineering parts, materials and print stations."
             }
           />
 
           <Link
-            href={`/${locale}/projects`}
-            className="group inline-flex shrink-0 items-center gap-2 text-sm font-bold"
+            href={`/${locale}/projects#gallery`}
+            className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-zinc-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-zinc-800"
           >
             {ar
-              ? "استكشف المشاريع"
-              : "Explore Projects"}
+              ? "فتح المعرض الكامل"
+              : "Open Full Gallery"}
 
             <ArrowRight
               className={[
@@ -741,43 +704,7 @@ function ProjectsSection({
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {projects.map((project) => (
-            <Link
-              key={project.code}
-              href={`/${locale}/projects/${project.slug}`}
-              className="group relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-100"
-            >
-              <div className="im-grid-bg relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
-                />
-
-                <div className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider backdrop-blur">
-                  {project.category}
-                </div>
-
-                <div className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition group-hover:scale-110">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-zinc-950/80 to-transparent p-6 pt-24">
-                  <p className="text-[10px] font-bold tracking-[0.18em] text-white/50">
-                    {project.code}
-                  </p>
-
-                  <h3 className="mt-2 text-xl font-black text-white">
-                    {project.title}
-                  </h3>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <GalleryRail locale={locale} items={galleryItems} />
       </Container>
     </section>
   );

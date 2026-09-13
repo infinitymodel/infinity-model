@@ -39,7 +39,7 @@ export default function Footer({
       href: `/${locale}/training`,
     },
     {
-      label: ar ? "المشاريع" : "Projects",
+      label: ar ? "المعرض" : "Gallery",
       href: `/${locale}/projects`,
     },
     {

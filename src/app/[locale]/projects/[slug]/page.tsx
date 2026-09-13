@@ -108,7 +108,7 @@ export default async function ProjectDetailPage({
           <Breadcrumbs
             locale={locale}
             items={[
-              { label: isAr ? "المشاريع" : "Projects", href: `/${locale}/projects` },
+              { label: isAr ? "المعرض" : "Gallery", href: `/${locale}/projects` },
               { label: isAr ? project.titleAr : project.title },
             ]}
           />

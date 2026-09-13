@@ -27,12 +27,12 @@ export async function generateMetadata({
     path: "/projects",
     title:
       validLocale === "ar"
-        ? "مشاريعنا"
-        : "Our Projects",
+        ? "معرض الأعمال"
+        : "Work Gallery",
     description:
       validLocale === "ar"
-        ? "استكشف مشاريع Infinity Model في التصنيع الرقمي والطباعة ثلاثية الأبعاد والنماذج الهندسية والنماذج الأولية."
-        : "Explore Infinity Model projects across digital manufacturing, 3D printing, engineering models and rapid prototyping.",
+        ? "استكشف معرض Infinity Model الذي يضم الأعمال المنفذة والمجسمات والقطع الهندسية وخامات وتقنيات التصنيع الرقمي."
+        : "Explore the Infinity Model gallery of completed work, figures, engineering parts, materials and digital manufacturing technology.",
   });
 }
 

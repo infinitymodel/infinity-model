@@ -36,17 +36,45 @@ export default function ReadyProducts({
       icon: ShoppingBag,
       title: ar ? "منتجات جاهزة" : "Ready-made products",
       description: ar
-        ? "تسوّق المنتجات الجاهزة المعروضة في متجر Infinity Model الرسمي على سلة."
-        : "Shop the ready-made products listed in Infinity Model’s official Salla store.",
+        ? "تسوّق المنتجات المعروضة حالياً في متجر Infinity Model الرسمي على سلة."
+        : "Shop the products currently featured in Infinity Model’s official Salla store.",
       details: ar
-        ? ["منظمات مكتبية", "فازات عصرية"]
-        : ["Desk organisers", "Modern vases"],
+        ? ["منتجات متاحة", "طلب آمن عبر سلة"]
+        : ["Available products", "Secure ordering via Salla"],
       cta: ar ? "تسوّق المنتجات الجاهزة" : "Shop ready-made products",
       href: sallaReadyProductsUrl,
       image: "/images/showcase/applications-showcase.jpg",
     },
     {
       number: "02",
+      icon: ShoppingBag,
+      title: ar ? "منظمات مكتبية" : "Desk organisers",
+      description: ar
+        ? "حلول عملية وأنيقة لترتيب الأدوات والمستندات والإكسسوارات المكتبية."
+        : "Practical, refined solutions for organising desk tools, documents and accessories.",
+      details: ar
+        ? ["تصميم عملي", "ضمن المنتجات الجاهزة"]
+        : ["Practical design", "Part of ready-made products"],
+      cta: ar ? "استعرض الفئة في سلة" : "Browse category on Salla",
+      href: sallaReadyProductsUrl,
+      image: "/images/showcase/functional-bracket.jpg",
+    },
+    {
+      number: "03",
+      icon: Sparkles,
+      title: ar ? "فازات عصرية" : "Modern vases",
+      description: ar
+        ? "قطع ديكورية مطبوعة تضيف لمسة عصرية للمكتب أو المنزل."
+        : "Printed decorative pieces that add a contemporary touch to home or office spaces.",
+      details: ar
+        ? ["قطع ديكورية", "ضمن المنتجات الجاهزة"]
+        : ["Decorative pieces", "Part of ready-made products"],
+      cta: ar ? "استعرض الفئة في سلة" : "Browse category on Salla",
+      href: sallaReadyProductsUrl,
+      image: "/images/showcase/pink-character-bust.jpg",
+    },
+    {
+      number: "04",
       icon: Printer,
       title: ar ? "طباعة حسب الطلب" : "Print on demand",
       description: ar
@@ -103,7 +131,8 @@ export default function ReadyProducts({
         </div>
       </Container>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-2">
+      <div className="mt-12 overflow-hidden">
+        <div className="im-hide-scrollbar flex gap-5 overflow-x-auto px-5 pb-5 sm:px-6 lg:px-[max(calc((100vw-1280px)/2),32px)]">
           {collections.map((collection) => {
             const Icon = collection.icon;
 
@@ -113,9 +142,9 @@ export default function ReadyProducts({
                 href={collection.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group overflow-hidden rounded-[2rem] border border-zinc-200 bg-zinc-50 transition hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_20px_50px_rgba(24,24,27,0.09)]"
+                className="group min-w-[285px] overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-50 transition hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_20px_50px_rgba(24,24,27,0.09)] sm:min-w-[340px]"
               >
-                <div className="relative aspect-[16/8] overflow-hidden bg-zinc-950">
+                <div className="relative aspect-square overflow-hidden bg-zinc-950">
                   <Image
                     src={collection.image}
                     alt={collection.title}
@@ -133,7 +162,7 @@ export default function ReadyProducts({
                   <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white">
                     <div>
                       <p className="text-[10px] font-black tracking-[0.18em] text-[#e3bd50]">{collection.number}</p>
-                      <h3 className="mt-2 text-2xl font-black">{collection.title}</h3>
+                      <h3 className="mt-2 text-xl font-black">{collection.title}</h3>
                     </div>
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-zinc-950 shadow-lg transition group-hover:scale-110">
                       <ArrowUpRight className="h-4 w-4" />
@@ -141,10 +170,10 @@ export default function ReadyProducts({
                   </div>
                 </div>
 
-                <div className="p-7">
+                <div className="p-6">
                   <p className="text-sm leading-7 text-zinc-600">{collection.description}</p>
 
-                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                  <div className="mt-5 grid gap-2">
                     {collection.details.map((detail) => (
                       <span key={detail} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2.5 text-xs font-bold text-zinc-700">
                         <BadgeCheck className="h-4 w-4 shrink-0 text-[#c59b27]" aria-hidden="true" />
@@ -162,6 +191,7 @@ export default function ReadyProducts({
             );
           })}
         </div>
+      </div>
 
         <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-[#c59b27]/25 bg-[#c59b27]/[0.07] px-5 py-4 text-sm text-zinc-700 sm:flex-row sm:items-center sm:justify-between">
           <span className="flex items-center gap-3">

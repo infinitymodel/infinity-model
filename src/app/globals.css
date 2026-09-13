@@ -46,8 +46,12 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+}
+
+/* Keep unstyled content links neutral without overriding utility colours on CTAs. */
+a:not([class]) {
+  color: inherit;
 }
 
 button {

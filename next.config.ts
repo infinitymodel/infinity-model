@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
@@ -35,9 +37,9 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: blob: https://www.google-analytics.com",
               "font-src 'self' data:",
               "style-src 'self' 'unsafe-inline'",
-              "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com`,
               "script-src-attr 'none'",
-              "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
+              "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://*.supabase.co wss://*.supabase.co",
               "upgrade-insecure-requests",
             ].join("; "),
           },

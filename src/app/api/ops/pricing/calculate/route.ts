@@ -26,11 +26,28 @@ export async function POST(request: Request) {
   const printHours = boundedNumber(body.printHours, 0, 1000);
   const labourMinutes = boundedNumber(body.labourMinutes, 0, 10000);
   const quantity = boundedNumber(body.quantity, 1, 10000);
-  if (weightGrams === null || printHours === null || labourMinutes === null || quantity === null) {
+  const powerRatePerHour = boundedNumber(body.powerRatePerHour, 0, 1000);
+  const overheadPercent = boundedNumber(body.overheadPercent, 0, 100);
+  const shippingCost = boundedNumber(body.shippingCost, 0, 100000);
+  const discountPercent = boundedNumber(body.discountPercent, 0, 80);
+  const includeVat = typeof body.includeVat === "boolean" ? body.includeVat : false;
+  if (weightGrams === null || printHours === null || labourMinutes === null || quantity === null || powerRatePerHour === null || overheadPercent === null || shippingCost === null || discountPercent === null) {
     return NextResponse.json({ error: "تحقق من الوزن والوقت والكمية." }, { status: 400 });
   }
 
-  const input: PricingInput = { materialCode: body.materialCode as MaterialCode, complexity: body.complexity as Complexity, weightGrams, printHours, labourMinutes, quantity };
+  const input: PricingInput = {
+    materialCode: body.materialCode as MaterialCode,
+    complexity: body.complexity as Complexity,
+    weightGrams,
+    printHours,
+    labourMinutes,
+    quantity,
+    powerRatePerHour,
+    overheadPercent,
+    shippingCost,
+    discountPercent,
+    includeVat,
+  };
   const supabase = await createClient();
   const { data, error } = await supabase.from("pricing_rules").select("material_code, material_price_per_kg, machine_rate_per_hour, labour_rate_per_hour, setup_fee, waste_percent, markup_percent, minimum_order").eq("material_code", input.materialCode).eq("is_active", true).maybeSingle();
   if (error || !data) {

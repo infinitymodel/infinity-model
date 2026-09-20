@@ -1,27 +1,14 @@
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import type { OpsRole } from "@/lib/ops/permissions";
 
-export type OpsRole = "owner" | "admin" | "sales" | "production" | "inventory" | "viewer";
-export type OpsPermission = "orders:read" | "orders:write" | "production:write" | "inventory:write" | "pricing:calculate" | "users:manage";
+export { hasPermission, type OpsPermission, type OpsRole } from "@/lib/ops/permissions";
 
 export type OpsIdentity =
   | { status: "unconfigured" }
   | { status: "unauthenticated" }
   | { status: "pending"; email: string }
   | { status: "ready"; id: string; email: string; fullName: string; role: OpsRole };
-
-const permissions: Record<OpsRole, OpsPermission[]> = {
-  owner: ["orders:read", "orders:write", "production:write", "inventory:write", "pricing:calculate", "users:manage"],
-  admin: ["orders:read", "orders:write", "production:write", "inventory:write", "pricing:calculate", "users:manage"],
-  sales: ["orders:read", "orders:write", "pricing:calculate"],
-  production: ["orders:read", "production:write", "pricing:calculate"],
-  inventory: ["orders:read", "inventory:write"],
-  viewer: ["orders:read"],
-};
-
-export function hasPermission(role: OpsRole, permission: OpsPermission) {
-  return permissions[role].includes(permission);
-}
 
 export async function getOpsIdentity(): Promise<OpsIdentity> {
   if (!isSupabaseConfigured()) return { status: "unconfigured" };

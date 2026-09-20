@@ -58,5 +58,12 @@ export async function POST(request: Request) {
   }).select("id, order_number, title, service, material, quantity, value_sar, due_date, stage, priority, contact, created_at").single();
   if (orderError) return NextResponse.json({ error: "تعذر حفظ الطلب." }, { status: 500 });
 
+  await supabase.from("order_activity").insert({
+    order_id: order.id,
+    actor_id: identity.id,
+    action: "order_created",
+    payload: { service, quantity, value_sar: value },
+  });
+
   return NextResponse.json({ order: mapOrder({ ...order, clients: client }) }, { status: 201 });
 }
